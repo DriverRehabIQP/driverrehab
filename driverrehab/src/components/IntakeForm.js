@@ -20,6 +20,7 @@ const [date, setDate] = React.useState(null);
 
  React.useEffect(() => {
    register({ name: "date" }, { required: true });
+
  }, []);
 
 return (
@@ -28,7 +29,7 @@ return (
   <div class="form-group">
     <label htmlFor="firstName">First Name</label>
     <input
-    class="form-control"
+    className="form-control"
     name="firstName"
     placeholder="first name"
     ref={register({ required: true })} />
@@ -44,16 +45,19 @@ return (
     <label htmlFor="dateOfBirth">Date of birth</label>
     <DatePicker
           isClearable
+          name="dateOfBirth"
           selected={date}
           onChange={val => {
             setDate(val);
             setValue("date", val)
           }}
         />
+        {errors.date && <p>Date of birth is required</p>}
+
 
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputEmail4">Email</label>
+          <label htmlFor="inputEmail4">Email</label>
           <input
             class="form-control"
             name="email"
@@ -103,9 +107,8 @@ return (
         <div class="form-group col-md-4">
           <label for="inputState">State</label>
           <input type="text" name="state" class="form-control" id="inputState "
-                  ref={register({ required: true,
-                                  maxLength: 2,
-                                  minLength: 2, })} />
+                  ref={register({ required: true
+                                   })} />
           {errors.state && <p>State is required</p>}
 
 
@@ -117,6 +120,69 @@ return (
         </div>
 
       </div>
+
+
+      <h1>Referal source (if applicable)</h1>
+
+      <div class="form-group">
+        <label htmlFor="firstName">First Name</label>
+        <input
+        class="form-control"
+        name="referalFirstName"
+        placeholder="first name"
+        ref={register}/>
+        </div>
+
+        <div class="form-group">
+        <label htmlFor="lastName">Last Name</label>
+        <input class="form-control" name="referalLastName" placeholder="last name" ref={register}/>
+        </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Email</label>
+              <input
+                class="form-control"
+                name="referalEmail"
+                id="inputEmail4"
+                placeholder="bluebill1049@hotmail.com"
+                type="email"
+                ref={register}/>
+            </div>
+
+            <div class="form-group col-md-6">
+            <label for="mobileNumber">Mobile number</label>
+            <input
+             type="tel"
+             class="form-control"
+             name="referalMobileNumber"
+             ref={register}/>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" name="referalAddress" class="form-control" id="inputAddress" placeholder="1234 Main St" ref={register}/>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">City</label>
+              <input type="text" name="referalCity" class="form-control" id="inputCity" ref={register}/>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="inputState">State</label>
+              <input type="text" name="referalState" class="form-control" id="inputState "
+                      ref={register}/>
+
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputZip">Zip</label>
+              <input type="text" name="referalZip" class="form-control" id="inputZip"  ref={register}/>
+            </div>
+          </div>
+
+
 
     <div class="form-check">
     <input
