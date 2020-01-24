@@ -565,6 +565,12 @@ return (
                 </div>
           )}
         </div>
+        <label for="inputAddress">By checking this box, I acknowledge I have completed the Intake Form fully and to the best of my abilities.  All the information provided is factual.</label>
+          <div class="form-group">
+          <input type="text" name="acknowledgementCheckbox" type="checkbox" ref={register({ required: true})}/>
+           {errors.acknowledgementCheckbox && <p>Acknowledgement is required</p>}
+           </div>
+
 
 
 
