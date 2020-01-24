@@ -19,6 +19,7 @@ const moreDetail = watch("moreDetail");
 const [date, setDate] = React.useState(null);
 const [seizureDate, setSeizureDate] = React.useState(null);
 const driverLicense = watch("driverLicense");
+const adaptiveEquipment = watch("adaptiveEquipment");
 
 
 
@@ -263,7 +264,6 @@ return (
   <div class="row">
     <legend class="col-form-label col-sm-2 pt-0">Do you have a driver's license?</legend>
     <input name="driverLicense" type="checkbox" ref={register} />
-
       {driverLicense && (
         <div>
           <label>License Number</label>
@@ -274,6 +274,64 @@ return (
       )}
   </div>
   </fieldset>
+  <fieldset class="form-group">
+  <div class="row">
+    <legend class="col-form-label col-sm-2 pt-0">Is your privilege to drive under suspension or revocation?</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input"
+                name="priviledgeToDrive"
+                type="radio"
+                value="yes"
+                ref={register({ required: true })} />
+
+        <label class="form-check-label" for="gridRadios1">
+          Yes
+        </label>
+        {errors.priviledgeToDrive && <p>Required</p>}
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" name="priviledgeToDrive" type="radio" id="gridRadios2" value="no"
+        ref={register({ required: true })} />
+        <label class="form-check-label" for="gridRadios2">
+          No
+        </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group">
+      <label htmlFor="vehicle">Vehicle year, make / model:</label>
+      <input
+      className="form-control"
+      name="vehicle"
+      ref={register} />
+      </div>
+    <div class="form-group">
+      <label htmlFor="Mileage">Mileage</label>
+      <input
+      className="form-control"
+      name="mileage"
+      ref={register} />
+      </div>
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Do you currently use adaptive equipment to drive?</legend>
+      <input name="adaptiveEquipment" type="checkbox" ref={register} />
+    </div>
+
+        {adaptiveEquipment && (
+          <div>
+            <label>Describe the equipments</label>
+            <textarea class="form-control" type="text" name="adaptiveEquipmentDescription" rows="3" ref={register} />
+            <label>Problems using the equipment</label>
+            <textarea class="form-control" type="text" name="adaptiveEquipmentProblem" rows="3" ref={register} />
+          </div>
+        )}
+
+
+
 
 
 
