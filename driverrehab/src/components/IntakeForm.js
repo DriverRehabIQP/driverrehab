@@ -578,7 +578,7 @@ return (
        <div class="modal-dialog" role="document">
          <div class="modal-content">
            <div class="modal-header">
-             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+             <h5 class="modal-title" id="exampleModalLongTitle">Consent for Adaptive Driving Services</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
              </button>
@@ -602,8 +602,6 @@ return (
        <input type="text" name="consentCheckbox" type="checkbox" ref={register({ required: true})}/>
         {errors.consentCheckbox && <p>consent is required</p>}
         </div>
-
-
 
     <input class="btn btn-primary" type="submit" />
 
