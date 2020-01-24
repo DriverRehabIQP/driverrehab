@@ -17,11 +17,17 @@ function IntakeForm(){
 
 const moreDetail = watch("moreDetail");
 const [date, setDate] = React.useState(null);
+const [seizureDate, setSeizureDate] = React.useState(null);
+
 
  React.useEffect(() => {
    register({ name: "date" }, { required: true });
-
  }, []);
+
+ React.useEffect(() => {
+   register({ name: "seizureDate" });
+ }, []);
+
 
 return (
   <form onSubmit={handleSubmit(onSubmit)}>
@@ -183,7 +189,42 @@ return (
           </div>
 
     <h1>Medical Information</h1>
+    <div class="form-group">
+        <label for="medicalClearance">Explain if you don't have medical clearance to drive</label>
+        <textarea name="medicalClearance" class="form-control" id="medicalClearanceTextArea" rows="3" ref={register}></textarea>
+      </div>
 
+    <div class="form-group">
+        <label for="drivingConcerns">Driving concerns (if applicable)</label>
+        <textarea name="drivingConcerns" class="form-control" id="drivingConcernsTextArea" rows="3" ref={register}></textarea>
+      </div>
+
+      <div class="form-group">
+        <label htmlFor="diagnosis">Diagnosis</label>
+        <input
+        className="form-control"
+        name="diagnosis"
+        ref={register}/>
+        </div>
+
+      <div class="form-group">
+        <label htmlFor="onset">Onset</label>
+        <input
+        className="form-control"
+        name="onset"
+        ref={register}/>
+        </div>
+
+        <label htmlFor="seizureDate">Date of last seizure (if applicable)</label>
+        <DatePicker
+              isClearable
+              name="seizureDate"
+              selected={seizureDate}
+              onChange={val => {
+                setSeizureDate(val);
+                setValue("seizureDate", val)
+              }}
+            />
 
     <fieldset class="form-group">
     <div class="row">
@@ -194,7 +235,7 @@ return (
                   name="medicationUse"
                   type="radio"
                   id="gridRadios1"
-                  value="option1"
+                  value="yes"
                   ref={register({ required: true })} />
 
           <label class="form-check-label" for="gridRadios1">
@@ -204,7 +245,7 @@ return (
         </div>
 
         <div class="form-check">
-          <input class="form-check-input" name="medicationUse" type="radio" id="gridRadios2" value="option2"
+          <input class="form-check-input" name="medicationUse" type="radio" id="gridRadios2" value="no"
           ref={register({ required: true })} />
           <label class="form-check-label" for="gridRadios2">
             No
