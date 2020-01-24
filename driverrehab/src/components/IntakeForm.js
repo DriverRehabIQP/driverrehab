@@ -182,6 +182,38 @@ return (
             </div>
           </div>
 
+    <h1>Medical Information</h1>
+
+
+    <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Medication use?</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input"
+                  name="medicationUse"
+                  type="radio"
+                  id="gridRadios1"
+                  value="option1"
+                  ref={register({ required: true })} />
+
+          <label class="form-check-label" for="gridRadios1">
+            Yes
+          </label>
+          {errors.medicationUse && <p>Required</p>}
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" name="medicationUse" type="radio" id="gridRadios2" value="option2"
+          ref={register({ required: true })} />
+          <label class="form-check-label" for="gridRadios2">
+            No
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
 
 
     <div class="form-check">
