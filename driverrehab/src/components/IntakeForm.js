@@ -571,28 +571,40 @@ return (
            {errors.acknowledgementCheckbox && <p>Acknowledgement is required</p>}
            </div>
 
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+        Read Consent for Adaptive Driving Services
+     </button>
+     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+           </div>
+           <div class="modal-body">
+
+              I voluntarily authorize a driving evaluation and / or training be completed by CMSC Driver Evaluation and Training Program in West Boylston, MA.  The services include an interview, in-vehicle time and possible referrals to related services.  The in-vehicle time may be done in a CMSC vehicle, an appropriate rental vehicle or your own personal vehicle.  A formal report will be completed after the evaluation and / or training and it will include recommendations for vehicle and adaptive equipment requirements when appropriate, training when appropriate and driving retirement when appropriate.  A report will also be provided to funding state licensing agencies when appropriate.
+              I understand that safely driving a motor vehicle requires good physical control of the vehicle as well as good visual, perceptual, and cognitive skills by the driver.  I understand that my disability or medical diagnosis may impair my ability to drive safely.  I am voluntarily consenting to driver evaluation/lessons in order to determine if I may have any impairment which may impede my ability to safely drive a motor vehicle.
+              I acknowledge that no guarantees have been made to me regarding the results of the driving evaluation or training by CMSC.  I understand that operating a motor vehicle, and therefore participating in the evaluation, involves risk of injury, or even death. I further understand that any recommendation does not ensure my safety while driving in the future.
+
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           </div>
+         </div>
+       </div>
+     </div>
+
+       <div class="form-group">
+       <label for="inputAddress">By checking this box, I acknowledge I have read and consent to Adaptive Driving Services</label>
+       <input type="text" name="consentCheckbox" type="checkbox" ref={register({ required: true})}/>
+        {errors.consentCheckbox && <p>consent is required</p>}
+        </div>
 
 
 
-
-
-
-
-
-    <div class="form-check">
-    <input
-    class="form-check-input"
-    name="moreDetail"
-    type="checkbox" ref={register} />
-    {moreDetail && (
-      <div class="form-group">
-        <label>Interests</label>
-        <input class="form-control" id="exampleFormControlTextarea1"  type="text" name="Interests" ref={register} />
-      </div>
-    )}
-    <label class="form-check-label"  htmlFor="lastName">More Details</label>
-
-    </div>
     <input class="btn btn-primary" type="submit" />
 
   </form>
