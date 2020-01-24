@@ -408,7 +408,7 @@ return (
       </label>
     </div>
 
-    <label htmlFor="firstName">Do you use any of the following?</label>
+    <label htmlFor="firstName">Do you use any of the following? (Check all that apply)</label>
     <div class="form-check">
       <input name="physicalEquipments" class="form-check-input" type="checkbox" value="walker" id="defaultCheck2" ref={register} />
       <label class="form-check-label" for="defaultCheck2">
@@ -478,6 +478,22 @@ return (
   </fieldset>
 
 
+  <h1>Cognitive Abilities</h1>
+  <label htmlFor="cognitiveAbilities">Do you have problems with any of the following? (Check all that apply)</label>
+  <div class="form-check">
+    <input name="cognitiveAbilities" class="form-check-input" type="checkbox" value="difficulty concentrating on task" id="defaultCheck2" ref={register} />
+    <label class="form-check-label" for="defaultCheck2">
+      Difficulty concentrating on task
+    </label>
+  </div>
+  <div class="form-check">
+    <input name="cognitiveAbilities" class="form-check-input" type="checkbox" value="memories difficulties" id="defaultCheck2" ref={register} />
+    <label class="form-check-label" for="defaultCheck2">
+      Memories difficulties
+    </label>
+  </div>
+
+  <h1>Funding</h1>
 
 
 
