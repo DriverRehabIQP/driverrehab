@@ -18,6 +18,8 @@ function IntakeForm(){
 const moreDetail = watch("moreDetail");
 const [date, setDate] = React.useState(null);
 const [seizureDate, setSeizureDate] = React.useState(null);
+const driverLicense = watch("driverLicense");
+
 
 
  React.useEffect(() => {
@@ -253,6 +255,24 @@ return (
         </div>
       </div>
     </div>
+  </fieldset>
+
+
+  <h1>Driving History</h1>
+  <fieldset class="form-group">
+  <div class="row">
+    <legend class="col-form-label col-sm-2 pt-0">Do you have a driver's license?</legend>
+    <input name="driverLicense" type="checkbox" ref={register} />
+
+      {driverLicense && (
+        <div>
+          <label>License Number</label>
+          <input type="text" name="licenseNumber" ref={register} />
+          <label>State</label>
+          <input type="text" name="licenseState" ref={register} />
+        </div>
+      )}
+  </div>
   </fieldset>
 
 
