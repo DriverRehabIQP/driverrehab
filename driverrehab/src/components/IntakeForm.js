@@ -503,15 +503,18 @@ return (
       <legend class="col-form-label col-sm-2 pt-0">Private pay?</legend>
       <input name="privatePayCheckbox" type="checkbox" ref={register} />
     </div>
-      <div>
         {privatePayCheckbox && (
-          <div>
-            <legend class="col-form-label col-sm-2 pt-0">If yes, have fees (Evaluation plus any applicable travel costs) been explained to you?</legend>
-            <input name="feesCheckbox" type="checkbox" ref={register} />
+          <div class="form-check">
+          <label htmlFor="cognitiveAbilities">Have fees (Evaluation plus any applicable travel costs) been explained to you?</label>
+
+            <label class="form-check-label" for="defaultCheck2">
+Have fees (Evaluation plus any applicable travel costs) been explained to you?            </label>
+<input name="feesCheckbox" type="checkbox" ref={register} />
+
           </div>
+
         )}
 
-      </div>
       <div>
               {!feesCheckbox&&(
                 <div class="form">
