@@ -20,6 +20,8 @@ const [date, setDate] = React.useState(null);
 const [seizureDate, setSeizureDate] = React.useState(null);
 const driverLicense = watch("driverLicense");
 const adaptiveEquipment = watch("adaptiveEquipment");
+const selfRestrictedDriving = watch("selfRestrictedDriving");
+
 
 
 
@@ -320,7 +322,6 @@ return (
       <legend class="col-form-label col-sm-2 pt-0">Do you currently use adaptive equipment to drive?</legend>
       <input name="adaptiveEquipment" type="checkbox" ref={register} />
     </div>
-
         {adaptiveEquipment && (
           <div>
             <label>Describe the equipments</label>
@@ -329,6 +330,17 @@ return (
             <textarea class="form-control" type="text" name="adaptiveEquipmentProblem" rows="3" ref={register} />
           </div>
         )}
+      <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">Do you self-restrict your driving?</legend>
+        <input name="selfRestrictedDriving" type="checkbox" ref={register} />
+      </div>
+          {selfRestrictedDriving && (
+            <div>
+              <label>Describe</label>
+              <textarea class="form-control" type="text" name="selfRestrictedDrivingDescription" rows="3" ref={register} />
+            </div>
+          )}
+
 
 
 
