@@ -351,6 +351,131 @@ return (
           </small>
       </div>
 
+  <h1>Physical Abilities</h1>
+    <label htmlFor="firstName">Do you have problems with any of the following? (Please check all that apply)</label>
+    <div class="form-check">
+    <input name="physicalAbilities" class="form-check-input" type="checkbox" value="limited hand function" id="defaultCheck1" ref={register}/>
+    <label  class="form-check-label" for="defaultCheck1">
+      Limited hand function
+    </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving arms" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving arms
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving legs" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving legs
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving head up" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving head up
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving head down" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving head down
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving head left" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving head left
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="difficulty moving head right" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Difficulty moving head right
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="Neuropathy" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+          Neuropathy
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalAbilities" class="form-check-input" type="checkbox" value="visual difficulties" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Visual difficulties
+      </label>
+    </div>
+
+    <label htmlFor="firstName">Do you use any of the following?</label>
+    <div class="form-check">
+      <input name="physicalEquipments" class="form-check-input" type="checkbox" value="walker" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Walker
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalEquipments" class="form-check-input" type="checkbox" value="crutches" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Crutches
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalEquipments" class="form-check-input" type="checkbox" value="cane" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Cane
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="physicalEquipments" class="form-check-input" type="checkbox" value="manual wheelchair" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+      Manual wheelchair
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input name="physicalEquipments" class="form-check-input" type="checkbox" value="power wheelchair" id="defaultCheck2" ref={register} />
+      <label class="form-check-label" for="defaultCheck2">
+        Power wheelchair
+      </label>
+    </div>
+
+    <div class="form-group">
+    <label htmlFor="lastName">Wheelchair make/model (if applicable)</label>
+    <input class="form-control" name="wheelchairModel"  ref={register} />
+    </div>
+
+    <div class="form-group">
+    <label htmlFor="lastName">Seated height in wheelchair (floor to top of head)</label>
+    <input class="form-control" name="wheelchairHeight"  ref={register} />
+    </div>
+
+    <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Can you independently transfer into / out of wheelchair?</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input"
+                  name="wheelchairTransfer"
+                  type="radio"
+                  value="yes"
+                  ref={register} />
+
+          <label class="form-check-label" for="gridRadios1">
+            Yes
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" name="wheelchairTransfer" type="radio" id="gridRadios2" value="no"/>
+          <label class="form-check-label" for="gridRadios2">
+            No
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
 
 
 
