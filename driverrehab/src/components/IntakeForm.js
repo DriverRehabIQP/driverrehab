@@ -330,6 +330,7 @@ return (
             <textarea class="form-control" type="text" name="adaptiveEquipmentProblem" rows="3" ref={register} />
           </div>
         )}
+
       <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Do you self-restrict your driving?</legend>
         <input name="selfRestrictedDriving" type="checkbox" ref={register} />
@@ -340,6 +341,17 @@ return (
               <textarea class="form-control" type="text" name="selfRestrictedDrivingDescription" rows="3" ref={register} />
             </div>
           )}
+
+        <div class="form-group">
+
+          <label htmlFor="firstName">Unlicensed applicants only: Driver permit number</label>
+          <input type="text" class="form-control" aria-describedby="permitHelpBlock" ref={register}/>
+          <small id="permitHelpBlock" class="form-text text-muted">
+              If you have a learner's permit, keep blank if not applicable
+          </small>
+      </div>
+
+
 
 
 
