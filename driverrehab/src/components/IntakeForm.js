@@ -21,6 +21,9 @@ const [seizureDate, setSeizureDate] = React.useState(null);
 const driverLicense = watch("driverLicense");
 const adaptiveEquipment = watch("adaptiveEquipment");
 const selfRestrictedDriving = watch("selfRestrictedDriving");
+const privatePayCheckbox = watch("privatePayCheckbox");
+const feesCheckbox = watch("feesCheckbox");
+
 
 
 
@@ -494,6 +497,82 @@ return (
   </div>
 
   <h1>Funding</h1>
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Private pay?</legend>
+      <input name="privatePayCheckbox" type="checkbox" ref={register} />
+    </div>
+      <div>
+        {privatePayCheckbox && (
+          <div>
+            <legend class="col-form-label col-sm-2 pt-0">If yes, have fees (Evaluation plus any applicable travel costs) been explained to you?</legend>
+            <input name="feesCheckbox" type="checkbox" ref={register} />
+          </div>
+        )}
+
+      </div>
+      <div>
+              {!feesCheckbox&&(
+                <div class="form">
+                  <div class="form-group col-md-6">
+                    <label htmlFor="inputEmail4">Name of funding source:</label>
+                    <input
+                      class="form-control"
+                      name="fundingSource"
+                      type="text"
+                      ref={register}    />
+                  </div>
+
+                    <div class="form-group col-md-6">
+                      <label htmlFor="inputEmail4">Contact person</label>
+                      <input
+                        class="form-control"
+                        name="fundingContactPerson"
+                        type="text"
+                        ref={register}    />
+
+
+                    </div>
+                        <div class="form-group col-md-6">
+                          <label htmlFor="inputEmail4">Email</label>
+                          <input
+                            class="form-control"
+                            name="email"
+                            id="inputEmail4"
+                            placeholder="bluebill1049@hotmail.com"
+                            type="email"
+                            ref={register({
+                              pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                            })}    />
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                        <label for="mobileNumber">Mobile number</label>
+                        <input
+                         type="tel"
+                         class="form-control"
+                         name="mobileNumber"
+                         ref={register({
+                           maxLength: 11,
+                           minLength: 8,
+                           pattern:/^(?:\d{8}(?:\d{2}(?:\d{2})?)?|\(\+?\d{2,3}\)\s?(?:\d{4}[\s*.-]?\d{4}|\d{3}[\s*.-]?\d{3}|\d{2}([\s*.-]?)\d{2}\1\d{2}(?:\1\d{2})?))$/
+                           })}
+                       />
+                       </div>
+                       {errors.mobileNumber && <p>Required valid phone number </p>}
+
+                      <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St"  ref={register} />
+                          {errors.address && <p>Address is required</p>}
+                      </div>
+                      </div>
+                )}
+      </div>
+
+
 
 
 
