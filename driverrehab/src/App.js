@@ -5,6 +5,8 @@ import logo from './logo.svg';
 import './App.css';
 import IntakeForm from './components/IntakeForm'
 import HomePage from './components/HomePage'
+import EmployeePage from './components/EmployeePage'
+
 import {Redirect} from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div>
-      <IntakeForm />
+      <EmployeePage />
     </div>
     // <div className="App">
     //   <header className="App-header">
