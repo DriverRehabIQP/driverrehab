@@ -1,11 +1,32 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import IntakeForm from './IntakeForm'
+import SearchResult from './SearchResult'
+import View from './View'
+
 
 class EmployeePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nameSearch: 'jj'
+    };
 
-  onSubmit = () => {
-         return  <IntakeForm/>
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({nameSearch: event.target.value});
+    console.log(this.state.nameSearch)
+  }
+
+  onSubmit = (event) => {
+    // send a search for NAME TO SERVER DATABASE
+    // pass in the result to search result componenet
+          alert(JSON.stringify(this.state.nameSearch));
+          event.preventDefault();
+
 
   }
 
@@ -24,13 +45,16 @@ class EmployeePage extends React.Component {
       <div class="container">
           <div class="row">
               <div class="col-md-4">
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search"/>
+              <form class="form-inline my-2 my-lg-0" onSubmit={this.onSubmit}>
+                <input value={this.state.nameSearch} onChange={this.handleChange} class="form-control mr-sm-2" type="text" placeholder="Client search"/>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
+                <SearchResult/>
+
               </div>
               <div class="col-md-8">
-                <u>SEARCH RESULT</u>
+              <View/>
+
               </div>
           </div>
           <div class="row"></div>
