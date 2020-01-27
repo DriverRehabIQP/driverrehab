@@ -12,7 +12,7 @@ function LoginPage (){
   const onSubmit = data => {
   alert(JSON.stringify(data));
   // if password matches pw in database, username matches username in database, route to employeeLoginPage
-  
+
   };
 
     return (
@@ -32,7 +32,10 @@ function LoginPage (){
         <input class="form-control" name="password" type="password" ref={register({ required: 'ERROR' })}  />
         {errors.password && <p>password is required</p>}
         </div>
+        <Link to="/EmployeePage">
         <input class="btn btn-primary" type="submit" />
+        </Link>
+
       </form>
     )
 

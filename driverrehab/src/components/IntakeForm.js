@@ -9,8 +9,17 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function IntakeForm(){
-  const { register, watch,setValue, handleSubmit, errors } = useForm();
+function IntakeForm(flag){
+  const { register, watch,setValue, handleSubmit, errors } = useForm(
+      {
+      defaultValues: {
+        firstName: "bill",
+        lastName: "luo",
+        email: "bluebill1049@hotmail.com",
+        pets: [ 'dog', 'cat' ]
+      }
+}
+  );
   const onSubmit = data => {
   alert(JSON.stringify(data));
   };

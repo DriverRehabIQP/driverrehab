@@ -53,7 +53,7 @@ class EmployeePage extends React.Component {
 
               </div>
               <div class="col-md-8">
-              <View/>
+                <IntakeForm/>
 
               </div>
           </div>
