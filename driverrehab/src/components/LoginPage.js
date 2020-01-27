@@ -11,6 +11,8 @@ function LoginPage (){
   // submit username and password to the database
   const onSubmit = data => {
   alert(JSON.stringify(data));
+  // if password matches pw in database, username matches username in database, route to employeeLoginPage
+  
   };
 
     return (
