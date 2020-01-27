@@ -9,12 +9,12 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function IntakeForm(flag){
+function IntakeForm(props){
   const { register, watch,setValue, handleSubmit, errors } = useForm(
       {
       defaultValues: {
-        firstName: "bill",
-        lastName: "luo",
+        firstName: props.dataFromParent,
+        lastName:  props.dataFromParent,
         email: "bluebill1049@hotmail.com",
         pets: [ 'dog', 'cat' ]
       }
@@ -34,9 +34,6 @@ const privatePayCheckbox = watch("privatePayCheckbox");
 const feesCheckbox = watch("feesCheckbox");
 
 
-
-
-
  React.useEffect(() => {
    register({ name: "date" }, { required: true });
  }, []);
@@ -48,6 +45,9 @@ const feesCheckbox = watch("feesCheckbox");
 
 return (
   <form onSubmit={handleSubmit(onSubmit)}>
+  <div>
+                  The data from parent is:{props.dataFromParent}
+              </div>
   <h1>Client</h1>
   <div class="form-group">
     <label htmlFor="firstName">First Name</label>

@@ -9,7 +9,7 @@ class EmployeePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameSearch: 'jj'
+      nameSearch: 'employeesearch'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -53,7 +53,7 @@ class EmployeePage extends React.Component {
 
               </div>
               <div class="col-md-8">
-                <IntakeForm/>
+                <IntakeForm dataFromParent={this.state.nameSearch}/>
 
               </div>
           </div>
