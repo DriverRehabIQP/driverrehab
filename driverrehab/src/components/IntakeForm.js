@@ -53,7 +53,7 @@ return (
     <div class="form-group">
     <label htmlFor="lastName">Last Name</label>
     <input class="form-control" name="lastName" placeholder="last name" ref={register({ required: 'ERROR' })}  />
-    {errors.firstName && <p>Last name is required</p>}
+    {errors.lastName && <p>Last name is required</p>}
     </div>
 
     <label htmlFor="dateOfBirth">Date of birth</label>
