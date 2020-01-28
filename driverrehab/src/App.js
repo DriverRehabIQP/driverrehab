@@ -11,6 +11,7 @@ import IntakeForm from './components/IntakeForm'
 import HomePage from './components/HomePage'
 import LoginPage from './components/LoginPage'
 import EmployeePage from './components/EmployeePage'
+import EvaluationForm from './components/EvaluationForm'
 
 import {Redirect} from 'react-router-dom';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/intakeform' component={IntakeForm}/>
         <Route path='/loginpage' component={LoginPage}/>
         <Route path='/EmployeePage' component={EmployeePage}/>
+        <Route path='/EvaluationForm' component={EvaluationForm}/>
       </Switch>
     </Router>
 
