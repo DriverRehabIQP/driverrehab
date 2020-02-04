@@ -117,8 +117,12 @@ return (
       </div>
 
       <div class="form-group">
-          <label for="primaryControls">Primary controls</label>
-          <textarea name="primaryControls" class="form-control" rows="3" ref={register}></textarea>
+          <label for="primaryControls">Primary Controls: </label>
+          <select name="primaryControls" ref={register}>
+              <option value="component 1">component 1</option>
+              <option value=" component 2"> component 2</option>
+              <option value="component 3">component 3</option>
+          </select>
         </div>
 
 
