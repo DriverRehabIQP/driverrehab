@@ -20,6 +20,23 @@ export default function EvaluationForm(){
     register({ name: "evaluateDate" }, { required: true });
   }, []);
 
+  const LiftVehicleAcessCheckbox = watch("LiftVehicleAcessCheckbox");
+
+  const LiftTransferBoardCheckbox = watch("LiftTransferBoardCheckbox");
+  const WheelchairLiftCheckbox = watch("WheelchairLiftCheckbox");
+  const RampAssistCheckbox = watch("RampAssistCheckbox");
+  const OccupiedWheelchairRestraintCheckbox = watch("OccupiedWheelchairRestraintCheckbox");
+  const HeadBackrestCheckbox = watch("HeadBackrestCheckbox");
+
+  const RampCheckbox = watch("RampCheckbox");
+  const SeatCheckbox = watch("SeatCheckbox");
+
+  const StepsCheckbox = watch("StepsCheckbox");
+  const TransferSeatBaseCheckbox = watch("TransferSeatBaseCheckbox");
+
+  const   DockingConsoleCheckbox = watch("DockingConsoleCheckbox");
+
+
 return (
   <form onSubmit={handleSubmit(onSubmit)}>
   <h1>In-vehicle Assessment</h1>
@@ -110,33 +127,139 @@ return (
         </div>
 
     <h1>Vehicle and Adaptive Equipment Recommendations</h1>
-
-    <div class="form-group">
-        <label for="Minivan">Minivan</label>
-        <textarea name="Minivan" class="form-control" rows="3" ref={register}></textarea>
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Lift/ Vehicle Access</legend>
+      <input name="LiftVehicleAcessCheckbox" type="checkbox" ref={register} />
+    </div>
+    {LiftVehicleAcessCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="LiftVehicleAcessTextbox" rows="3" ref={register} />
       </div>
+    )}
 
-      <div class="form-group">
-          <label for="primaryControls">Primary controls</label>
-          <textarea name="primaryControls" class="form-control" rows="3" ref={register}></textarea>
-        </div>
-
-
-    <div class="form-group">
-        <label for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
-determined during initial training session </label>
-        <textarea name="secondaryControls" class="form-control" rows="3" ref={register}></textarea>
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Lift /Transfer Board</legend>
+      <input name="LiftTransferBoardCheckbox" type="checkbox" ref={register} />
+    </div>
+    {LiftTransferBoardCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="LiftTransferBoardTextbox" rows="3" ref={register} />
       </div>
+    )}
 
-      <div class="form-group">
-          <label for="secondaryControlsOther">Secondary controls-other</label>
-          <textarea name="secondaryControlsOther" class="form-control" rows="3" ref={register}></textarea>
-        </div>
 
-      <div class="form-group">
-          <label for="reconmendationsOther">Reconmendations other</label>
-          <textarea name="reconmendationsOther" class="form-control" rows="3" ref={register}></textarea>
-        </div>
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Wheelchair Lift</legend>
+      <input name="WheelchairLiftCheckbox" type="checkbox" ref={register} />
+    </div>
+    {WheelchairLiftCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="WheelchairLiftTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Ramp Assist</legend>
+      <input name="RampAssistCheckbox" type="checkbox" ref={register} />
+    </div>
+    {RampAssistCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="RampAssistTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Occupied Wheelchair Restraint</legend>
+      <input name="OccupiedWheelchairRestraintCheckbox" type="checkbox" ref={register} />
+    </div>
+    {OccupiedWheelchairRestraintCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="OccupiedWheelchairRestraintTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Head/Backrest</legend>
+      <input name="HeadBackrestCheckbox" type="checkbox" ref={register} />
+    </div>
+    {HeadBackrestCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="HeadBackrestTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Ramp</legend>
+      <input name="RampCheckbox" type="checkbox" ref={register} />
+    </div>
+    {RampCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="RampTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Steps</legend>
+      <input name="StepsCheckbox" type="checkbox" ref={register} />
+    </div>
+    {StepsCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="StepsTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Seat</legend>
+      <input name="SeatCheckbox" type="checkbox" ref={register} />
+    </div>
+    {SeatCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="SeatTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Transfer Seat Base</legend>
+      <input name="TransferSeatBaseCheckbox" type="checkbox" ref={register} />
+    </div>
+    {TransferSeatBaseCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="TransferSeatBaseTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
+
+
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Docking Console </legend>
+      <input name="DockingConsoleCheckbox" type="checkbox" ref={register} />
+    </div>
+    {DockingConsoleCheckbox && (
+      <div>
+        <label>Describe</label>
+        <textarea class="form-control" type="text" name="DockingConsoleTextbox" rows="3" ref={register} />
+      </div>
+    )}
+
 
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
