@@ -128,139 +128,124 @@ return (
 
     <h1>Vehicle and Adaptive Equipment Recommendations</h1>
     <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Lift/ Vehicle Access</legend>
-      <input name="LiftVehicleAcessCheckbox" type="checkbox" ref={register} />
-    </div>
-    {LiftVehicleAcessCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="LiftVehicleAcessTextbox" rows="3" ref={register} />
-      </div>
-    )}
+       <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Lift/ Vehicle Access</legend></div>
+       <div class="col-sm-1"><input name="LiftVehicleAcessCheckbox" type="checkbox" ref={register} /></div>
+       <div class="col-sm-10">  {LiftVehicleAcessCheckbox && (
+           <div>
+             <input class="form-control" type="text" name="LiftVehicleAcessTextbox" rows="3" ref={register} />
+           </div>
+         )}</div>
+   </div>
 
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Lift /Transfer Board</legend>
-      <input name="LiftTransferBoardCheckbox" type="checkbox" ref={register} />
-    </div>
-    {LiftTransferBoardCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="LiftTransferBoardTextbox" rows="3" ref={register} />
-      </div>
-    )}
+   <div class="row">
+      <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Lift/ Transfer Board</legend></div>
+      <div class="col-sm-1"><input name="LiftTransferBoardCheckbox" type="checkbox" ref={register} /></div>
+      <div class="col-sm-10">
+      {LiftTransferBoardCheckbox && (
+          <div>
+            <input class="form-control" type="text" name="LiftTransferBoardTextbox" rows="3" ref={register} />
+          </div>
+        )}</div>
+  </div>
 
+  <div class="row">
+     <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Wheelchair Lift</legend></div>
+     <div class="col-sm-1"><input name="WheelchairLiftCheckbox" type="checkbox" ref={register} /></div>
+     <div class="col-sm-10">
+     {WheelchairLiftCheckbox && (
+         <div>
+           <input class="form-control" type="text" name="WheelchairLiftTextbox" rows="3" ref={register} />
+         </div>
+       )}</div>
+ </div>
 
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Wheelchair Lift</legend>
-      <input name="WheelchairLiftCheckbox" type="checkbox" ref={register} />
-    </div>
-    {WheelchairLiftCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="WheelchairLiftTextbox" rows="3" ref={register} />
-      </div>
-    )}
-
-
-
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Ramp Assist</legend>
-      <input name="RampAssistCheckbox" type="checkbox" ref={register} />
-    </div>
+ <div class="row">
+    <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Ramp Assist</legend></div>
+    <div class="col-sm-1"><input name="RampAssistCheckbox" type="checkbox" ref={register} /></div>
+    <div class="col-sm-10">
     {RampAssistCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="RampAssistTextbox" rows="3" ref={register} />
-      </div>
-    )}
+        <div>
+          <input class="form-control" type="text" name="RampAssistTextbox" rows="3" ref={register} />
+        </div>
+      )}</div>
+</div>
 
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Occupied Wheelchair Restraint</legend></div>
+   <div class="col-sm-1"><input name="OccupiedWheelchairRestraintCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {OccupiedWheelchairRestraintCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="OccupiedWheelchairRestraintTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Occupied Wheelchair Restraint</legend>
-      <input name="OccupiedWheelchairRestraintCheckbox" type="checkbox" ref={register} />
-    </div>
-    {OccupiedWheelchairRestraintCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="OccupiedWheelchairRestraintTextbox" rows="3" ref={register} />
-      </div>
-    )}
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Head/ Backrest</legend></div>
+   <div class="col-sm-1"><input name="HeadBackrestCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {HeadBackrestCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="HeadBackrestTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Ramp</legend></div>
+   <div class="col-sm-1"><input name="RampCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {RampCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="RampTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Head/Backrest</legend>
-      <input name="HeadBackrestCheckbox" type="checkbox" ref={register} />
-    </div>
-    {HeadBackrestCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="HeadBackrestTextbox" rows="3" ref={register} />
-      </div>
-    )}
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Steps</legend></div>
+   <div class="col-sm-1"><input name="StepsCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {StepsCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="StepsTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Seat</legend></div>
+   <div class="col-sm-1"><input name="SeatCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {SeatCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="SeatTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Ramp</legend>
-      <input name="RampCheckbox" type="checkbox" ref={register} />
-    </div>
-    {RampCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="RampTextbox" rows="3" ref={register} />
-      </div>
-    )}
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Transfer Seat Base</legend></div>
+   <div class="col-sm-1"><input name="TransferSeatBaseCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {TransferSeatBaseCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="TransferSeatBaseTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
-
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Steps</legend>
-      <input name="StepsCheckbox" type="checkbox" ref={register} />
-    </div>
-    {StepsCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="StepsTextbox" rows="3" ref={register} />
-      </div>
-    )}
-
-
-
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Seat</legend>
-      <input name="SeatCheckbox" type="checkbox" ref={register} />
-    </div>
-    {SeatCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="SeatTextbox" rows="3" ref={register} />
-      </div>
-    )}
-
-
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Transfer Seat Base</legend>
-      <input name="TransferSeatBaseCheckbox" type="checkbox" ref={register} />
-    </div>
-    {TransferSeatBaseCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="TransferSeatBaseTextbox" rows="3" ref={register} />
-      </div>
-    )}
-
-
-
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Docking Console </legend>
-      <input name="DockingConsoleCheckbox" type="checkbox" ref={register} />
-    </div>
-    {DockingConsoleCheckbox && (
-      <div>
-        <label>Describe</label>
-        <textarea class="form-control" type="text" name="DockingConsoleTextbox" rows="3" ref={register} />
-      </div>
-    )}
-
-
+<div class="row">
+   <div class="col-sm-1">  <legend class="col-form-label col-sm-2 pt-0">Docking Console</legend></div>
+   <div class="col-sm-1"><input name="DockingConsoleCheckbox" type="checkbox" ref={register} /></div>
+   <div class="col-sm-10">
+   {DockingConsoleCheckbox && (
+       <div>
+         <input class="form-control" type="text" name="DockingConsoleTextbox" rows="3" ref={register} />
+       </div>
+     )}</div>
+</div>
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
           Driver Evaluation and Training Program Notice
