@@ -17,18 +17,18 @@ export default function EvaluationForm(){
         alert(JSON.stringify(data));
         var template_params = {
          "to_email": data.sendTo,
-         "to_emails": "to_emails_value",
-         "driver_name": "driver_name_value",
-         "vehicle_used": "vehicle_used_value",
-         "AE_used": "AE_used_value",
-         "weather": "weather_value",
-         "road": "road_value",
-         "traffic": "traffic_value",
-         "route": "route_value",
-         "time": "time_value",
-         "primary_control_operation": "primary_control_operation_value",
-         "awareness": "awareness_value",
-         "adherence": "adherence_value"
+         "to_emails": "",
+         "driver_name": data.driver_name_value,
+         "vehicle_used": data.vehicleUsed,
+         "AE_used": data.AEUsed,
+         "weather": data.weatherConditions,
+         "road": data.roadConditions,
+         "traffic": data.traffiConditions,
+         "route": data.Route,
+         "time": data.time,
+         "primary_control_operation": data.primaryControlOperation,
+         "awareness": data.awarenessTraffic,
+         "adherence": data.adherenceLaw
       }
 
       var service_id = process.env.REACT_APP_SERVICE_ID;
@@ -64,6 +64,12 @@ export default function EvaluationForm(){
 
 return (
   <form onSubmit={handleSubmit(onSubmit)}>
+
+  <div class="form-group">
+    <label htmlFor="driver_name_value">Driver's name</label>
+    <input class="form-control" name="driver_name_value" ref={register}  />
+  </div>
+
   <h1>In-vehicle Assessment</h1>
 
   <div class="form-group">
@@ -89,13 +95,13 @@ return (
       </div>
 
       <div class="form-group">
-          <label for="traffiConditions">Weather Conditions</label>
+          <label for="traffiConditions">Traffic Conditions</label>
           <input name="traffiConditions" class="form-control"  rows="3" ref={register}/>
         </div>
 
 
       <div class="form-group">
-          <label for="AEUsed">Route</label>
+          <label for="Route">Route</label>
           <textarea name="Route" class="form-control" rows="3" ref={register}></textarea>
         </div>
 
