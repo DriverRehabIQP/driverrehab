@@ -8,12 +8,37 @@ import Client from "./client";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import emailjs from 'emailjs-com';
+
 
 export default function EvaluationForm(){
   const { register, watch,setValue, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-  alert(JSON.stringify(data));
+        alert(JSON.stringify(data));
+        var template_params = {
+         "to_email": data.sendTo,
+         "to_emails": "to_emails_value",
+         "driver_name": "driver_name_value",
+         "vehicle_used": "vehicle_used_value",
+         "AE_used": "AE_used_value",
+         "weather": "weather_value",
+         "road": "road_value",
+         "traffic": "traffic_value",
+         "route": "route_value",
+         "time": "time_value",
+         "primary_control_operation": "primary_control_operation_value",
+         "awareness": "awareness_value",
+         "adherence": "adherence_value"
+      }
+
+      var service_id = process.env.REACT_APP_SERVICE_ID;
+      var template_id = process.env.REACT_APP_TEMPLATE_ID;
+      var user_id=process.env.REACT_APP_USER_ID;
+      console.log(service_id, template_id, user_id)
+      emailjs.send(service_id, template_id, template_params, user_id )
   };
+
+
   const [evaluateDate, setDate] = React.useState(null);
 
   React.useEffect(() => {
@@ -312,6 +337,11 @@ return (
             />
             {errors.date && <p>Evaluation date is required</p>}
         </div>
+    <div class="form-group">
+        <label for="sendTo">Send to</label>
+        <input name="sendTo" class="form-control" rows="3" ref={register}/>
+      </div>
+
 
     <input class="btn btn-primary" type="submit" />
 
