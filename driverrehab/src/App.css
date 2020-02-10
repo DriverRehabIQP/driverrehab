@@ -20,3 +20,20 @@
 .App-link {
   color: #09d3ac;
 }
+
+.form-gr {
+  color: #09d3ac;
+}
+
+ 
+h1 {
+  background-color: green;
+}
+
+div {
+  background-color: lightgreen;
+}
+
+p {
+  background-color: yellow;
+}
