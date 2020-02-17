@@ -2,10 +2,12 @@ import React from "react"
 
 import { useForm } from "react-hook-form";
 import '../App.css';
-import "../index.css";
+import "./index.css";
 import Client from "./client";
 import  { useState } from 'react';
 import DatePicker from "react-datepicker";
+import $ from "jquery";
+import jsPDF from "jspdf";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -42,7 +44,77 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     setFields(values);
   }
 
- 
+  function generatePDF(event){
+    var doc = new jsPDF();
+    var vehicleUsed = $('#vehicleUsed').val();
+    var AEUsed = $('#AEUsed').val();
+    var weather = $('#weather').val();
+    var road = $('#Road').val();
+    var traffic =$('#Trafic').val();
+    var route = $('#Route').val();
+    var time = $('#Time').val();
+    var primaryControlOperation = $('#PrimaryControlOperation').val();
+    var awarness= $('#Awareness').val();
+    var adherence= $('#Adherence').val();
+    var otherComments= $('#OtherComments1').val();
+    var otherComments2= $('#OtherComments2').val();
+    var minivan= $('#Minivan').val();
+    var reconmendationsOther= $('#ReconmendationsOther').val();
+    var evalDate= $('#EvalDate').val();
+    var evaluatedBy= $('#EvaluatedBy').val();
+     
+
+    doc.setFontSize(25);
+    doc.text(70, 30, "Evaluation Form");
+    doc.setFontSize(17);
+    doc.text(30, 45, "In - Vehicle Assessment:");
+    doc.text(45, 55, "Vehicle Used:")
+    doc.text(105, 55, vehicleUsed);
+    doc.text(45, 65, "AE Used:")
+    doc.text(105, 65, AEUsed);
+    doc.text(45, 75, "Weather Conditions:")
+    doc.text(105, 75, weather);
+    doc.text(45, 85, "Road Conditions:")
+    doc.text(105, 85, road);
+    doc.text(45, 95, "Traffic Conditions:")
+    doc.text(105, 95, traffic);
+    doc.text(45, 105, "Route:")
+    doc.text(105, 105, route);
+    doc.text(45, 115, "Time:")
+    doc.text(105, 115, time);
+    doc.text(45, 125, "Primary control operation:")
+    doc.text(105, 125, primaryControlOperation);
+    doc.text(45, 135, "Awareness of/interaction with traffic environment:")
+    doc.text(105, 135, awarness);
+    doc.text(45, 145, "Adherence to motor vehicle law:")
+    doc.text(105, 145, adherence);
+    doc.text(45, 155, "Other Comments:")
+    doc.text(105, 155, otherComments);
+
+    doc.text(30, 170, "Reconmendations:");
+    doc.text(45, 180, "Other Comments:")
+    doc.text(105, 180, otherComments2);
+
+
+    
+
+
+ doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
+    doc.text(45, 205, "Minivan:")
+    doc.text(105, 205, minivan);
+    doc.text(45, 215, "Reconmendations other:")
+    doc.text(105, 215, reconmendationsOther);
+
+    doc.text(45, 235, "Evaluated on:")
+    doc.text(105, 235, evalDate);
+
+    doc.text(45, 225, "Evaluated by:")
+    doc.text(105, 225, evaluatedBy);
+    
+
+
+    doc.save("DriverRehab.pdf");
+  }
  
 
 return (
@@ -52,60 +124,60 @@ return (
 
   <div class="form-group">
     <label htmlFor="vehicleUsed">Vehicle used</label>
-    <input class="form-control" name="vehicleUsed" ref={register}  />
+    <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
   </div>
 
     <div class="form-group">
         <label for="AEUsed">AE used</label>
-        <textarea name="AEUsed" class="form-control" rows="3" ref={register}></textarea>
+        <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
       </div>
 
 
     <div class="form-group">
         <label for="weatherConditions">Weather Conditions</label>
-        <input name="weatherConditions" class="form-control"  rows="3" ref={register}/>
+        <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
       </div>
 
 
     <div class="form-group">
         <label for="roadConditions">Road Conditions</label>
-        <input name="roadConditions" class="form-control"  rows="3" ref={register}/>
+        <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
       </div>
 
       <div class="form-group">
-          <label for="traffiConditions">Weather Conditions</label>
-          <input name="traffiConditions" class="form-control"  rows="3" ref={register}/>
+          <label for="traffiConditions">Trafic Conditions</label>
+          <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
         </div>
 
 
       <div class="form-group">
           <label for="AEUsed">Route</label>
-          <textarea name="Route" class="form-control" rows="3" ref={register}></textarea>
+          <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
         </div>
 
       <div class="form-group">
           <label for="time">Time</label>
-          <input name="time" class="form-control" rows="3" ref={register}/>
+          <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
         </div>
 
       <div class="form-group">
           <label for="AEUsed">Primary control operation</label>
-          <textarea name="primaryControlOperation" class="form-control" rows="3" ref={register}></textarea>
+          <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
         </div>
 
       <div class="form-group">
           <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
-          <textarea name="awarenessTraffic" class="form-control" rows="3" ref={register}></textarea>
+          <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
         </div>
 
       <div class="form-group">
           <label for="adherenceLaw">Adherence to motor vehicle law</label>
-          <textarea name="adherenceLaw" class="form-control" rows="3" ref={register}></textarea>
+          <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
         </div>
 
         <div class="form-group">
             <label for="assessmentOther">Other comments</label>
-            <textarea name="assessmentOther" class="form-control" rows="3" ref={register}></textarea>
+            <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
           </div>
 
           <h1>Reconmendations</h1>
@@ -132,14 +204,14 @@ return (
 
       <div class="form-group">
           <label for="reconmendationsOther">Other comments</label>
-          <textarea name="reconmendationsOther" class="form-control" rows="3" ref={register}></textarea>
+          <input name="reconmendationsOther"  class="form-control" id="OtherComments2" rows="3" ref={register}/>
         </div>
 
     <h1>Vehicle and Adaptive Equipment Recommendations</h1>
 
     <div class="form-group">
         <label for="Minivan">Minivan</label>
-        <textarea name="Minivan" class="form-control" rows="3" ref={register}></textarea>
+        <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
       </div>
 
   
@@ -509,7 +581,8 @@ style={{width: "370px"}}
 
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
-          <textarea name="reconmendationsOther" class="form-control" rows="3" ref={register}></textarea>
+
+<input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
         </div>
 
 
@@ -562,7 +635,7 @@ style={{width: "370px"}}
 
       <div class="form-group">
           <label for="reconmendationsOther">Evaluated By</label>
-          <input name="EvaluatorName" class="form-control" rows="3" ref={register}/>
+          <input name="EvaluatorName" class="form-control" id="EvaluatedBy" rows="3" ref={register}/>
         </div>
 
         <div class="form-group">
@@ -571,6 +644,7 @@ style={{width: "370px"}}
               isClearable
               name="evaluateDate"
               selected={evaluateDate}
+	      id = "EvalDate"
               onChange={val => {
                 setDate(val);
                 setValue("evaluateDate", val)
@@ -579,10 +653,8 @@ style={{width: "370px"}}
             {errors.date && <p>Evaluation date is required</p>}
         </div>
 
-    <input class="btn btn-primary" type="submit" />
-
+    <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
+    <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
-
-
 );
 }
