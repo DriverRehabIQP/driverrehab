@@ -8,7 +8,6 @@ import Client from "./client";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import emailjs from 'emailjs-com';
 
 
 export default function EvaluationForm(){
@@ -31,11 +30,7 @@ export default function EvaluationForm(){
          "adherence": data.adherenceLaw
       }
 
-      var service_id = process.env.REACT_APP_SERVICE_ID;
-      var template_id = process.env.REACT_APP_TEMPLATE_ID;
-      var user_id=process.env.REACT_APP_USER_ID;
-      console.log(service_id, template_id, user_id)
-      emailjs.send(service_id, template_id, template_params, user_id )
+
   };
 
 
