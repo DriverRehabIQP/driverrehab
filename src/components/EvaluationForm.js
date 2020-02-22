@@ -316,9 +316,6 @@ style={{width: "370px"}}
       })}
     </div>
 
-
-
-
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
 
