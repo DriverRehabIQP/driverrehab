@@ -179,12 +179,15 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
 
     doc.save("DriverRehab.pdf");
   }
-
-
+  const generalStyles = {
+     marginLeft: '20px',
+     marginRight: '20px',
+     // backgroundColor: 'blue',
+   };
 return (
-  <div>
+  <div style={generalStyles}>
   <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
-      <button className='btn'>Upload</button>
+      <button className='btn'>Upload new car equipments</button>
     </ReactFileReader>
   <form onSubmit={handleSubmit(onSubmit)}>
 
