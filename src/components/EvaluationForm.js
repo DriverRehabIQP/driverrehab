@@ -19,10 +19,11 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   alert(JSON.stringify(data));
   };
   const [evaluateDate, setDate] = React.useState(null);
- const [fields, setFields] = useState([{ value: null }]);
+  const [fields, setFields] = useState([{ value: null }]);
 
   React.useEffect(() => {
-    register({ name: "evaluateDate" }, { required: true });
+    // register({ name: "evaluateDate" }, { required: true });
+
   }, []);
 
 
@@ -94,12 +95,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     doc.text(30, 170, "Reconmendations:");
     doc.text(45, 180, "Other Comments:")
     doc.text(105, 180, otherComments2);
-
-
-
-
-
- doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
+    doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
     doc.text(45, 205, "Minivan:")
     doc.text(105, 205, minivan);
     doc.text(45, 215, "Reconmendations other:")
@@ -224,93 +220,6 @@ return (
           <div key={`${field}-${idx}`}>
 
           <select name="primaryControls" ref={register}>
-
-
-
-<option value="Component3">->Link:  Lift /Transfer Seat </option>
-<option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
-<option value="Component5">->XL-BASE:  Pivoting & lowering seat base </option>
-<option value="Component6">->XL-BOARD:  Lift/Transfer Board</option>
-<option value="Component7">->Speedy-Lift:  Wheelchair Lift</option>
-<option value="Component8">->Hi-Lift:  Wheelchair Lift</option>
-<option value="Component9">->Power Pull:  Ramp Assist</option>
-<option value="Component12">->PROTEKTOR® Wheelchair Restraints:  Occupied Wheelchair Restraint</option>
-<option value="Component13">->Easy Pull:  Occupied Wheelchair Restraint/Ramp Assist</option>
-<option value="Component14">->Hide-A-Way Wheelchair Securement Systems:  Occupied Wheelchair Restraint</option>
-<option value="Component15">->eFutureSafe / FutureSafe:  Head/Backrest</option>
-<option value="Component16">->Smart Ramp:  Ramp </option>
-<option value="Component17">->Side Steps:  Steps</option>
-<option value="Component18">->Smart Seats:  Seat</option>
-<option value="Component20">->Comfort Series C62:  Transfer Seat Base: Minivan</option>
-<option value="Component21">->Leadership 75:  Transfer Seat Base: Minivan</option>
-<option value="Component22">->Leadership 41:  Transfer Seat Base: Full-size van</option>
-<option value="Component23">->Comfort Series Special, CS62D:  Transfer Seat Base: Full-size van</option>
-<option value="Component24">->Leadership 71:  Transfer Seat Base: Full-size van</option>
-<option value="Component25">->HighTower® Docking System:  Docking Console</option>
-<option value="Component26">->Unoccupied Wheelchair Restraint:  Unoccupied Wheelchair Restraint</option>
-<option value="Component27">->https://www.braunability.com/us/en/commercial.html:  </option>
-<option value="Component28">->Century 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component29">->Millennium 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component30">->Vista 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component31">->NL500 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component32">->NUVL855 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component34">->Joey:  Chair Lift </option>
-<option value="Component35">->Curb-Sider:  Chair Lift</option>
-<option value="Component36">->Out-Sider :  Chair Lift</option>
-<option value="Component37">->Chariot:  Chair Lift</option>
-<option value="Component38">->Big Lifter:  Chair Lift</option>
-<option value="Component39">->Lifter :  Chair Lift</option>
-<option value="Component40">->Space-Saver:  Chair Lift</option>
-<option value="Component41">->Back-Saver:  Chair Lift </option>
-<option value="Component42">->Out-Rider:  Chair Lift</option>
-<option value="Component46">->Coach Lift:  Lift /Transfer Seat </option>
-<option value="Component48">->Sensitized Steering :  </option>
-<option value="Component49">->Sensitized braking :  </option>
-<option value="Component50">->Backup Battery Systems:  </option>
-<option value="Component51">->Electronic Parking Brake:  </option>
-<option value="Component52">->Horizontal Steering:  </option>
-<option value="Component53">->Pedal Extensions:  </option>
-<option value="Component55">->Injection Molding:  </option>
-<option value="Component57">->PGB Power Gas and Brake:  Power Gas and Brake</option>
-<option value="Component58">->RESS Remote Electric Steering System:  Small diameter steering wheel</option>
-<option value="Component59">->PROXIMA Tablet Touch Screen Console:  Tablet Touch Screen Console</option>
-<option value="Component60">->VAS Visual/Audible Scan System:  In-Motion Tablet Touch Screen Console</option>
-<option value="Component61">->GEN II (Modified Effort Electric Steering System):  Modified Effort Electric Steering</option>
-<option value="Component62">->VEESS (Variable Effort Electric Steering System):  Variable Effort Electric Steering System</option>
-<option value="Component63">->Pride Milford Person Lift:  Person Lift</option>
-<option value="Component80">->Power step:  Step</option>
-<option value="Component83">->Fuel Systems:  Structural</option>
-<option value="Component84">->External Fuel Tanks:  Structural</option>
-<option value="Component87">->BRAUNABILITY 2001-02 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component88">->BRAUNABILITY 1996-2000 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component89">->BRAUNABILITY MINIVAN CONVERSION REAR SUSPENSION KNEEL SYSTEM ACTUATOR ASSEMBLY KIT:  Kneel actuator</option>
-<option value="Component90">->FERNO FLOOR MOUNT OXYGEN TANK HOLDER:  O2 tank holder</option>
-<option value="Component91">->O2 ON THE GO OXYGEN TANK CYLINDER HOLDER:  O2 tank holder</option>
-<option value="Component93">->FORD TRANSIT CONNECT REAR ENTRY RAMP ASSEMBLY:  Ramp</option>
-<option value="Component94">->Step Flares:  Structural</option>
-<option value="Component95">->Door Conversion Parts:  Structural</option>
-<option value="Component96">->RAMP COVER DRIVERGE/MBW/DODGE/CHRYSLER:  Ramp</option>
-<option value="Component97">->RAMP COVER TOYOTA SIENNA:  Ramp</option>
-<option value="Component98">->Lift Replacement Parts:  Lift</option>
-<option value="Component99">->Ramp Parts:  Ramp</option>
-<option value="Component101">->STREETSIDE SEAT FOR SMARTFLOOR WITH SMARTLEG BASE:  Seat</option>
-<option value="Component102">->SMARTFLOOR SEAT WITH SMARTLEG BASE, STREETSIDE (RIGHT SIDE):  Seat</option>
-<option value="Component103">->SMARTSEAT W/CHILD RESTRAINT BRACKET, CURBSIDE:  Seat</option>
-<option value="Component104">->SMARTFLOOR SEAT WITH SMARTLEG BASE:  Seat</option>
-<option value="Component105">->FORD E-SERIES STATIONARY/RIGID MOUNT REAR STEP ASSEMBLY:  Step</option>
-<option value="Component106">->STAINLESS STEEL DRIVER SIDE FRONT DOOR AND PASSENGER SIDE FRONT DOOR; SHORT STEP ASSEMBLY:  Step</option>
-<option value="Component107">->STAINLESS STEEL CARGO DOOR LONG STEP ASSEMBLY:  Step</option>
-<option value="Component110">->iClass™ Solid Platform (S):  Lift</option>
-<option value="Component111">->iClass™ Folded Platform (F):  Lift</option>
-<option value="Component112">->iClass™ Split Platform (SP):  Lift</option>
-<option value="Component114">->Mini Electric Lift - Model 117:  Lift</option>
-<option value="Component115">->Patriotic Electric Lift - Model US208:  Lift</option>
-<option value="Component116">->Lift n' Go Electric Lift - Model 210:  Lift</option>
-<option value="Component117">->Hold n' Go Electric Lift - Model US218:  Lift</option>
-<option value="Component118">->XL Electric Lift - Model XL4:  Lift</option>
-<option value="Component120">->Tote - Model 003:  Lift</option>
-<option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
-<option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
 		value={field.value}
               onChange={e => ChangeItem(idx, e)}
           </select>
