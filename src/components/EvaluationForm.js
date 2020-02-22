@@ -17,7 +17,7 @@ import axios from 'axios';
 export default function EvaluationForm(){
 
   const [items, setItems] = React.useState([
-        { label: "", value: "" },
+        { label: "test", value: "test" },
       ]);
 
     const  handleFiles = files => {
@@ -192,8 +192,6 @@ return (
   <form onSubmit={handleSubmit(onSubmit)}>
 
   <h1>In-vehicle Assessment</h1>
-
-
   <div class="form-group">
     <label htmlFor="vehicleUsed">Vehicle used</label>
     <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
@@ -393,7 +391,7 @@ style={{width: "370px"}}
             {errors.date && <p>Evaluation date is required</p>}
         </div>
 
-    <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
+    <input class="btn btn-primary" type="submit" />
     <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
   </div>
