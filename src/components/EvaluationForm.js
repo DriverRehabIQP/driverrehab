@@ -73,10 +73,26 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   const [evaluateDate, setDate] = React.useState(null);
   const [fields, setFields] = useState([{ value: null }]);
 
+  // Similar to componentDidMount and componentDidUpdate:
   React.useEffect(() => {
-    // register({ name: "evaluateDate" }, { required: true });
+    console.log("STARTING");
+    axios
+     .get('http://localhost:8082/api/parts')
+     .then(res => {
+       console.log(res.data);
+          const items = res.data.map(item => ({
+            label: item.parts_name,
+            value: item.parts_name,
+          }));
+          items.sort();
+          setItems(items);
 
-  }, []);
+     })
+     .catch(err => {
+       console.log(err)
+       console.log("Error from Show Car parts detail");
+     })
+   }, []);
 
 
   function ChangeItem(i, event) {
@@ -277,10 +293,14 @@ return (
           <div key={`${field}-${idx}`}>
 
           <select name="primaryControls" ref={register}>
-		value={field.value}
-              onChange={e => ChangeItem(idx, e)}
-          </select>
-&nbsp;&nbsp;&nbsp;
+         {items.map(({ label, value }) => (
+         <option key={value} value={value}>
+           {label}
+         </option>
+         ))}
+         </select>
+
+
             <input
               type="text"
 style={{width: "370px"}}
