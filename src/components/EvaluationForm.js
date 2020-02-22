@@ -46,14 +46,13 @@ export default function EvaluationForm(){
         .get('http://localhost:8082/api/parts')
         .then(res => {
           console.log(res.data);
-          // const parsed = JSON.parse(res.data);
-          setItems(res.data.map(item => ({
-              label: item.parts_name,
-              value: item.parts_name,
-             })));
-             console.log(items);
-            items.sort();
-            console.log(items);
+          const items = res.data.map(item => ({
+            label: item.parts_name,
+            value: item.parts_name,
+          }));
+          items.sort();
+          setItems(items);
+
 
         })
         .catch(err => {
