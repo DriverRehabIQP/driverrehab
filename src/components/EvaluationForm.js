@@ -285,8 +285,7 @@ return (
 
 
 <h5 for="primaryControls ">Primary Controls: </h5>
-
-<div className="float-left">
+<div class="form-group">
       {fields.map((field, idx) => {
         return (
 
@@ -299,13 +298,10 @@ return (
          </option>
          ))}
          </select>
-
-
             <input
               type="text"
 style={{width: "370px"}}
 	      value={field.value}
-
               onChange={e => ChangeItem(idx, e)}
             />
             <button type="button" onClick={() => RemoveDropDown(idx)}>
