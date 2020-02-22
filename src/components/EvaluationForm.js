@@ -10,9 +10,61 @@ import $ from "jquery";
 import jsPDF from "jspdf";
 
 import "react-datepicker/dist/react-datepicker.css";
+import ReactFileReader from 'react-file-reader';
+import * as XLSX from 'xlsx';
+import axios from 'axios';
 
 export default function EvaluationForm(){
 
+  const [items, setItems] = React.useState([
+        { label: "", value: "" },
+      ]);
+
+    const  handleFiles = files => {
+     var reader = new FileReader();
+     reader.onload = function(e) {
+     // Use reader.result
+     var csv = reader.result;
+     var lines = csv.split("\n");
+     var result = [];
+     var headers=lines[0].split(",");
+     for(var i=1;i<lines.length-1;i++){
+       var currentline=lines[i].split(",");
+       var obj = {parts_name: currentline[0]};
+       axios
+        .post('http://localhost:8082/api/parts', obj)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+          console.log("Error in CreateBook!");
+        })
+       }
+       console.log("STARTING");
+       axios
+        .get('http://localhost:8082/api/parts')
+        .then(res => {
+          console.log(res.data);
+          // const parsed = JSON.parse(res.data);
+          setItems(res.data.map(item => ({
+              label: item.parts_name,
+              value: item.parts_name,
+             })));
+             console.log(items);
+            items.sort();
+            console.log(items);
+
+        })
+        .catch(err => {
+          console.log(err)
+          console.log("Error from Show Car parts detail");
+        })
+
+   }
+
+   reader.readAsText(files[0]);
+  }
 
 const { register, watch,setValue, handleSubmit, errors } = useForm();
   const onSubmit = data => {
@@ -114,8 +166,13 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
 
 
 return (
+  <div>
+  <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
+      <button className='btn'>Upload</button>
+    </ReactFileReader>
   <form onSubmit={handleSubmit(onSubmit)}>
-<h1>In-vehicle Assessment</h1>
+
+  <h1>In-vehicle Assessment</h1>
 
 
   <div class="form-group">
@@ -565,5 +622,6 @@ style={{width: "370px"}}
     <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
     <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
+  </div>
 );
 }
