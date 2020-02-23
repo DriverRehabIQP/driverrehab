@@ -52,8 +52,6 @@ export default function EvaluationForm(){
           }));
           items.sort();
           setItems(items);
-
-
         })
         .catch(err => {
           console.log(err)
