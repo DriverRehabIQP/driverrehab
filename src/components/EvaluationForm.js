@@ -74,7 +74,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   React.useEffect(() => {
     console.log("STARTING");
     axios
-     .get('http://localhost:8082/api/parts')
+     .get('https://driverrehab.herokuapp.com/api/parts')
      .then(res => {
        console.log(res.data);
           const items = res.data.map(item => ({
