@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ReactFileReader from 'react-file-reader';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
+import Select from 'react-select';
 
 export default function EvaluationForm(){
 
@@ -266,37 +267,37 @@ return (
 
 
 <h5 for="primaryControls ">Primary Controls: </h5>
-<div class="form-group">
-      {fields.map((field, idx) => {
-        return (
-
-          <div key={`${field}-${idx}`}>
-
-          <select name="primaryControls" ref={register}>
-         {items.map(({ label, value }) => (
-         <option key={value} value={value}>
-           {label}
-         </option>
-         ))}
-         </select>
-            <input
-              type="text"
-style={{width: "370px"}}
-	      value={field.value}
-              onChange={e => ChangeItem(idx, e)}
-            />
-            <button type="button" onClick={() => RemoveDropDown(idx)}>
-              X
-            </button>  &nbsp;&nbsp;&nbsp;
-<button type="button" onClick={() => NewDropDown()}>
-        +
+{fields.map((field, idx) => {
+  return (
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+        <div key={`${field}-${idx}`}></div>
+        <Select options={items }name="primaryControls" ref={register}/>
+        </div>
+        <div class="col-sm-4">
+        <input
+          type="text"
+            style={{width: "370px"}}
+               value={field.value}
+          onChange={e => ChangeItem(idx, e)}
+        />
+        </div>
+        <div class="col-sm-2">
+        <button type="button" onClick={() => RemoveDropDown(idx)}>
+          X
+        </button>
+        <button type="button" onClick={() => NewDropDown()}>
+      +
       </button>
         </div>
-        );
-      })}
+        <div class="col-sm-1">
+
+        </div>
     </div>
-
-
+</div>
+);
+})}
   <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
   determined during initial training session </h5>
              <div >
