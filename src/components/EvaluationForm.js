@@ -49,6 +49,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
          console.log(data[i])
          result.push(obj)
        };
+       result.sort();
        setItems(result);
       })
        .catch(err => {
@@ -70,6 +71,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
           console.log(data[i])
           result.push(obj)
         };
+        result.sort();
         setSecondaryItems(result);
        })
         .catch(err => {
@@ -277,6 +279,7 @@ return (
         </div>
         <div class="col-sm-4">
         <input
+        class="form-control"
           type="text"
             style={{width: "370px"}}
                value={field.value}
