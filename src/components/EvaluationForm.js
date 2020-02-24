@@ -291,14 +291,12 @@ style={{width: "370px"}}
 <button type="button" onClick={() => NewDropDown()}>
         +
       </button>
-          <br /><br />
         </div>
         );
       })}
     </div>
 
 
-    <br /><br />
   <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
   determined during initial training session </h5>
              <div >
