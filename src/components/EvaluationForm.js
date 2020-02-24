@@ -20,49 +20,11 @@ export default function EvaluationForm(){
         { label: "test", value: "test" },
       ]);
 
-    const  handleFiles = files => {
-     var reader = new FileReader();
-     reader.onload = function(e) {
-     // Use reader.result
-     var csv = reader.result;
-     var lines = csv.split("\n");
-     var result = [];
-     var headers=lines[0].split(",");
-     for(var i=1;i<lines.length-1;i++){
-       var currentline=lines[i].split(",");
-       var obj = {parts_name: currentline[0]};
+  const [secondaryItems, setSecondaryItems] = React.useState([
+        { label: "test", value: "test" },
+      ]);
 
-       axios
-        .post('http://localhost:8082/api/parts', obj)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-          console.log("Error in CreateBook!");
-        })
-       }
-       console.log("STARTING");
-       axios
-        .get('http://localhost:8082/api/parts')
-        .then(res => {
-          console.log(res.data);
-          const items = res.data.map(item => ({
-            label: item.parts_name,
-            value: item.parts_name,
-          }));
-          items.sort();
-          setItems(items);
-        })
-        .catch(err => {
-          console.log(err)
-          console.log("Error from Show Car parts detail");
-        })
 
-   }
-
-   reader.readAsText(files[0]);
-  }
 
 const { register, watch,setValue, handleSubmit, errors } = useForm();
   const onSubmit = data => {
@@ -75,7 +37,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   React.useEffect(() => {
     console.log("STARTING");
     axios
-     .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/GeneralPartNames.csv')
+     .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/PrimaryControlsCarEquipments.csv')
      .then(res => {
        console.log(res.data);
        var data= res.data.split("\n");
@@ -93,11 +55,10 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
          console.log("Error from Show Car parts detail");
      })
 
-
      // secondary controls
 
      axios
-      .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/GeneralPartNames.csv')
+      .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/SecondaryControlsCarEquipments.csv')
       .then(res => {
         console.log(res.data);
         var data= res.data.split("\n");
@@ -108,7 +69,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
           console.log(data[i])
           result.push(obj)
         };
-        setItems(result);
+        setSecondaryItems(result);
        })
         .catch(err => {
           console.log(err)
@@ -343,15 +304,14 @@ style={{width: "370px"}}
              <div >
         {fields.map((field, idx) => {
           return (
-
             <div key={`${field}-${idx}`}>
-
-            <select name="primaryControls" ref={register}>
-
-        		value={field.value}
-                      onChange={e => ChangeItem(idx, e)}
-                  </select>
-        &nbsp;&nbsp;&nbsp;
+            <select name="secondaryControls" ref={register}>
+           {secondaryItems.map(({ label, value }) => (
+           <option key={value} value={value}>
+             {label}
+           </option>
+           ))}
+           </select>
                     <input
                       type="text"
         style={{width: "370px"}}
