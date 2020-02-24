@@ -31,6 +31,7 @@ export default function EvaluationForm(){
      for(var i=1;i<lines.length-1;i++){
        var currentline=lines[i].split(",");
        var obj = {parts_name: currentline[0]};
+
        axios
         .post('http://localhost:8082/api/parts', obj)
         .then(res => {
@@ -74,22 +75,26 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   React.useEffect(() => {
     console.log("STARTING");
     axios
-     .get('https://driverrehab.herokuapp.com/api/parts')
+     .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/GeneralPartNames.csv')
      .then(res => {
        console.log(res.data);
-          const items = res.data.map(item => ({
-            label: item.parts_name,
-            value: item.parts_name,
-          }));
-          items.sort();
-          setItems(items);
+       var data= res.data.split("\n");
+       var result = [];
+       for(var i=1;i<data.length-1;i++){
+         // var currentline=lines[i].split(",");
+         var obj = {label: data[i], value: data[i]};
+         console.log(data[i])
+         result.push(obj)
+       };
+       setItems(result);
+      })
+       .catch(err => {
+         console.log(err)
+         console.log("Error from Show Car parts detail");
+     })
 
-     })
-     .catch(err => {
-       console.log(err)
-       console.log("Error from Show Car parts detail");
-     })
-   }, []);
+
+ }, []);
 
 
   function ChangeItem(i, event) {
