@@ -6,8 +6,9 @@ import "./index.css";
 import Client from "./client";
 
 import DatePicker from "react-datepicker";
-
+import $ from "jquery";
 import "react-datepicker/dist/react-datepicker.css";
+import jsPDF from "jspdf";
 
 function IntakeForm(props){
   const { register, watch,setValue, handleSubmit, errors } = useForm(
@@ -32,6 +33,113 @@ const adaptiveEquipment = watch("adaptiveEquipment");
 const selfRestrictedDriving = watch("selfRestrictedDriving");
 const privatePayCheckbox = watch("privatePayCheckbox");
 const feesCheckbox = watch("feesCheckbox");
+  function generatePDF(event){
+    var doc = new jsPDF();
+    var First = $('#firstName').val();
+    var Last = $('#lastName').val();
+    var First2 = $('#fName').val();
+    var Last2 = $('#lName').val();
+    var Email = $('#inputEmail5').val();
+    var Date = $('#DatePicker').val();
+    var Number = $('#mobileNumber').val();
+    var Number2 = $('#mobileNumber2').val();
+    var Address =$('#inputAddress').val();
+    var Address2 = $('#inputAddress2').val();
+    var Address3 = $('#inputAddress3').val();
+    var city = $('#inputCity').val();
+    var state = $('#inputState').val();
+    var Zip= $('#inputZip').val();
+    var address1 = $('#inputAddress4').val();
+    var city1 = $('#inputCity4').val();
+    var state1 = $('#inputState4').val();
+    var Zip1= $('#inputZip4').val();
+    var Medical = $('#medicalClearanceTextArea').val();
+    var Driving = $('#drivingConcernsTextArea').val();
+    var Diagnosis = $('#diagnosis').val();
+    var Onset = $('#onset').val();
+    var Seizure = $('#seizure').val();
+
+    //var adherence= $('#Adherence').val();
+    //var otherComments= $('#OtherComments1').val();
+    //var otherComments2= $('#OtherComments2').val();
+    //var minivan= $('#Minivan').val();
+    //var reconmendationsOther= $('#ReconmendationsOther').val();
+    //var evalDate= $('#EvalDate').val();
+    //var evaluatedBy= $('#EvaluatedBy').val();
+
+
+    doc.setFontSize(25);
+    doc.text(70, 30, "Intake Form");
+    doc.setFontSize(17);
+    doc.text(30, 45, "Client:");
+    doc.text(45, 55, "First Name:")
+    doc.text(105, 55, First);
+    doc.text(45, 65, "Last Name:")
+    doc.text(105, 65, Last);
+    doc.text(45, 75, "Date")
+    doc.text(105, 75, Date);
+    doc.text(45, 85, "Number")
+    doc.text(105, 85, Number);
+    doc.text(45, 95, "Address 1:")
+    doc.text(105, 95, Address);
+    doc.text(45, 105, "Address 2:")
+    doc.text(105, 105, Address2);
+    doc.text(45, 115, "City: ")
+    doc.text(105, 115, city);
+    doc.text(45, 125, "State:")
+    doc.text(105, 125, state);
+    doc.text(45, 135, "Zip:")
+    doc.text(105, 135, Zip);
+
+    doc.text(30, 145, "Referral:")
+    doc.text(45, 155, "First Name:")
+    doc.text(105, 155, First2);
+    doc.text(45, 170, "Last Name:");
+    doc.text(105, 170, Last2);
+    doc.text(45, 185, "Email:");
+    doc.text(105, 185, Email);
+    doc.text(45, 195, "Number:");
+    doc.text(105, 195, Number2);
+    doc.text(45, 205, "Address:");
+    doc.text(105, 205, address1);
+    doc.text(45, 215, "City:");
+    doc.text(105, 215, city1);
+    doc.text(45, 225, "State:");
+    doc.text(105, 225, state1);
+    doc.text(45, 235, "Zip:");
+    doc.text(105, 235, Zip1);
+
+
+    doc.text(30, 245, "Medical Information:");
+    doc.text(45, 255, "Explain:");
+    doc.text(105, 255, Medical);
+    doc.text(45, 265, "Driving Concerns:");
+    doc.text(105, 265, Driving);
+    doc.text(45, 275, "Diagonis:");
+    doc.text(105, 275, Diagnosis);
+    doc.text(45, 285, "Onset");
+    doc.text(105, 285, Onset);
+
+/*
+ doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
+    doc.text(45, 205, "Minivan:")
+    doc.text(105, 205, minivan);
+    doc.text(45, 215, "Reconmendations other:")
+    doc.text(105, 215, reconmendationsOther);
+
+    doc.text(45, 235, "Evaluated on:")
+    doc.text(105, 235, evalDate);
+
+    doc.text(45, 225, "Evaluated by:")
+    doc.text(105, 225, evaluatedBy);
+
+
+*/
+
+    doc.save("IntakeForm.pdf");
+  }
+
+
 
 
  React.useEffect(() => {
@@ -55,13 +163,14 @@ return (
     className="form-control"
     name="firstName"
     placeholder="first name"
+    id="firstName"
     ref={register({ required: true })} />
     {errors.firstName && <p>First name is required</p>}
     </div>
 
     <div class="form-group">
     <label htmlFor="lastName">Last Name</label>
-    <input class="form-control" name="lastName" placeholder="last name" ref={register({ required: 'ERROR' })}  />
+    <input class="form-control" name="lastName" placeholder="last name" id="lastName" ref={register({ required: 'ERROR' })}  />
     {errors.lastName && <p>Last name is required</p>}
     </div>
 
@@ -69,6 +178,7 @@ return (
     <DatePicker
           isClearable
           name="dateOfBirth"
+          id="DatePicker"
           selected={date}
           onChange={val => {
             setDate(val);
@@ -101,6 +211,7 @@ return (
          type="tel"
          class="form-control"
          name="mobileNumber"
+         id="mobileNumber"
          ref={register({
            required: true,
            maxLength: 11,
@@ -129,7 +240,7 @@ return (
         </div>
         <div class="form-group col-md-4">
           <label for="inputState">State</label>
-          <input type="text" name="state" class="form-control" id="inputState "
+          <input type="text" name="state" class="form-control" id="inputState"
                   ref={register({ required: true
                                    })} />
           {errors.state && <p>State is required</p>}
@@ -153,12 +264,13 @@ return (
         class="form-control"
         name="referalFirstName"
         placeholder="first name"
+        id = "fName"
         ref={register}/>
         </div>
 
         <div class="form-group">
         <label htmlFor="lastName">Last Name</label>
-        <input class="form-control" name="referalLastName" placeholder="last name" ref={register}/>
+        <input id="lName" class="form-control" name="referalLastName" placeholder="last name" ref={register}/>
         </div>
 
           <div class="form-row">
@@ -167,9 +279,9 @@ return (
               <input
                 class="form-control"
                 name="referalEmail"
-                id="inputEmail4"
+                id="inputEmail5"
                 placeholder="bluebill1049@hotmail.com"
-                type="email"
+                type="text"
                 ref={register}/>
             </div>
 
@@ -179,29 +291,30 @@ return (
              type="tel"
              class="form-control"
              name="referalMobileNumber"
+             id="mobileNumber2"
              ref={register}/>
 
             </div>
           </div>
           <div class="form-group">
             <label for="inputAddress">Address</label>
-            <input type="text" name="referalAddress" class="form-control" id="inputAddress" placeholder="1234 Main St" ref={register}/>
+            <input type="text" name="referalAddress"  class="form-control" id="inputAddress4" placeholder="1234 Main St" ref={register}/>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCity">City</label>
-              <input type="text" name="referalCity" class="form-control" id="inputCity" ref={register}/>
+              <input type="text" name="referalCity"  class="form-control" id="inputCity4" ref={register}/>
             </div>
 
             <div class="form-group col-md-4">
               <label for="inputState">State</label>
-              <input type="text" name="referalState" class="form-control" id="inputState "
+              <input type="text" name="referalState" class="form-control" id="inputState4"
                       ref={register}/>
 
             </div>
             <div class="form-group col-md-2">
               <label for="inputZip">Zip</label>
-              <input type="text" name="referalZip" class="form-control" id="inputZip"  ref={register}/>
+              <input type="text" name="referalZip"class="form-control" id="inputZip4"  ref={register}/>
             </div>
           </div>
 
@@ -221,6 +334,7 @@ return (
         <input
         className="form-control"
         name="diagnosis"
+        id="diagnosis"
         ref={register}/>
         </div>
 
@@ -229,6 +343,7 @@ return (
         <input
         className="form-control"
         name="onset"
+        id="onset"
         ref={register}/>
         </div>
 
@@ -237,6 +352,7 @@ return (
               isClearable
               name="seizureDate"
               selected={seizureDate}
+              id="seizure"
               onChange={val => {
                 setSeizureDate(val);
                 setValue("seizureDate", val)
@@ -613,7 +729,7 @@ return (
         </div>
 
     <input class="btn btn-primary" type="submit" />
-
+<button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
 
 

@@ -1,5 +1,5 @@
 import React from "react"
-//edit
+
 import { useForm } from "react-hook-form";
 import '../App.css';
 import "./index.css";
@@ -8,8 +8,8 @@ import  { useState } from 'react';
 import DatePicker from "react-datepicker";
 import $ from "jquery";
 import jsPDF from "jspdf";
-
 import "react-datepicker/dist/react-datepicker.css";
+import {Link} from "react-router-dom";
 
 export default function EvaluationForm(){
     
@@ -26,10 +26,102 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   }, []);
 
 
+  var fileInput = document.querySelector('input[type="file"]');
+
+  function read(callback) {
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.onload = function() {
+      callback(reader.result);
+    }
+
+    reader.readAsText(file);
+  }
   function ChangeItem(i, event) {
     const values = [...fields];
     values[i].value = event.target.value;
     setFields(values);
+  }
+
+  function handleChange(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      // The file's text will be printed here
+      var pdfFile = e.target.result;
+      console.log(pdfFile);
+
+
+
+
+      var pos = pdfFile.indexOf("(Vehicle Used:) Tj");
+      var pos1 = pdfFile.indexOf("(AE Used:) Tj");
+
+      console.log(pos);
+      console.log(pos1);
+      //getting section with answer
+      var res = pdfFile.slice(pos, pos1);
+      console.log(res);
+
+
+      var n = res.indexOf(") Tj");
+      var pos2 = res.indexOf(") Tj", (n+3));
+      var n1 = res.indexOf("(");
+      var pos3 = res.indexOf("(", (n1)+2);
+
+
+      console.log("position2");
+      console.log(pos2);
+      console.log(n);
+      console.log("position3");
+      console.log(pos3);
+
+
+      var res1 = res.slice(pos3, pos2);
+      console.log(res1);
+      document.getElementById("vehicleUsed").value = res1;
+
+
+
+
+      var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary control operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
+      var ValueIds= ["vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1", "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate"];
+
+      for (let step = 0; step < 15; step++) {
+         console.log(ValueHeaders[step]);
+
+        var pos = pdfFile.indexOf(ValueHeaders[step]);
+        var pos1 = pdfFile.indexOf(ValueHeaders[step+1]);
+
+        console.log(pos);
+        console.log(pos1);
+        //getting section with answer
+        var res = pdfFile.slice(pos, pos1);
+        console.log(res);
+
+
+        var n = res.indexOf(") Tj");
+        var pos2 = res.indexOf(") Tj", (n+3));
+        var n1 = res.indexOf("(");
+        var pos3 = res.indexOf("(", (n1)+2);
+
+
+        console.log("position2");
+        console.log(pos2);
+        console.log(n);
+        console.log("position3");
+        console.log(pos3);
+
+
+        var res1 = res.slice((pos3+1), pos2);
+        console.log(res1);
+        document.getElementById(ValueIds[step]).value = res1;
+      }
+      //value needed between pos and pos1
+    };
+
+    reader.readAsText(file);
   }
 
   function NewDropDown() {
@@ -38,89 +130,349 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     setFields(values);
   }
 
+
   function RemoveDropDown(i) {
     const values = [...fields];
     values.splice(i, 1);
     setFields(values);
   }
 
+
+
+
+
+
   function generatePDF(event){
     var doc = new jsPDF();
+     var bigtext = 55;
     var vehicleUsed = $('#vehicleUsed').val();
+    var vehicleUsedlines =  doc.splitTextToSize(vehicleUsed, bigtext);
     var AEUsed = $('#AEUsed').val();
+    var AEUsedlines =  doc.splitTextToSize(AEUsed, bigtext);
     var weather = $('#weather').val();
+    var weatherlines =  doc.splitTextToSize(weather, bigtext);
     var road = $('#Road').val();
+    var roadlines =  doc.splitTextToSize(road, bigtext);
     var traffic =$('#Trafic').val();
+    var trafficlines =  doc.splitTextToSize(traffic, bigtext);
     var route = $('#Route').val();
+    var routelines =  doc.splitTextToSize(route, bigtext);
     var time = $('#Time').val();
+    var timelines =  doc.splitTextToSize(time, bigtext);
     var primaryControlOperation = $('#PrimaryControlOperation').val();
+    var primaryControlOperationlines =  doc.splitTextToSize(primaryControlOperation, bigtext);
     var awarness= $('#Awareness').val();
+    var awarnesslines =  doc.splitTextToSize(awarness, bigtext);
     var adherence= $('#Adherence').val();
+    var adherencelines =  doc.splitTextToSize(adherence, bigtext);
     var otherComments= $('#OtherComments1').val();
+    var otherCommentslines =  doc.splitTextToSize(otherComments, bigtext);
     var otherComments2= $('#OtherComments2').val();
+    var otherComments2lines =  doc.splitTextToSize(otherComments2, bigtext);
     var minivan= $('#Minivan').val();
+    var minivanlines =  doc.splitTextToSize(minivan, bigtext);
     var reconmendationsOther= $('#ReconmendationsOther').val();
+    var recommendationslines =  doc.splitTextToSize(reconmendationsOther, bigtext);
     var evalDate= $('#EvalDate').val();
+    var evalDatelines =  doc.splitTextToSize(evalDate, bigtext);
     var evaluatedBy= $('#EvaluatedBy').val();
-     
+    var evaluatedBylines =  doc.splitTextToSize(evaluatedBy, bigtext);
+    var lineSpacing = 10;
+    var cursorY = 55;
+    var pageWrapInitialYPosition = 20;
+    var pageHeight = doc.internal.pageSize.height;
+    var cursor2Y = 20;
 
-    doc.setFontSize(25);
+    doc.setFontSize(18);//25
     doc.text(70, 30, "Evaluation Form");
-    doc.setFontSize(17);
+    doc.setFontSize(12);//17
     doc.text(30, 45, "In - Vehicle Assessment:");
-    doc.text(45, 55, "Vehicle Used:")
-    doc.text(105, 55, vehicleUsed);
-    doc.text(45, 65, "AE Used:")
-    doc.text(105, 65, AEUsed);
-    doc.text(45, 75, "Weather Conditions:")
-    doc.text(105, 75, weather);
-    doc.text(45, 85, "Road Conditions:")
-    doc.text(105, 85, road);
-    doc.text(45, 95, "Traffic Conditions:")
-    doc.text(105, 95, traffic);
-    doc.text(45, 105, "Route:")
-    doc.text(105, 105, route);
-    doc.text(45, 115, "Time:")
-    doc.text(105, 115, time);
-    doc.text(45, 125, "Primary control operation:")
-    doc.text(105, 125, primaryControlOperation);
-    doc.text(45, 135, "Awareness of/interaction with traffic environment:")
-    doc.text(105, 135, awarness);
-    doc.text(45, 145, "Adherence to motor vehicle law:")
-    doc.text(105, 145, adherence);
-    doc.text(45, 155, "Other Comments:")
-    doc.text(105, 155, otherComments);
+    doc.text(45, cursorY, "Vehicle Used:")
+    vehicleUsedlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{
+    doc.text(105, cursorY, lineText);
+    }
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "AE Used:");
+    }
+    else{
+    doc.text(45, cursorY + 10, "AE Used:");
+    }
+    AEUsedlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{
+    doc.text(105, cursorY + 10, lineText);
+    }
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Weather Conditions:");
+    }
+    else{
+    doc.text(45, cursorY + 20, "Weather Conditions:");
+    }
+    weatherlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else {doc.text(105, cursorY + 20, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Road Conditions:");
+    }
+    else{
+    doc.text(45, cursorY + 30, "Road Conditions:");
+    }
+    roadlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else {doc.text(105, cursorY + 30, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Traffic Conditions:");
+    }
+    else{
+    doc.text(45, cursorY + 40, "Traffic Conditions:");
+    }
+    trafficlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 40, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Route:");
+    }
+    else{
+    doc.text(45, cursorY + 50, "Route:");
+    }
+    routelines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 50, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Time:");
+    }
+    else{
+    doc.text(45, cursorY + 60, "Time:");
+    }
+    timelines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 60, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Primary Control Operation:")
+    }
+    else{
+    doc.text(45, cursorY + 70, "Primary Control Operation:");
+    }
+    primaryControlOperationlines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 70, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > 200) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Awareness of/interaction with traffic environment:");
+    }
+    else{
+    doc.text(45, cursorY + 80, "Awareness of/interaction with traffic environment:");
+    }
+    awarnesslines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 90, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > 200) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Adherence to motor vehicle law:");
+    }
+    else{
+    doc.text(45, cursorY + 100, "Adherence to motor vehicle law:");
+    }
+    adherencelines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+    }
+    else{doc.text(105, cursorY + 110, lineText);}
+    cursorY += lineSpacing;
+    })
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Other Comments:");
+    }
+    else{
+    doc.text(45, cursorY + 10, "Other Comments:");
+    }
+    otherCommentslines.forEach(lineText => {
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, lineText);
+    }
+    else{doc.text(105, cursorY + 120, lineText);}
+    cursorY += lineSpacing;
+    })
 
-    doc.text(30, 170, "Reconmendations:");
-    doc.text(45, 180, "Other Comments:")
-    doc.text(105, 180, otherComments2);
+    doc.addPage();
+    doc.text(30, cursor2Y, "Reconmendations:");
+    doc.text(45, cursor2Y + 10, "Other Comments:")
+    otherComments2lines.forEach(lineText => {
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(105, cursor2Y, lineText);
+    }
+    else{doc.text(105, cursor2Y + 10, lineText);}
+    cursor2Y += lineSpacing;
+    })
 
 
-    
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(45, cursor2Y, "Minivan:");
+    }
+    else{
+    doc.text(45, cursor2Y + 20, "Minivan:");
+    }
+    minivanlines.forEach(lineText => {
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(105, cursor2Y, lineText);
+    }
+    else{doc.text(105, cursor2Y + 30, lineText);}
+    cursor2Y += lineSpacing;
+    })
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(30, cursor2Y, "Vehicle and Adaptive Recommendations:");
+    }
+    else{
+      doc.text(30, cursor2Y + 30, "Vehicle and Adaptive Recommendations:");
+    }
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursor2Y, "Recommendations Other:");
+    }
+    else{
+    doc.text(45, cursor2Y + 40, "Recommendations Other:");
+    }
+    recommendationslines.forEach(lineText => {
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+    doc.text(105, cursor2Y, lineText);
+    }
+    else{doc.text(105, cursor2Y + 40, lineText);}
+    cursor2Y += lineSpacing;
+    })
 
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursor2Y, "Evaluated By:");
+    }
+    else{
+    doc.text(45, cursor2Y + 50, "Evaluated By:");
+    }
+    evaluatedBylines.forEach(lineText => {
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(105, cursor2Y, lineText);
+    }
+    else{doc.text(105, cursor2Y + 50, lineText);}
+    cursor2Y += lineSpacing;
+    })
 
- doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
-    doc.text(45, 205, "Minivan:")
-    doc.text(105, 205, minivan);
-    doc.text(45, 215, "Reconmendations other:")
-    doc.text(105, 215, reconmendationsOther);
-
-    doc.text(45, 235, "Evaluated on:")
-    doc.text(105, 235, evalDate);
-
-    doc.text(45, 225, "Evaluated by:")
-    doc.text(105, 225, evaluatedBy);
-    
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Evaluated On:");
+    }
+    else{
+    doc.text(45, cursor2Y + 60, "Evaluated On:");
+    }
+    evalDatelines.forEach(lineText => {
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(105, cursor2Y, lineText);
+    }
+    else{doc.text(105, cursor2Y + 60, lineText);}
+    cursor2Y += lineSpacing;
+    })
 
 
     doc.save("DriverRehab.pdf");
   }
- 
+
 
 return (
-  <form onSubmit={handleSubmit(onSubmit)}>  
+  <form onSubmit={handleSubmit(onSubmit)}>
 <h1>In-vehicle Assessment</h1>
-  
+
 
   <div class="form-group">
     <label htmlFor="vehicleUsed">Vehicle used</label>
@@ -214,18 +566,18 @@ return (
         <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
       </div>
 
-  
+
 <h5 for="primaryControls ">Primary Controls: </h5>
- 
+
 <div className="float-left">
       {fields.map((field, idx) => {
         return (
-           
+
           <div key={`${field}-${idx}`}>
-	    
+
           <select name="primaryControls" ref={register}>
-	 
-              
+
+
 
 <option value="Component3">->Link:  Lift /Transfer Seat </option>
 <option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
@@ -311,15 +663,15 @@ return (
 <option value="Component120">->Tote - Model 003:  Lift</option>
 <option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
 <option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value} 
+		value={field.value}
               onChange={e => ChangeItem(idx, e)}
           </select>
 &nbsp;&nbsp;&nbsp;
             <input
               type="text"
 style={{width: "370px"}}
-	      value={field.value} 
-		
+	      value={field.value}
+
               onChange={e => ChangeItem(idx, e)}
             />
             <button type="button" onClick={() => RemoveDropDown(idx)}>
@@ -334,19 +686,19 @@ style={{width: "370px"}}
       })}
     </div>
 
- 
-      <br /><br /> 
+
+      <br /><br />
 <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
 determined during initial training session </h5>
            <div className="float-left">
       {fields.map((field, idx) => {
         return (
-           
+
           <div key={`${field}-${idx}`}>
-	    
+
           <select name="primaryControls" ref={register}>
-	 
-              
+
+
 
 <option value="Component3">->Link:  Lift /Transfer Seat </option>
 <option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
@@ -432,15 +784,15 @@ determined during initial training session </h5>
 <option value="Component120">->Tote - Model 003:  Lift</option>
 <option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
 <option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value} 
+		value={field.value}
               onChange={e => ChangeItem(idx, e)}
           </select>
 &nbsp;&nbsp;&nbsp;
             <input
               type="text"
 style={{width: "370px"}}
-	      value={field.value} 
-		
+	      value={field.value}
+
               onChange={e => ChangeItem(idx, e)}
             />
             <button type="button" onClick={() => RemoveDropDown(idx)}>
@@ -455,21 +807,21 @@ style={{width: "370px"}}
       })}
     </div>
 
-   
 
 
 
-      <br /><br /> 
+
+      <br /><br />
 <h5 for="secondaryControls">Secondary controls-other </h5>
            <div className="float-left">
       {fields.map((field, idx) => {
         return (
-           
+
           <div key={`${field}-${idx}`}>
-	    
+
           <select name="primaryControls" ref={register}>
-	 
-              
+
+
 
 <option value="Component3">->Link:  Lift /Transfer Seat </option>
 <option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
@@ -555,15 +907,15 @@ style={{width: "370px"}}
 <option value="Component120">->Tote - Model 003:  Lift</option>
 <option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
 <option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value} 
+		value={field.value}
               onChange={e => ChangeItem(idx, e)}
           </select>
 &nbsp;&nbsp;&nbsp;
             <input
               type="text"
 style={{width: "370px"}}
-	      value={field.value} 
-		
+	      value={field.value}
+
               onChange={e => ChangeItem(idx, e)}
             />
             <button type="button" onClick={() => RemoveDropDown(idx)}>
@@ -577,7 +929,7 @@ style={{width: "370px"}}
         );
       })}
     </div>
-    
+
 
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
@@ -654,7 +1006,13 @@ style={{width: "370px"}}
         </div>
 
     <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
-    <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
+
+    <button className="btn btn-primary" onClick={e => generatePDF()}> Generate PDF</button>
+
+      <input  type="file" name="firstName" onChange={handleChange} />
+
+
   </form>
+
 );
 }
