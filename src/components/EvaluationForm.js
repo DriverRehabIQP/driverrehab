@@ -94,6 +94,26 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
      })
 
 
+     // secondary controls
+
+     axios
+      .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/GeneralPartNames.csv')
+      .then(res => {
+        console.log(res.data);
+        var data= res.data.split("\n");
+        var result = [];
+        for(var i=1;i<data.length-1;i++){
+          // var currentline=lines[i].split(",");
+          var obj = {label: data[i], value: data[i]};
+          console.log(data[i])
+          result.push(obj)
+        };
+        setItems(result);
+       })
+        .catch(err => {
+          console.log(err)
+          console.log("Error from Show Car parts detail");
+      })
  }, []);
 
 
@@ -188,9 +208,6 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
    };
 return (
   <div style={generalStyles}>
-  <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
-      <button className='btn'>Upload new car equipments</button>
-    </ReactFileReader>
   <form onSubmit={handleSubmit(onSubmit)}>
 
   <h1>In-vehicle Assessment</h1>
@@ -318,6 +335,45 @@ style={{width: "370px"}}
         );
       })}
     </div>
+
+
+    <br /><br />
+  <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
+  determined during initial training session </h5>
+             <div >
+        {fields.map((field, idx) => {
+          return (
+
+            <div key={`${field}-${idx}`}>
+
+            <select name="primaryControls" ref={register}>
+
+        		value={field.value}
+                      onChange={e => ChangeItem(idx, e)}
+                  </select>
+        &nbsp;&nbsp;&nbsp;
+                    <input
+                      type="text"
+        style={{width: "370px"}}
+        	      value={field.value}
+
+                      onChange={e => ChangeItem(idx, e)}
+                    />
+                    <button type="button" onClick={() => RemoveDropDown(idx)}>
+                      X
+                    </button>  &nbsp;&nbsp;&nbsp;
+        <button type="button" onClick={() => NewDropDown()}>
+                +
+              </button>
+                  <br /><br />
+                </div>
+                );
+              })}
+            </div>
+
+
+
+
 
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
