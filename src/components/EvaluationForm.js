@@ -32,21 +32,23 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   alert(JSON.stringify(data));
   };
   const [evaluateDate, setDate] = React.useState(null);
-  const [fields, setFields] = useState([{ value: null }]);
+  const [primaryFields, setprimaryFields] = useState([{ value: null }]);
+  const [secondaryFields, setSecondaryFields] = useState([{ value: null }]);
 
-  // Similar to componentDidMount and componentDidUpdate:
+
   React.useEffect(() => {
     console.log("STARTING");
     axios
      .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/PrimaryControlsCarEquipments.csv')
      .then(res => {
+       console.log("PRIMARY DROPDOWNS-------------------------")
        console.log(res.data);
        var data= res.data.split("\n");
        var result = [];
        for(var i=1;i<data.length-1;i++){
          // var currentline=lines[i].split(",");
          var obj = {label: data[i], value: data[i]};
-         console.log(data[i])
+         // console.log(data[i])
          result.push(obj)
        };
        result.sort();
@@ -58,17 +60,15 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
      })
 
      // secondary controls
-
      axios
       .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/SecondaryControlsCarEquipments.csv')
       .then(res => {
+        console.log("SECONDARY DROPDOWNS-------------------------")
         console.log(res.data);
         var data= res.data.split("\n");
         var result = [];
         for(var i=1;i<data.length-1;i++){
-          // var currentline=lines[i].split(",");
           var obj = {label: data[i], value: data[i]};
-          console.log(data[i])
           result.push(obj)
         };
         result.sort();
@@ -82,21 +82,33 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
 
 
   function ChangeItem(i, event) {
-    const values = [...fields];
+    const values = [...primaryFields];
     values[i].value = event.target.value;
-    setFields(values);
+    setprimaryFields(values);
   }
 
-  function NewDropDown() {
-    const values = [...fields];
+  function NewPrimaryDropDown() {
+    const values = [...primaryFields];
     values.push({ value: null });
-    setFields(values);
+    setprimaryFields(values);
   }
 
-  function RemoveDropDown(i) {
-    const values = [...fields];
+  function RemovePrimaryDropDown(i) {
+    const values = [...primaryFields];
     values.splice(i, 1);
-    setFields(values);
+    setprimaryFields(values);
+  }
+
+  function NewSecondaryDropDown() {
+    const values = [...secondaryFields];
+    values.push({ value: null });
+    setSecondaryFields(values);
+  }
+
+  function RemoveSecondaryDropDown(i) {
+    const values = [...secondaryFields];
+    values.splice(i, 1);
+    setSecondaryFields(values);
   }
 
   function generatePDF(event){
@@ -117,8 +129,6 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     var reconmendationsOther= $('#ReconmendationsOther').val();
     var evalDate= $('#EvalDate').val();
     var evaluatedBy= $('#EvaluatedBy').val();
-
-
     doc.setFontSize(25);
     doc.text(70, 30, "Evaluation Form");
     doc.setFontSize(17);
@@ -154,101 +164,78 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     doc.text(105, 205, minivan);
     doc.text(45, 215, "Reconmendations other:")
     doc.text(105, 215, reconmendationsOther);
-
     doc.text(45, 235, "Evaluated on:")
     doc.text(105, 235, evalDate);
-
     doc.text(45, 225, "Evaluated by:")
     doc.text(105, 225, evaluatedBy);
-
-
-
     doc.save("DriverRehab.pdf");
   }
   const generalStyles = {
      marginLeft: '20px',
      marginRight: '20px',
-     // backgroundColor: 'blue',
    };
 return (
   <div style={generalStyles}>
   <form onSubmit={handleSubmit(onSubmit)}>
-
   <h1>In-vehicle Assessment</h1>
   <div class="form-group">
     <label htmlFor="vehicleUsed">Vehicle used</label>
     <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
   </div>
-
     <div class="form-group">
         <label for="AEUsed">AE used</label>
         <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
       </div>
+  <div class="form-group">
+      <label for="weatherConditions">Weather Conditions</label>
+      <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="roadConditions">Road Conditions</label>
+      <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="traffiConditions">Trafic Conditions</label>
+      <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="AEUsed">Route</label>
+      <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
+    </div>
+  <div class="form-group">
+      <label for="time">Time</label>
+      <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="AEUsed">Primary control operation</label>
+      <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
+      <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+      <label for="adherenceLaw">Adherence to motor vehicle law</label>
+      <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
+    </div>
+  <div class="form-group">
+    <label for="assessmentOther">Other comments</label>
+    <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
+  </div>
+    <h1>Reconmendations</h1>
+  <div class="row">
+    <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
+    <input name="approvedToDrive" type="checkbox" ref={register} />
+  </div>
+  <div class="row">
+    <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
+    <input name="useOfAE" type="checkbox" ref={register} />
+  </div>
 
-
-    <div class="form-group">
-        <label for="weatherConditions">Weather Conditions</label>
-        <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
-      </div>
-
-
-    <div class="form-group">
-        <label for="roadConditions">Road Conditions</label>
-        <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
-      </div>
-
-      <div class="form-group">
-          <label for="traffiConditions">Trafic Conditions</label>
-          <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
-        </div>
-
-
-      <div class="form-group">
-          <label for="AEUsed">Route</label>
-          <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
-        </div>
-
-      <div class="form-group">
-          <label for="time">Time</label>
-          <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
-        </div>
-
-      <div class="form-group">
-          <label for="AEUsed">Primary control operation</label>
-          <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
-        </div>
-
-      <div class="form-group">
-          <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
-          <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
-        </div>
-
-      <div class="form-group">
-          <label for="adherenceLaw">Adherence to motor vehicle law</label>
-          <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
-        </div>
-
-        <div class="form-group">
-            <label for="assessmentOther">Other comments</label>
-            <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
-          </div>
-
-          <h1>Reconmendations</h1>
-
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
-        <input name="approvedToDrive" type="checkbox" ref={register} />
-      </div>
-
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
-        <input name="useOfAE" type="checkbox" ref={register} />
-      </div>
-
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Training</legend>
-        <input name="training" type="checkbox" ref={register} />
-      </div>
+  <div class="row">
+    <legend class="col-form-label col-sm-2 pt-0">Training</legend>
+    <input name="training" type="checkbox" ref={register} />
+  </div>
 
       <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Road Test</legend>
@@ -269,7 +256,7 @@ return (
 
 
 <h5 for="primaryControls ">Primary Controls: </h5>
-{fields.map((field, idx) => {
+{primaryFields.map((field, idx) => {
   return (
 <div class="container">
     <div class="row">
@@ -287,10 +274,10 @@ return (
         />
         </div>
         <div class="col-sm-2">
-        <button type="button" onClick={() => RemoveDropDown(idx)}>
+        <button type="button" onClick={() => RemovePrimaryDropDown(idx)}>
           X
         </button>
-        <button type="button" onClick={() => NewDropDown()}>
+        <button type="button" onClick={() => NewPrimaryDropDown()}>
       +
       </button>
         </div>
@@ -301,40 +288,41 @@ return (
 </div>
 );
 })}
-  <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
-  determined during initial training session </h5>
-             <div >
-        {fields.map((field, idx) => {
-          return (
-            <div key={`${field}-${idx}`}>
-            <select name="secondaryControls" ref={register}>
-           {secondaryItems.map(({ label, value }) => (
-           <option key={value} value={value}>
-             {label}
-           </option>
-           ))}
-           </select>
-                    <input
-                      type="text"
-        style={{width: "370px"}}
-        	      value={field.value}
 
-                      onChange={e => ChangeItem(idx, e)}
-                    />
-                    <button type="button" onClick={() => RemoveDropDown(idx)}>
-                      X
-                    </button>  &nbsp;&nbsp;&nbsp;
-        <button type="button" onClick={() => NewDropDown()}>
-                +
-              </button>
-                  <br /><br />
-                </div>
-                );
-              })}
-            </div>
+<h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
+determined during initial training session </h5>
+{secondaryFields.map((secondaryFields, idx) => {
+  return (
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+        <div key={`${secondaryFields}-${idx}`}></div>
+        <Select options={secondaryItems }name="primaryControls" ref={register}/>
+        </div>
+        <div class="col-sm-4">
+        <input
+        class="form-control"
+          type="text"
+            style={{width: "370px"}}
+               value={secondaryFields.value}
+          onChange={e => ChangeItem(idx, e)}
+        />
+        </div>
+        <div class="col-sm-2">
+        <button type="button" onClick={() => RemoveSecondaryDropDown(idx)}>
+          X
+        </button>
+        <button type="button" onClick={() => NewSecondaryDropDown()}>
+      +
+      </button>
+        </div>
+        <div class="col-sm-1">
 
-
-
+        </div>
+    </div>
+</div>
+);
+})}
 
 
       <div class="form-group">
@@ -342,12 +330,9 @@ return (
 
           <input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
         </div>
-
-
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
           Driver Evaluation and Training Program Notice
         </button>
-
         <div class="form-group">
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -411,7 +396,6 @@ return (
             {errors.date && <p>Evaluation date is required</p>}
         </div>
 
-    <input class="btn btn-primary" type="submit" />
     <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
   </div>
