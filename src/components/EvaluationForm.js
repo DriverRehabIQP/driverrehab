@@ -20,13 +20,9 @@ import Select from 'react-select';
 
 export default function EvaluationForm(){
 
-
-
    const onSubmit = data => {
     alert(JSON.stringify(data));
   };
-  const [primaryFields, setprimaryFields] = useState([{ value: null }]);
-  const [secondaryFields, setSecondaryFields] = useState([{ value: null }]);
   const [items, setItems] = React.useState([
     { label: "test", value: "test" },
   ]);
@@ -259,19 +255,22 @@ export default function EvaluationForm(){
 
     reader.readAsText(file);
   }
-// SECONDARY values
+  // SECONDARY values
   const [secondaryAllValues, setSecondaryAllValues] = useState({});
+  const [nextSecondaryIdx, setNextSecondaryIndex] = useState(1)
+
   function NewSecondaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
-    setSecondaryAllValues({
-      ...secondaryAllValues,
-      [i]: {
-        dropdownVal: null,
-        textboxVal: null
-      }
-    });
+      setSecondaryAllValues({
+        ...secondaryAllValues,
+        [i]: {
+          dropdownVal: null,
+          textboxVal: null
+        }
+      });
     console.log(secondaryAllValues)
+    setNextSecondaryIndex(nextSecondaryIdx+1)
   }
 
   function RemoveSecondaryDropDown(i) {
@@ -283,7 +282,7 @@ export default function EvaluationForm(){
   function ChangeSecondaryItem(i, event) {
     setSecondaryAllValues({
       ...secondaryAllValues,
-      [i]: { ...secondaryAllValues[i], textboxVal: event.target.value }
+      [i]: { ...secondaryAllValues[i], textboxVal: event }
     });
     console.log("change items")
     console.log(secondaryAllValues)
@@ -297,48 +296,46 @@ export default function EvaluationForm(){
     console.log("Handle select")
     console.log(secondaryAllValues)
   }
+  // PRIMARY VALUES
+    const [primaryAllValues, setPrimaryAllValues] = useState({});
+    const [nextIdx, setNextIndex] = useState(1)
+    function NewPrimaryDropDown(i) {
+      console.log("inside add function")
+      console.log(i)
+        setPrimaryAllValues({
+          ...primaryAllValues,
+          [i]: {
+            dropdownVal: null,
+            textboxVal: null
+          }
+        });
+        setNextIndex(nextIdx+1)
+      console.log(primaryAllValues)
+    }
 
+    function RemovePrimaryDropDown(i) {
+      const newState = { ...primaryAllValues };
+      delete newState[i];
+      setPrimaryAllValues(newState);
+    }
 
+    function ChangeItem(i, event) {
+      setPrimaryAllValues({
+        ...primaryAllValues,
+        [i]: { ...primaryAllValues[i], textboxVal: event}
+      });
+      console.log("change items")
+      console.log(primaryAllValues)
+    }
 
-// PRIMARY VALUES
-  const [primaryAllValues, setPrimaryAllValues] = useState({});
-  function NewPrimaryDropDown(i) {
-    console.log("inside add function")
-    console.log(i)
-    setPrimaryAllValues({
-      ...primaryAllValues,
-      [i]: {
-        dropdownVal: null,
-        textboxVal: null
-      }
-    });
-    console.log(primaryAllValues)
-  }
-
-  function RemovePrimaryDropDown(i) {
-    const newState = { ...primaryAllValues };
-    delete newState[i];
-    setPrimaryAllValues(newState);
-  }
-
-  function ChangeItem(i, event) {
-    setPrimaryAllValues({
-      ...primaryAllValues,
-      [i]: { ...primaryAllValues[i], textboxVal: event.target.value }
-    });
-    console.log("change items")
-    console.log(primaryAllValues)
-  }
-
-  function HandleSelect(i, selectedOptions) {
-    setPrimaryAllValues({
-      ...primaryAllValues,
-      [i]: { ...primaryAllValues[i], dropdownVal: selectedOptions }
-    });
-    console.log("Handle select")
-    console.log(primaryAllValues)
-  }
-
+    function HandleSelect(i, selectedOptions) {
+      setPrimaryAllValues({
+        ...primaryAllValues,
+        [i]: { ...primaryAllValues[i], dropdownVal: selectedOptions }
+      });
+      console.log("Handle select")
+      console.log(primaryAllValues)
+    }
 
   function generatePDF(event){
     var doc = new jsPDF();
@@ -1088,16 +1085,6 @@ export default function EvaluationForm(){
       }
       cursorY += lineSpacing;
     })
-
-
-
-
-
-
-
-
-
-
 
     doc.setFontSize(13);
     doc.text(70, cursorY, "In-Vehicle Assesment");
