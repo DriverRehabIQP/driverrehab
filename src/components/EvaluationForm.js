@@ -1420,54 +1420,78 @@ export default function EvaluationForm(){
       else{doc.text(105, cursor2Y + 130, lineText);}
       cursor2Y += lineSpacing;
     })
+    // get values from dropdown
 
     var curArr= Object.keys(primaryAllValues)
-
+    doc.setFontSize(14);
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(45, cursor2Y, "Primary Controls");
+    }else{
+      doc.text(45, cursor2Y + 130, "Primary Controls");
+      cursor2Y += lineSpacing;
+    }
+    doc.setFontSize(12);
     for(var i=0;i<curArr.length;i++){
-      console.log("I am in teh forlop")
 
-
-     // console.log("textbox")
+      // console.log("textbox")
       // HOW YOU GET VALUE FROM DROPDOWN
-      //var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
+      var dropdown = (primaryAllValues[curArr[i]].dropdownVal.label)
 
-      // HOW YOU GET VALUE FROM TEXTBOX
-      //console.log("dropdownVal")
-      //var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
-
-    };
-    doc.addPage();
-    cursorY = pageWrapInitialYPosition;
-    // get values from dropdown
-    console.log(curArr.length);
-    var curSecondaryArr= Object.keys(secondaryAllValues);
-    for(var i=0;i<curArr.length;i++){
-      console.log("I am in teh forlop");
-      // HOW YOU GET VALUE FROM DROPDOWN
-      var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
-      // HOW YOU GET VALUE FROM TEXTBOX
-      console.log("dropdownVal")
-      var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal);
-     // var otextboxlines =  doc.splitTextToSize(textbox, bigtext);
-
-
-      if (cursorY > pageHeight) { // Auto-paging
+         var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
+       var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
+      if (cursor2Y > pageHeight) { // Auto-paging
         doc.addPage();
-        cursorY = pageWrapInitialYPosition;
-        doc.text(45, cursorY, "Secondary Items:");
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(45, cursor2Y, dropdown);
+      }else{
+        doc.text(45, cursor2Y + 130, dropdown);
       }
-      else{
-        doc.text(45, cursorY + 130, "Secondary Items:");
-      }
-      doc.text(105, cursorY, dropdown);
-      console.log("erurika");
-      cursorY += lineSpacing;
-
-      doc.text(105, cursorY, textbox);
-      cursorY += lineSpacing;
-
-
+      otextboxlines.forEach(lineText => {
+        if (cursor2Y > pageHeight) { // Auto-paging
+          doc.addPage();
+          cursor2Y = pageWrapInitialYPosition;
+          doc.text(125, cursor2Y, lineText);
+        }
+        else{doc.text(125, cursor2Y + 130, lineText);}
+        cursor2Y += lineSpacing;
+      })
     };
+    var curSecondaryArr= Object.keys(secondaryAllValues);
+    doc.setFontSize(14);
+    if (cursor2Y > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursor2Y = pageWrapInitialYPosition;
+      doc.text(45, cursor2Y, "Secondary Controls");
+    }else{
+      doc.text(45, cursor2Y + 130, "Secondary Controls");
+      cursor2Y += lineSpacing;
+    }
+    doc.setFontSize(12);
+    for(var i=0;i<curSecondaryArr.length;i++){
+      // HOW YOU GET VALUE FROM DROPDOWN
+      var dropdown = (secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+      // HOW YOU GET VALUE FROM TEXTBOX
+       var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
+       var otextboxlines =  doc.splitTextToSize(TextPart, bigtext);
+
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(45, cursor2Y, dropdown);
+      }else{
+        doc.text(45, cursor2Y + 130, dropdown);
+      }
+      otextboxlines.forEach(lineText => {
+        if (cursor2Y > pageHeight) { // Auto-paging
+          doc.addPage();
+          cursor2Y = pageWrapInitialYPosition;
+          doc.text(125, cursor2Y, lineText);
+        }
+        else{doc.text(125, cursor2Y + 130, lineText);}
+        cursor2Y += lineSpacing;
+      })    };
 
     doc.save("DriverRehab.pdf");
   }
