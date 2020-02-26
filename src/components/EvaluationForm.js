@@ -86,7 +86,7 @@ export default function EvaluationForm(){
 
 // SECONDARY values
 const [secondaryAllValues, setSecondaryAllValues] = useState({});
-const [nextSecondaryIdx, setNextSecondaryIndex] = useState(1)
+const [nextSecondaryIdx, setNextSecondaryIndex] = useState(0)
 
   const [fields, setFields] = useState([{ value: null }]);
 
@@ -334,7 +334,7 @@ function HandleSecondarySelect(i, selectedOptions) {
 
 // PRIMARY VALUES
   const [primaryAllValues, setPrimaryAllValues] = useState({});
-  const [nextIdx, setNextIndex] = useState(1)
+  const [nextIdx, setNextIndex] = useState(0)
   function NewPrimaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
@@ -361,12 +361,13 @@ function HandleSecondarySelect(i, selectedOptions) {
 
   function RemovePrimaryDropDown(i) {
     const newState = { ...primaryAllValues };
-    console.log("newState in remove")
-    console.log(newState)
     delete newState[i];
+<<<<<<< HEAD
     console.log("delete")
     console.log(newState)
     delete newState[i];
+=======
+>>>>>>> parent of d97614fe... fix primary delete UI
     setPrimaryAllValues(newState);
   }
 
@@ -563,15 +564,13 @@ return (
 <h5 for="primaryControls ">Primary Controls: </h5>
 
 {Object.keys(primaryAllValues).map((field) => {
-  console.log("before return")
-  console.log(primaryAllValues)
   return (
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
         <div key={`${field}-${field}`}></div>
         <Select options={items } class="PrimaryClass" name="primaryControls" ref={register}
-        onChange={e=>HandleSelect(field, e)} value={primaryAllValues[field].dropdownVal}
+        onChange={e=>HandleSelect(field, e)}
         />
         </div>
         <div class="col-sm-4">
@@ -579,7 +578,7 @@ return (
         class="form-control"
           type="text"
             style={{width: "370px"}}
-               value={primaryAllValues[field].textboxVal}
+               value={field.value}
           onChange={e => ChangeItem(field, e)}
         />
         </div>
@@ -603,7 +602,6 @@ return (
 <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
 determined during initial training session </h5>
 {Object.keys(secondaryAllValues).map((field) => {
-
   return (
 <div class="container">
     <div class="row">
