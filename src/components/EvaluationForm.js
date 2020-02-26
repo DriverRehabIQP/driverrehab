@@ -390,14 +390,16 @@ determined during initial training session </h5>
     <div class="row">
         <div class="col-sm-6">
         <div key={`${field}-${field}`}></div>
-        <Select  onChange={e=>HandleSecondarySelect(field, e)} options={secondaryItems } name="primaryControls" ref={register}/>
+        <Select  onChange={e=>HandleSecondarySelect(field, e)}
+        options={secondaryItems } name="primaryControls" ref={register}
+        value={secondaryAllValues[field].dropdownVal} />
         </div>
         <div class="col-sm-4">
         <input
         class="form-control"
           type="text"
             style={{width: "370px"}}
-               value={field.value}
+               value={secondaryAllValues[field].textboxVal}
           onChange={e => ChangeSecondaryItem(field, e)}
         />
         </div>
