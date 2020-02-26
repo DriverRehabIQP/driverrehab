@@ -7,43 +7,116 @@ import Client from "./client";
 import  { useState } from 'react';
 import DatePicker from "react-datepicker";
 import $ from "jquery";
+
 import jsPDF from "jspdf";
+
 import "react-datepicker/dist/react-datepicker.css";
-import {Link} from "react-router-dom";
+import ReactFileReader from 'react-file-reader';
+
+import * as XLSX from 'xlsx';
+import axios from 'axios';
+import Select from 'react-select';
+
 
 export default function EvaluationForm(){
-    
 
-const { register, watch,setValue, handleSubmit, errors } = useForm();
+  const [items, setItems] = React.useState([
+    { label: "test", value: "test" },
+  ]);
+
+  const [secondaryItems, setSecondaryItems] = React.useState([
+    { label: "test", value: "test" },
+  ]);
+
+  const { register, watch,setValue, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-  alert(JSON.stringify(data));
+    alert(JSON.stringify(data));
   };
   const [evaluateDate, setDate] = React.useState(null);
- const [fields, setFields] = useState([{ value: null }]); 
+  const [primaryFields, setprimaryFields] = useState([{ value: null }]);
+  const [secondaryFields, setSecondaryFields] = useState([{ value: null }]);
+
+
+  React.useEffect(() => {
+    console.log("STARTING");
+    axios
+        .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/PrimaryControlsCarEquipments.csv')
+        .then(res => {
+          console.log("PRIMARY DROPDOWNS-------------------------")
+          console.log(res.data);
+          var data= res.data.split("\n");
+          var result = [];
+          for(var i=1;i<data.length-1;i++){
+            // var currentline=lines[i].split(",");
+            var obj = {label: data[i], value: data[i]};
+            // console.log(data[i])
+            result.push(obj)
+          };
+          result.sort();
+          setItems(result);
+        })
+        .catch(err => {
+          console.log(err)
+          console.log("Error from Show Car parts detail");
+        })
+
+    // secondary controls
+    axios
+        .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/SecondaryControlsCarEquipments.csv')
+        .then(res => {
+          console.log("SECONDARY DROPDOWNS-------------------------")
+          console.log(res.data);
+          var data= res.data.split("\n");
+          var result = [];
+          for(var i=1;i<data.length-1;i++){
+            var obj = {label: data[i], value: data[i]};
+            result.push(obj)
+          };
+          result.sort();
+          setSecondaryItems(result);
+        })
+        .catch(err => {
+          console.log(err)
+          console.log("Error from Show Car parts detail");
+        })
+  }, []);
+  const [fields, setFields] = useState([{ value: null }]);
 
   React.useEffect(() => {
     register({ name: "evaluateDate" }, { required: true });
   }, []);
 
 
-  var fileInput = document.querySelector('input[type="file"]');
 
-  function read(callback) {
-    var file = fileInput.files.item(0);
-    var reader = new FileReader();
-
-    reader.onload = function() {
-      callback(reader.result);
-    }
-
-    reader.readAsText(file);
-  }
   function ChangeItem(i, event) {
-    const values = [...fields];
+    const values = [...primaryFields];
     values[i].value = event.target.value;
-    setFields(values);
+    setprimaryFields(values);
   }
 
+  function NewPrimaryDropDown() {
+    const values = [...primaryFields];
+    values.push({ value: null });
+    setprimaryFields(values);
+  }
+
+  function RemovePrimaryDropDown(i) {
+    const values = [...primaryFields];
+    values.splice(i, 1);
+    setprimaryFields(values);
+  }
+
+  function NewSecondaryDropDown() {
+    const values = [...secondaryFields];
+    values.push({ value: null });
+    setSecondaryFields(values);
+  }
+
+  function RemoveSecondaryDropDown(i) {
+    const values = [...secondaryFields];
+    values.splice(i, 1);
+    setSecondaryFields(values);
+  }
   function handleChange(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -85,11 +158,11 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
 
 
 
-      var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary control operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
+      var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
       var ValueIds= ["vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1", "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate"];
 
       for (let step = 0; step < 15; step++) {
-         console.log(ValueHeaders[step]);
+        console.log(ValueHeaders[step]);
 
         var pos = pdfFile.indexOf(ValueHeaders[step]);
         var pos1 = pdfFile.indexOf(ValueHeaders[step+1]);
@@ -124,27 +197,84 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     reader.readAsText(file);
   }
 
-  function NewDropDown() {
-    const values = [...fields];
-    values.push({ value: null });
-    setFields(values);
-  }
-
-
-  function RemoveDropDown(i) {
-    const values = [...fields];
-    values.splice(i, 1);
-    setFields(values);
-  }
-
-
-
-
-
-
   function generatePDF(event){
     var doc = new jsPDF();
-     var bigtext = 55;
+    var bigtext = 55;
+
+    var clientName = $('#ClientName').val();
+    var clientNamelines =  doc.splitTextToSize(clientName, bigtext);
+    var clientAddress = $('#ClientAddress').val();
+    var clientAddresslines =  doc.splitTextToSize(clientAddress, bigtext);
+    var clientDOB = $('#ClientDOB').val();
+    var clientDOBlines =  doc.splitTextToSize(clientDOB, bigtext);
+    var clientTelephone = $('#ClientTelephone').val();
+    var clientTelephonelines =  doc.splitTextToSize(clientTelephone, bigtext);
+    var clientDiagnosis = $('#ClientDiagnosis').val();
+    var clientDiagnosislines =  doc.splitTextToSize(clientDiagnosis, bigtext);
+
+    var clientReferredBy = $('#ClientReferredBy').val();
+    var clientReferredBylines =  doc.splitTextToSize(clientReferredBy, bigtext);
+    var sentDate = $('#SentDate').val();
+    var sentDatelines =  doc.splitTextToSize(sentDate, bigtext);
+    var clientDiagnosis = $('#ClientDiagnosis').val();
+    var clientDiagnosislines =  doc.splitTextToSize(clientDiagnosis, bigtext);
+
+    var licenseExpiration = $('#LicenseExpiration').val();
+    var licenseExpirationlines =  doc.splitTextToSize(licenseExpiration, bigtext);
+
+    var reportDate = $('#ReportDate').val();
+    var reportDatelines =  doc.splitTextToSize(reportDate, bigtext);
+    var backgroundComments = $('#BackgroundComments').val();
+    var backgroundCommentslines =  doc.splitTextToSize(backgroundComments, bigtext);
+
+    var mobilityDevice = $('#MobilityDevice').val();
+    var mobilityDevicelines =  doc.splitTextToSize(mobilityDevice, bigtext);
+
+    var licenseExpiration = $('#LicenseExpiration').val();
+    var licenseExpirationlines =  doc.splitTextToSize(licenseExpiration, bigtext);
+
+    var licenseNumber = $('#LicenseNumber').val();
+    var licenseNumberlines =  doc.splitTextToSize(licenseNumber, bigtext);
+
+    var licenseRestrictions = $('#LicenseRestrictions').val();
+    var licenseRestrictionslines =  doc.splitTextToSize(licenseRestrictions, bigtext);
+
+    var currentVehicle = $('#CurrentVehicle').val();
+    var currentVehiclelines =  doc.splitTextToSize(currentVehicle, bigtext);
+
+    var currentAE = $('#CurrentAE').val();
+    var currentAElines =  doc.splitTextToSize(currentAE, bigtext);
+
+    var lastEyeExam = $('#LastEyeExam').val();
+    var lastEyeExamlines =  doc.splitTextToSize(lastEyeExam, bigtext);
+
+    var leftUpperExtremity = $('#LeftUpperExtremity').val();
+    var leftUpperExtremitylines =  doc.splitTextToSize(leftUpperExtremity, bigtext);
+
+    var rightUpperExtremity = $('#LeftUpperExtremity').val();
+    var rightUpperExtremitylines =  doc.splitTextToSize(rightUpperExtremity, bigtext);
+
+    var leftLowerExtremity = $('#LeftLowerExtremity').val();
+    var leftLowerExtremitylines =  doc.splitTextToSize(leftLowerExtremity, bigtext);
+
+    var rightLowerExtremity = $('#RightLowerExtremity').val();
+    var rightLowerExtremitylines =  doc.splitTextToSize(rightLowerExtremity, bigtext);
+
+    var otherExtremity = $('#OtherExtremity').val();
+    var otherExtremitylines =  doc.splitTextToSize(otherExtremity, bigtext);
+
+
+    var drivingHistory = $('#DrivingHistory').val();
+    var drivingHistorylines =  doc.splitTextToSize(drivingHistory, bigtext);
+
+    var clinicalInformation = $('#ClinicalInformation').val();
+    var clinicalInformationlines =  doc.splitTextToSize(clinicalInformation, bigtext);
+
+
+    var backgroundcomments2 = $('#Backgroundcomments2').val();
+    var backgroundcomments2lines =  doc.splitTextToSize(backgroundcomments2, bigtext);
+
+
     var vehicleUsed = $('#vehicleUsed').val();
     var vehicleUsedlines =  doc.splitTextToSize(vehicleUsed, bigtext);
     var AEUsed = $('#AEUsed').val();
@@ -183,40 +313,594 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     var pageHeight = doc.internal.pageSize.height;
     var cursor2Y = 20;
 
-    doc.setFontSize(18);//25
-    doc.text(70, 30, "Evaluation Form");
-    doc.setFontSize(12);//17
-    doc.text(30, 45, "In - Vehicle Assessment:");
-    doc.text(45, cursorY, "Vehicle Used:")
-    vehicleUsedlines.forEach(lineText => {
+
+    doc.setFontSize(17);
+    doc.text(70, 30, "Central Massachusetts Safety Council");
+    doc.setFontSize(14);
+    doc.text(70, 37, "Driver Evaluation and Training Program");
+
+
+    doc.setFontSize(13);
+    doc.text(70, 50, "Evaluation");
+
+
+    doc.setFontSize(12);
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
+      doc.text(45, cursorY, "Name:");
     }
     else{
-    doc.text(105, cursorY, lineText);
+      doc.text(45, cursorY + 10, "Name:");
     }
-    cursorY += lineSpacing;
+    clientNamelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
     })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Address:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Address:");
+    }
+    clientAddresslines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Date of Birth:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Date of Birth:");
+    }    clientDOBlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Telephone:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Telephone:");
+    }
+    clientTelephonelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Diagnosis:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Address:");
+    }
+    clientDiagnosislines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Referred by:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Referred by:");
+    }    clientReferredBylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+     if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Evaluation Date:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Evaluation Date:");
+    }
+    evalDatelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Report Date:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Report Date:");
+    }
+     reportDatelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Sent Date:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Sent Date:");
+    }
+    sentDatelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Comment:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Comment:");
+    }
+    backgroundCommentslines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Mobility Device:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Mobility Device:");
+    }
+    mobilityDevicelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "License Expiration:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "License Expiration:");
+    }
+    licenseExpirationlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "License Number:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "License Number:");
+    }
+    licenseNumberlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "License Restrictions:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "License Restrictions:");
+    }
+    licenseRestrictionslines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Current Vehicle:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Current Vehicle:");
+    }
+    currentVehiclelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Current adaptive equipment(AE):");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Current adaptive equipment(AE):");
+    }
+    currentVehiclelines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Last eye exam:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Last eye exam:");
+    }
+    lastEyeExamlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Left upper extremity:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Left upper extremity:");
+    }
+    leftUpperExtremitylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Right upper extremity:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Right upper extremity:");
+    }
+    rightUpperExtremitylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Left Lower extremity:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Left Lower extremity:");
+    }
+    leftLowerExtremitylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Right Lower extremity:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Right Lower extremity:");
+    }
+    rightLowerExtremitylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Other:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Other:");
+    }
+    otherExtremitylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Driving History:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Driving History:");
+    }
+    drivingHistorylines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Clinical Information:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Clinical Information:");
+    }
+    clinicalInformationlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, ":");
+    }
+    else{
+      doc.text(45, cursorY + 10, ":");
+    }
+    backgroundcomments2lines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Vehicle used:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Vehicle used:");
+    }
+    vehicleUsedlines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
+    })
+
+
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
       doc.text(45, cursorY, "AE Used:");
     }
     else{
-    doc.text(45, cursorY + 10, "AE Used:");
+      doc.text(45, cursorY + 10, "AE Used:");
     }
     AEUsedlines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{
-    doc.text(105, cursorY + 10, lineText);
-    }
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{
+        doc.text(105, cursorY + 10, lineText);
+      }
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -224,16 +908,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Weather Conditions:");
     }
     else{
-    doc.text(45, cursorY + 20, "Weather Conditions:");
+      doc.text(45, cursorY + 20, "Weather Conditions:");
     }
     weatherlines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else {doc.text(105, cursorY + 20, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else {doc.text(105, cursorY + 20, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -241,16 +925,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Road Conditions:");
     }
     else{
-    doc.text(45, cursorY + 30, "Road Conditions:");
+      doc.text(45, cursorY + 30, "Road Conditions:");
     }
     roadlines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else {doc.text(105, cursorY + 30, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else {doc.text(105, cursorY + 30, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -258,16 +942,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Traffic Conditions:");
     }
     else{
-    doc.text(45, cursorY + 40, "Traffic Conditions:");
+      doc.text(45, cursorY + 40, "Traffic Conditions:");
     }
     trafficlines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 40, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 40, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -275,16 +959,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Route:");
     }
     else{
-    doc.text(45, cursorY + 50, "Route:");
+      doc.text(45, cursorY + 50, "Route:");
     }
     routelines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 50, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 50, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -292,16 +976,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Time:");
     }
     else{
-    doc.text(45, cursorY + 60, "Time:");
+      doc.text(45, cursorY + 60, "Time:");
     }
     timelines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 60, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 60, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -309,16 +993,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Primary Control Operation:")
     }
     else{
-    doc.text(45, cursorY + 70, "Primary Control Operation:");
+      doc.text(45, cursorY + 70, "Primary Control Operation:");
     }
     primaryControlOperationlines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 70, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 70, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > 200) { // Auto-paging
       doc.addPage();
@@ -326,16 +1010,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Awareness of/interaction with traffic environment:");
     }
     else{
-    doc.text(45, cursorY + 80, "Awareness of/interaction with traffic environment:");
+      doc.text(45, cursorY + 80, "Awareness of/interaction with traffic environment:");
     }
     awarnesslines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 90, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 90, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > 200) { // Auto-paging
       doc.addPage();
@@ -343,15 +1027,15 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Adherence to motor vehicle law:");
     }
     else{
-    doc.text(45, cursorY + 100, "Adherence to motor vehicle law:");
+      doc.text(45, cursorY + 100, "Adherence to motor vehicle law:");
     }
     adherencelines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-    }
-    else{doc.text(105, cursorY + 110, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+      }
+      else{doc.text(105, cursorY + 110, lineText);}
+      cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -359,29 +1043,55 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Other Comments:");
     }
     else{
-    doc.text(45, cursorY + 10, "Other Comments:");
+      doc.text(45, cursorY + 10, "Other Comments:");
     }
     otherCommentslines.forEach(lineText => {
-    if (cursorY > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(105, cursorY, lineText);
-    }
-    else{doc.text(105, cursorY + 120, lineText);}
-    cursorY += lineSpacing;
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 120, lineText);}
+      cursorY += lineSpacing;
     })
 
     doc.addPage();
+    doc.text(45, cursor2Y + 10, "Approved to Drive:");
+    doc.text(45, cursor2Y + 20, "Use of AE:");
+    doc.text(45, cursor2Y + 30, "Training:");
+    doc.text(45, cursor2Y + 40, "Road Test:");
     doc.text(30, cursor2Y, "Reconmendations:");
-    doc.text(45, cursor2Y + 10, "Other Comments:")
-    otherComments2lines.forEach(lineText => {
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(105, cursor2Y, lineText);
+    if($('input[id=atd]:checked').length > 0){
+      doc.text(105, cursor2Y+ 10, "Yes" )
+    }else{
+      doc.text(105, cursor2Y+ 10, "No" )
     }
-    else{doc.text(105, cursor2Y + 10, lineText);}
-    cursor2Y += lineSpacing;
+    if($('input[id=uoAE]:checked').length > 0){
+      doc.text(105, cursor2Y+ 20, "Yes" )
+    }else{
+      doc.text(105, cursor2Y+ 20, "No" )
+    }
+
+    if($('input[id=train]:checked').length > 0){
+      doc.text(105, cursor2Y+ 30, "Yes" )
+    }else{
+      doc.text(105, cursor2Y+ 30, "No" )
+    }
+    if($('input[id=roadTest]:checked').length > 0){
+      doc.text(105, cursor2Y+ 40, "Yes" )
+    }else{
+      doc.text(105, cursor2Y+ 40, "No" )
+    }
+
+    doc.text(45, cursor2Y + 50, "Other Comments:")
+    otherComments2lines.forEach(lineText => {
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(105, cursor2Y, lineText);
+      }
+      else{doc.text(105, cursor2Y + 50, lineText);}
+      cursor2Y += lineSpacing;
     })
 
 
@@ -391,16 +1101,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursor2Y, "Minivan:");
     }
     else{
-    doc.text(45, cursor2Y + 20, "Minivan:");
+      doc.text(45, cursor2Y + 90, "Minivan:");
     }
     minivanlines.forEach(lineText => {
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(105, cursor2Y, lineText);
-    }
-    else{doc.text(105, cursor2Y + 30, lineText);}
-    cursor2Y += lineSpacing;
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(105, cursor2Y, lineText);
+      }
+      else{doc.text(105, cursor2Y + 90, lineText);}
+      cursor2Y += lineSpacing;
     })
     if (cursor2Y > pageHeight) { // Auto-paging
       doc.addPage();
@@ -408,7 +1118,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(30, cursor2Y, "Vehicle and Adaptive Recommendations:");
     }
     else{
-      doc.text(30, cursor2Y + 30, "Vehicle and Adaptive Recommendations:");
+      doc.text(30, cursor2Y + 60, "Vehicle and Adaptive Recommendations:");
     }
     if (cursor2Y > pageHeight) { // Auto-paging
       doc.addPage();
@@ -416,16 +1126,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursor2Y, "Recommendations Other:");
     }
     else{
-    doc.text(45, cursor2Y + 40, "Recommendations Other:");
+      doc.text(45, cursor2Y + 110, "Recommendations Other:");
     }
     recommendationslines.forEach(lineText => {
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-    doc.text(105, cursor2Y, lineText);
-    }
-    else{doc.text(105, cursor2Y + 40, lineText);}
-    cursor2Y += lineSpacing;
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(105, cursor2Y, lineText);
+      }
+      else{doc.text(105, cursor2Y + 110, lineText);}
+      cursor2Y += lineSpacing;
     })
 
     if (cursorY > pageHeight) { // Auto-paging
@@ -434,16 +1144,16 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursor2Y, "Evaluated By:");
     }
     else{
-    doc.text(45, cursor2Y + 50, "Evaluated By:");
+      doc.text(45, cursor2Y + 120, "Evaluated By:");
     }
     evaluatedBylines.forEach(lineText => {
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(105, cursor2Y, lineText);
-    }
-    else{doc.text(105, cursor2Y + 50, lineText);}
-    cursor2Y += lineSpacing;
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(105, cursor2Y, lineText);
+      }
+      else{doc.text(105, cursor2Y + 120, lineText);}
+      cursor2Y += lineSpacing;
     })
 
     if (cursorY > pageHeight) { // Auto-paging
@@ -452,567 +1162,563 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       doc.text(45, cursorY, "Evaluated On:");
     }
     else{
-    doc.text(45, cursor2Y + 60, "Evaluated On:");
+      doc.text(45, cursor2Y + 130, "Evaluated On:");
     }
     evalDatelines.forEach(lineText => {
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(105, cursor2Y, lineText);
-    }
-    else{doc.text(105, cursor2Y + 60, lineText);}
-    cursor2Y += lineSpacing;
+      if (cursor2Y > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursor2Y = pageWrapInitialYPosition;
+        doc.text(105, cursor2Y, lineText);
+      }
+      else{doc.text(105, cursor2Y + 130, lineText);}
+      cursor2Y += lineSpacing;
     })
-
 
     doc.save("DriverRehab.pdf");
   }
 
 
-return (
-  <form onSubmit={handleSubmit(onSubmit)}>
-<h1>In-vehicle Assessment</h1>
+  return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+
+<h3>Evaluation Form</h3>
+
+  <div class="form-group">
+      <label for="ClientName">Client Name</label>
+  <input name="ClientName" id="ClientName" class="form-control"  rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="ClientAddress">Client Address</label>
+  <input name="ClientAddress" id="ClientAddress" class="form-control"  rows="3" ref={register}/>
+  </div>
 
 
   <div class="form-group">
-    <label htmlFor="vehicleUsed">Vehicle used</label>
-    <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
+      <label for="ClientDOB">Client Date Of Birth</label>
+  <input name="ClientDOB" id="ClientDOB" class="form-control"  rows="3" ref={register}/>
   </div>
 
-    <div class="form-group">
-        <label for="AEUsed">AE used</label>
-        <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
-      </div>
+  <div class="form-group">
+      <label for="ClientTelephone">Client Telephone</label>
+  <input name="ClientTelephone" id="ClientTelephone" class="form-control"  rows="3" ref={register}/>
+  </div>
 
 
-    <div class="form-group">
-        <label for="weatherConditions">Weather Conditions</label>
-        <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
-      </div>
+  <div class="form-group">
+      <label for="ClientDiagnosis">Client Diagnosis</label>
+  <input name="ClientDiagnosis" id="ClientDiagnosis" class="form-control"  rows="3" ref={register}/>
+  </div>
 
 
-    <div class="form-group">
-        <label for="roadConditions">Road Conditions</label>
-        <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
-      </div>
 
-      <div class="form-group">
-          <label for="traffiConditions">Trafic Conditions</label>
-          <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
-        </div>
+  <div class="form-group">
+      <label for="ClientReferredBy">Client Referred By</label>
+  <input name="ClientReferredBy" id="ClientReferredBy" class="form-control"  rows="3" ref={register}/>
+  </div>
 
 
-      <div class="form-group">
-          <label for="AEUsed">Route</label>
-          <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
-        </div>
+  <div class="form-group">
+      <label for="SentDate">Sent Date</label>
+  <input name="SentDate" id="SentDate" class="form-control"  rows="3" ref={register}/>
+  </div>
 
-      <div class="form-group">
-          <label for="time">Time</label>
-          <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
-        </div>
 
-      <div class="form-group">
-          <label for="AEUsed">Primary control operation</label>
-          <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
-        </div>
 
-      <div class="form-group">
-          <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
-          <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
-        </div>
+  <div class="form-group">
+      <label for="ReportDate">Report Date</label>
+  <input name="ReportDate" id="ReportDate" class="form-control"  rows="3" ref={register}/>
+  </div>
 
-      <div class="form-group">
-          <label for="adherenceLaw">Adherence to motor vehicle law</label>
-          <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
-        </div>
+  <div class="form-group">
+      <label for="BackgroundComments">comments</label>
+  <input name="BackgroundComments"  class="form-control" id="BackgroundComments" rows="3" ref={register}/>
+  </div>
 
-        <div class="form-group">
-            <label for="assessmentOther">Other comments</label>
-            <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
-          </div>
+  <h1>Background</h1>
 
-          <h1>Reconmendations</h1>
 
+  <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
-        <input name="approvedToDrive" type="checkbox" ref={register} />
+      <legend class="col-form-label col-sm-2 pt-0">Client has medical cleareance to drive?</legend>
+  <div class="col-sm-10">
+      <div class="form-check">
+      <input class="form-check-input"
+  name="medicalClearence"
+  type="radio"
+  value="yes"
+  id="whyes"
+  ref={register} />
+
+  <label class="form-check-label" for="gridRadios1">
+      Yes
+      </label>
       </div>
 
+      <div class="form-check">
+      <input class="form-check-input" name="medicalClearence" type="radio" id="whno" value="no"/>
+      <label class="form-check-label" for="gridRadios2">
+      No
+      </label>
+      </div>
+      </div>
+      </div>
+      </fieldset>
+
+
+
+
+
+
+
+  <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
-        <input name="useOfAE" type="checkbox" ref={register} />
+      <legend class="col-form-label col-sm-2 pt-0">Client uses prescription medecine?</legend>
+  <div class="col-sm-10">
+      <div class="form-check">
+      <input class="form-check-input"
+  name="presecriptionMedecine"
+  type="radio"
+  value="yes"
+  id="whyes"
+  ref={register} />
+
+  <label class="form-check-label" for="gridRadios1">
+      Yes
+      </label>
       </div>
 
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Training</legend>
-        <input name="training" type="checkbox" ref={register} />
+      <div class="form-check">
+      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="whno" value="no"/>
+      <label class="form-check-label" for="gridRadios2">
+      No
+      </label>
+      </div>
+      </div>
+      </div>
+      </fieldset>
+
+      <div class="form-group">
+      <label for="MobilityDevice">Mobility Device</label>
+  <input name="MobilityDevice" class="form-control" id="MobilityDevice" rows="3" ref={register}></input>
       </div>
 
+
+
+      <fieldset class="form-group">
       <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Road Test</legend>
-        <input name="roadTest" type="checkbox" ref={register} />
+      <legend class="col-form-label col-sm-2 pt-0">Independent Transfer?</legend>
+  <div class="col-sm-10">
+      <div class="form-check">
+      <input class="form-check-input"
+  name="IndependentTransfer"
+  type="radio"
+  value="yes"
+  id="whyes"
+  ref={register} />
+
+  <label class="form-check-label" for="gridRadios1">
+      Yes
+      </label>
+      </div>
+
+      <div class="form-check">
+      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="whno" value="no"/>
+      <label class="form-check-label" for="gridRadios2">
+      No
+      </label>
+      </div>
+      </div>
+      </div>
+      </fieldset>
+
+
+
+
+
+
+      <fieldset class="form-group">
+      <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">License Status</legend>
+  <div class="col-sm-10">
+      <div class="form-check">
+      <input class="form-check-input"
+  name="LicenseStatus"
+  type="radio"
+  value="Valid"
+  id="whyes"
+  ref={register} />
+
+  <label class="form-check-label" for="gridRadios1">
+      Valid
+      </label>
+      </div>
+
+      <div class="form-check">
+      <input class="form-check-input" name="LicenseStatus" type="radio" id="whno" value="not Valid"/>
+      <label class="form-check-label" for="gridRadios2">
+      Not Valid
+      </label>
+      </div>
+      </div>
+      </div>
+      </fieldset>
+
+
+
+      <div class="form-group">
+      <label for="LicenseExpiration">LIcense expiration</label>
+  <input name="LicenseExpiration" class="form-control" id="LicenseExpiration" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="LicenseNumber">License Number</label>
+  <input name="LicenseNumber" class="form-control" id="LicenseNumber" rows="3" ref={register}></input>
+      </div>
+
+
+
+      <div class="form-group">
+      <label for="LicenseRestrictions">License restrictions</label>
+  <input name="LicenseRestrictions" class="form-control" id="LicenseRestrictions" rows="3" ref={register}></input>
+      </div>
+
+
+      <fieldset class="form-group">
+      <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Currently Driving</legend>
+  <div class="col-sm-10">
+      <div class="form-check">
+      <input class="form-check-input"
+  name="CurrentlyDriving"
+  type="radio"
+  value="yes"
+  id="whyes"
+  ref={register} />
+
+  <label class="form-check-label" for="gridRadios1">
+      Yes
+      </label>
+      </div>
+
+      <div class="form-check">
+      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="whno" value="no"/>
+      <label class="form-check-label" for="gridRadios2">
+      No
+      </label>
+      </div>
+      </div>
+      </div>
+      </fieldset>
+
+      <div class="form-group">
+      <label for="CurrentVehicle">Current Vehicle</label>
+  <input name="CurrentVehicle" class="form-control" id="CurrentVehicle" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="CurrentAE">Current adaptive equipment(AE)</label>
+  <input name="CurrentAE" class="form-control" id="CurrentAE" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="LastEyeExam">Last eye exam</label>
+  <input name="LastEyeExam" class="form-control" id="LastEyeExam" rows="3" ref={register}></input>
+      </div>
+  <h2>Observed Physical Abilities-:</h2>
+
+      <div class="form-group">
+      <label for="LeftUpperExtremity">Left upper extremity</label>
+  <input name="LeftUpperExtremity" class="form-control" id="LeftUpperExtremity" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="RightUpperExtremity">Right upper extremity</label>
+  <input name="RightUpperExtremity" class="form-control" id="RightUpperExtremity" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="LeftLowerExtremity">Left lower extremity</label>
+  <input name="LeftLowerExtremity" class="form-control" id="LeftLowerExtremity" rows="3" ref={register}></input>
       </div>
 
       <div class="form-group">
-          <label for="reconmendationsOther">Other comments</label>
-          <input name="reconmendationsOther"  class="form-control" id="OtherComments2" rows="3" ref={register}/>
-        </div>
+      <label for="RightLowerExtremity">Rigth lower extremity</label>
+  <input name="RightLowerExtremity" class="form-control" id="RightLowerExtremity" rows="3" ref={register}></input>
+      </div>
 
-    <h1>Vehicle and Adaptive Equipment Recommendations</h1>
-
-    <div class="form-group">
-        <label for="Minivan">Minivan</label>
-        <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
+      <div class="form-group">
+      <label for="OtherExtremity">Other</label>
+  <input name="OtherExtremity" class="form-control" id="OtherExtremity" rows="3" ref={register}></input>
       </div>
 
 
-<h5 for="primaryControls ">Primary Controls: </h5>
+      <div class="form-group">
+      <label for="DrivingHistory">Driving History</label>
+  <input name="DrivingHistory" class="form-control" id="DrivingHistory" rows="3" ref={register}></input>
+      </div>
 
-<div className="float-left">
-      {fields.map((field, idx) => {
-        return (
-
-          <div key={`${field}-${idx}`}>
-
-          <select name="primaryControls" ref={register}>
+      <div class="form-group">
+      <label for="ClinicalInformation">Clinical Information</label>
+  <input name="ClinicalInformation" class="form-control" id="ClinicalInformation" rows="3" ref={register}></input>
+      </div>
 
 
+      <div class="form-group">
+      <label for="Backgroundcomments2">Comments</label>
+      <input name="Backgroundcomments2"  class="form-control" id="Backgroundcomments2" rows="3" ref={register}/>
+  </div>
 
-<option value="Component3">->Link:  Lift /Transfer Seat </option>
-<option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
-<option value="Component5">->XL-BASE:  Pivoting & lowering seat base </option>
-<option value="Component6">->XL-BOARD:  Lift/Transfer Board</option>
-<option value="Component7">->Speedy-Lift:  Wheelchair Lift</option>
-<option value="Component8">->Hi-Lift:  Wheelchair Lift</option>
-<option value="Component9">->Power Pull:  Ramp Assist</option>
-<option value="Component12">->PROTEKTOR® Wheelchair Restraints:  Occupied Wheelchair Restraint</option>
-<option value="Component13">->Easy Pull:  Occupied Wheelchair Restraint/Ramp Assist</option>
-<option value="Component14">->Hide-A-Way Wheelchair Securement Systems:  Occupied Wheelchair Restraint</option>
-<option value="Component15">->eFutureSafe / FutureSafe:  Head/Backrest</option>
-<option value="Component16">->Smart Ramp:  Ramp </option>
-<option value="Component17">->Side Steps:  Steps</option>
-<option value="Component18">->Smart Seats:  Seat</option>
-<option value="Component20">->Comfort Series C62:  Transfer Seat Base: Minivan</option>
-<option value="Component21">->Leadership 75:  Transfer Seat Base: Minivan</option>
-<option value="Component22">->Leadership 41:  Transfer Seat Base: Full-size van</option>
-<option value="Component23">->Comfort Series Special, CS62D:  Transfer Seat Base: Full-size van</option>
-<option value="Component24">->Leadership 71:  Transfer Seat Base: Full-size van</option>
-<option value="Component25">->HighTower® Docking System:  Docking Console</option>
-<option value="Component26">->Unoccupied Wheelchair Restraint:  Unoccupied Wheelchair Restraint</option>
-<option value="Component27">->https://www.braunability.com/us/en/commercial.html:  </option>
-<option value="Component28">->Century 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component29">->Millennium 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component30">->Vista 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component31">->NL500 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component32">->NUVL855 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component34">->Joey:  Chair Lift </option>
-<option value="Component35">->Curb-Sider:  Chair Lift</option>
-<option value="Component36">->Out-Sider :  Chair Lift</option>
-<option value="Component37">->Chariot:  Chair Lift</option>
-<option value="Component38">->Big Lifter:  Chair Lift</option>
-<option value="Component39">->Lifter :  Chair Lift</option>
-<option value="Component40">->Space-Saver:  Chair Lift</option>
-<option value="Component41">->Back-Saver:  Chair Lift </option>
-<option value="Component42">->Out-Rider:  Chair Lift</option>
-<option value="Component46">->Coach Lift:  Lift /Transfer Seat </option>
-<option value="Component48">->Sensitized Steering :  </option>
-<option value="Component49">->Sensitized braking :  </option>
-<option value="Component50">->Backup Battery Systems:  </option>
-<option value="Component51">->Electronic Parking Brake:  </option>
-<option value="Component52">->Horizontal Steering:  </option>
-<option value="Component53">->Pedal Extensions:  </option>
-<option value="Component55">->Injection Molding:  </option>
-<option value="Component57">->PGB Power Gas and Brake:  Power Gas and Brake</option>
-<option value="Component58">->RESS Remote Electric Steering System:  Small diameter steering wheel</option>
-<option value="Component59">->PROXIMA Tablet Touch Screen Console:  Tablet Touch Screen Console</option>
-<option value="Component60">->VAS Visual/Audible Scan System:  In-Motion Tablet Touch Screen Console</option>
-<option value="Component61">->GEN II (Modified Effort Electric Steering System):  Modified Effort Electric Steering</option>
-<option value="Component62">->VEESS (Variable Effort Electric Steering System):  Variable Effort Electric Steering System</option>
-<option value="Component63">->Pride Milford Person Lift:  Person Lift</option>
-<option value="Component80">->Power step:  Step</option>
-<option value="Component83">->Fuel Systems:  Structural</option>
-<option value="Component84">->External Fuel Tanks:  Structural</option>
-<option value="Component87">->BRAUNABILITY 2001-02 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component88">->BRAUNABILITY 1996-2000 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component89">->BRAUNABILITY MINIVAN CONVERSION REAR SUSPENSION KNEEL SYSTEM ACTUATOR ASSEMBLY KIT:  Kneel actuator</option>
-<option value="Component90">->FERNO FLOOR MOUNT OXYGEN TANK HOLDER:  O2 tank holder</option>
-<option value="Component91">->O2 ON THE GO OXYGEN TANK CYLINDER HOLDER:  O2 tank holder</option>
-<option value="Component93">->FORD TRANSIT CONNECT REAR ENTRY RAMP ASSEMBLY:  Ramp</option>
-<option value="Component94">->Step Flares:  Structural</option>
-<option value="Component95">->Door Conversion Parts:  Structural</option>
-<option value="Component96">->RAMP COVER DRIVERGE/MBW/DODGE/CHRYSLER:  Ramp</option>
-<option value="Component97">->RAMP COVER TOYOTA SIENNA:  Ramp</option>
-<option value="Component98">->Lift Replacement Parts:  Lift</option>
-<option value="Component99">->Ramp Parts:  Ramp</option>
-<option value="Component101">->STREETSIDE SEAT FOR SMARTFLOOR WITH SMARTLEG BASE:  Seat</option>
-<option value="Component102">->SMARTFLOOR SEAT WITH SMARTLEG BASE, STREETSIDE (RIGHT SIDE):  Seat</option>
-<option value="Component103">->SMARTSEAT W/CHILD RESTRAINT BRACKET, CURBSIDE:  Seat</option>
-<option value="Component104">->SMARTFLOOR SEAT WITH SMARTLEG BASE:  Seat</option>
-<option value="Component105">->FORD E-SERIES STATIONARY/RIGID MOUNT REAR STEP ASSEMBLY:  Step</option>
-<option value="Component106">->STAINLESS STEEL DRIVER SIDE FRONT DOOR AND PASSENGER SIDE FRONT DOOR; SHORT STEP ASSEMBLY:  Step</option>
-<option value="Component107">->STAINLESS STEEL CARGO DOOR LONG STEP ASSEMBLY:  Step</option>
-<option value="Component110">->iClass™ Solid Platform (S):  Lift</option>
-<option value="Component111">->iClass™ Folded Platform (F):  Lift</option>
-<option value="Component112">->iClass™ Split Platform (SP):  Lift</option>
-<option value="Component114">->Mini Electric Lift - Model 117:  Lift</option>
-<option value="Component115">->Patriotic Electric Lift - Model US208:  Lift</option>
-<option value="Component116">->Lift n' Go Electric Lift - Model 210:  Lift</option>
-<option value="Component117">->Hold n' Go Electric Lift - Model US218:  Lift</option>
-<option value="Component118">->XL Electric Lift - Model XL4:  Lift</option>
-<option value="Component120">->Tote - Model 003:  Lift</option>
-<option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
-<option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value}
-              onChange={e => ChangeItem(idx, e)}
-          </select>
-&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-style={{width: "370px"}}
-	      value={field.value}
+      <h1>In-vehicle Assessment</h1>
 
-              onChange={e => ChangeItem(idx, e)}
-            />
-            <button type="button" onClick={() => RemoveDropDown(idx)}>
-              X
-            </button>  &nbsp;&nbsp;&nbsp;
-<button type="button" onClick={() => NewDropDown()}>
-        +
-      </button>
-          <br /><br />
-        </div>
-        );
-      })}
+
+  <div class="form-group">
+      <label htmlFor="vehicleUsed">Vehicle used</label>
+  <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
+  </div>
+
+  <div class="form-group">
+      <label for="AEUsed">AE used</label>
+  <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
+      </div>
+
+
+      <div class="form-group">
+      <label for="weatherConditions">Weather Conditions</label>
+  <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
+  </div>
+
+
+  <div class="form-group">
+      <label for="roadConditions">Road Conditions</label>
+  <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="traffiConditions">Trafic Conditions</label>
+  <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
+  </div>
+
+
+  <div class="form-group">
+      <label for="AEUsed">Route</label>
+      <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
+      </div>
+
+      <div class="form-group">
+      <label for="time">Time</label>
+      <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="AEUsed">Primary control operation</label>
+  <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
+  <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="adherenceLaw">Adherence to motor vehicle law</label>
+  <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
+  </div>
+
+  <div class="form-group">
+      <label for="assessmentOther">Other comments</label>
+  <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
+  </div>
+
+  <h1>Reconmendations</h1>
+
+  <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
+  <input name="approvedToDrive" type="checkbox" id="atd" ref={register} />
+  </div>
+
+  <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
+  <input name="useOfAE" type="checkbox" id="uoAE" ref={register} />
+  </div>
+
+  <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Training</legend>
+      <input name="training" type="checkbox" id="train" ref={register} />
+  </div>
+
+  <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Road Test</legend>
+  <input name="roadTest" type="checkbox" id="roadTest" ref={register} />
+  </div>
+
+  <div class="form-group">
+      <label for="reconmendationsOther">Other comments</label>
+  <input name="reconmendationsOther"  class="form-control" id="OtherComments2" rows="3" ref={register}/>
+  </div>
+
+  <h1>Vehicle and Adaptive Equipment Recommendations</h1>
+
+  <div class="form-group">
+      <label for="Minivan">Minivan</label>
+      <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
+  </div>
+
+
+  <h5 for="primaryControls ">Primary Controls: </h5>
+  {primaryFields.map((field, idx) => {
+    return (
+        <div class="container">
+        <div class="row">
+        <div class="col-sm-6">
+        <div key={`${field}-${idx}`}></div>
+    <Select options={items }name="primaryControls" ref={register}/>
     </div>
+    <div class="col-sm-4">
+        <input
+  class="form-control"
+    type="text"
+    style={{width: "370px"}}
+    value={field.value}
+    onChange={e => ChangeItem(idx, e)}
+    />
+    </div>
+    <div class="col-sm-2">
+        <button type="button" onClick={() => RemovePrimaryDropDown(idx)}>
+    X
+    </button>
+    <button type="button" onClick={() => NewPrimaryDropDown()}>
+    +
+    </button>
+    </div>
+    <div class="col-sm-1">
 
+        </div>
+        </div>
+        </div>
+  );
+  })}
 
-      <br /><br />
 <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
-determined during initial training session </h5>
-           <div className="float-left">
-      {fields.map((field, idx) => {
-        return (
-
-          <div key={`${field}-${idx}`}>
-
-          <select name="primaryControls" ref={register}>
-
-
-
-<option value="Component3">->Link:  Lift /Transfer Seat </option>
-<option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
-<option value="Component5">->XL-BASE:  Pivoting & lowering seat base </option>
-<option value="Component6">->XL-BOARD:  Lift/Transfer Board</option>
-<option value="Component7">->Speedy-Lift:  Wheelchair Lift</option>
-<option value="Component8">->Hi-Lift:  Wheelchair Lift</option>
-<option value="Component9">->Power Pull:  Ramp Assist</option>
-<option value="Component12">->PROTEKTOR® Wheelchair Restraints:  Occupied Wheelchair Restraint</option>
-<option value="Component13">->Easy Pull:  Occupied Wheelchair Restraint/Ramp Assist</option>
-<option value="Component14">->Hide-A-Way Wheelchair Securement Systems:  Occupied Wheelchair Restraint</option>
-<option value="Component15">->eFutureSafe / FutureSafe:  Head/Backrest</option>
-<option value="Component16">->Smart Ramp:  Ramp </option>
-<option value="Component17">->Side Steps:  Steps</option>
-<option value="Component18">->Smart Seats:  Seat</option>
-<option value="Component20">->Comfort Series C62:  Transfer Seat Base: Minivan</option>
-<option value="Component21">->Leadership 75:  Transfer Seat Base: Minivan</option>
-<option value="Component22">->Leadership 41:  Transfer Seat Base: Full-size van</option>
-<option value="Component23">->Comfort Series Special, CS62D:  Transfer Seat Base: Full-size van</option>
-<option value="Component24">->Leadership 71:  Transfer Seat Base: Full-size van</option>
-<option value="Component25">->HighTower® Docking System:  Docking Console</option>
-<option value="Component26">->Unoccupied Wheelchair Restraint:  Unoccupied Wheelchair Restraint</option>
-<option value="Component27">->https://www.braunability.com/us/en/commercial.html:  </option>
-<option value="Component28">->Century 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component29">->Millennium 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component30">->Vista 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component31">->NL500 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component32">->NUVL855 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component34">->Joey:  Chair Lift </option>
-<option value="Component35">->Curb-Sider:  Chair Lift</option>
-<option value="Component36">->Out-Sider :  Chair Lift</option>
-<option value="Component37">->Chariot:  Chair Lift</option>
-<option value="Component38">->Big Lifter:  Chair Lift</option>
-<option value="Component39">->Lifter :  Chair Lift</option>
-<option value="Component40">->Space-Saver:  Chair Lift</option>
-<option value="Component41">->Back-Saver:  Chair Lift </option>
-<option value="Component42">->Out-Rider:  Chair Lift</option>
-<option value="Component46">->Coach Lift:  Lift /Transfer Seat </option>
-<option value="Component48">->Sensitized Steering :  </option>
-<option value="Component49">->Sensitized braking :  </option>
-<option value="Component50">->Backup Battery Systems:  </option>
-<option value="Component51">->Electronic Parking Brake:  </option>
-<option value="Component52">->Horizontal Steering:  </option>
-<option value="Component53">->Pedal Extensions:  </option>
-<option value="Component55">->Injection Molding:  </option>
-<option value="Component57">->PGB Power Gas and Brake:  Power Gas and Brake</option>
-<option value="Component58">->RESS Remote Electric Steering System:  Small diameter steering wheel</option>
-<option value="Component59">->PROXIMA Tablet Touch Screen Console:  Tablet Touch Screen Console</option>
-<option value="Component60">->VAS Visual/Audible Scan System:  In-Motion Tablet Touch Screen Console</option>
-<option value="Component61">->GEN II (Modified Effort Electric Steering System):  Modified Effort Electric Steering</option>
-<option value="Component62">->VEESS (Variable Effort Electric Steering System):  Variable Effort Electric Steering System</option>
-<option value="Component63">->Pride Milford Person Lift:  Person Lift</option>
-<option value="Component80">->Power step:  Step</option>
-<option value="Component83">->Fuel Systems:  Structural</option>
-<option value="Component84">->External Fuel Tanks:  Structural</option>
-<option value="Component87">->BRAUNABILITY 2001-02 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component88">->BRAUNABILITY 1996-2000 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component89">->BRAUNABILITY MINIVAN CONVERSION REAR SUSPENSION KNEEL SYSTEM ACTUATOR ASSEMBLY KIT:  Kneel actuator</option>
-<option value="Component90">->FERNO FLOOR MOUNT OXYGEN TANK HOLDER:  O2 tank holder</option>
-<option value="Component91">->O2 ON THE GO OXYGEN TANK CYLINDER HOLDER:  O2 tank holder</option>
-<option value="Component93">->FORD TRANSIT CONNECT REAR ENTRY RAMP ASSEMBLY:  Ramp</option>
-<option value="Component94">->Step Flares:  Structural</option>
-<option value="Component95">->Door Conversion Parts:  Structural</option>
-<option value="Component96">->RAMP COVER DRIVERGE/MBW/DODGE/CHRYSLER:  Ramp</option>
-<option value="Component97">->RAMP COVER TOYOTA SIENNA:  Ramp</option>
-<option value="Component98">->Lift Replacement Parts:  Lift</option>
-<option value="Component99">->Ramp Parts:  Ramp</option>
-<option value="Component101">->STREETSIDE SEAT FOR SMARTFLOOR WITH SMARTLEG BASE:  Seat</option>
-<option value="Component102">->SMARTFLOOR SEAT WITH SMARTLEG BASE, STREETSIDE (RIGHT SIDE):  Seat</option>
-<option value="Component103">->SMARTSEAT W/CHILD RESTRAINT BRACKET, CURBSIDE:  Seat</option>
-<option value="Component104">->SMARTFLOOR SEAT WITH SMARTLEG BASE:  Seat</option>
-<option value="Component105">->FORD E-SERIES STATIONARY/RIGID MOUNT REAR STEP ASSEMBLY:  Step</option>
-<option value="Component106">->STAINLESS STEEL DRIVER SIDE FRONT DOOR AND PASSENGER SIDE FRONT DOOR; SHORT STEP ASSEMBLY:  Step</option>
-<option value="Component107">->STAINLESS STEEL CARGO DOOR LONG STEP ASSEMBLY:  Step</option>
-<option value="Component110">->iClass™ Solid Platform (S):  Lift</option>
-<option value="Component111">->iClass™ Folded Platform (F):  Lift</option>
-<option value="Component112">->iClass™ Split Platform (SP):  Lift</option>
-<option value="Component114">->Mini Electric Lift - Model 117:  Lift</option>
-<option value="Component115">->Patriotic Electric Lift - Model US208:  Lift</option>
-<option value="Component116">->Lift n' Go Electric Lift - Model 210:  Lift</option>
-<option value="Component117">->Hold n' Go Electric Lift - Model US218:  Lift</option>
-<option value="Component118">->XL Electric Lift - Model XL4:  Lift</option>
-<option value="Component120">->Tote - Model 003:  Lift</option>
-<option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
-<option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value}
-              onChange={e => ChangeItem(idx, e)}
-          </select>
-&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-style={{width: "370px"}}
-	      value={field.value}
-
-              onChange={e => ChangeItem(idx, e)}
-            />
-            <button type="button" onClick={() => RemoveDropDown(idx)}>
-              X
-            </button>  &nbsp;&nbsp;&nbsp;
-<button type="button" onClick={() => NewDropDown()}>
-        +
-      </button>
-          <br /><br />
-        </div>
-        );
-      })}
+    determined during initial training session </h5>
+  {secondaryFields.map((secondaryFields, idx) => {
+    return (
+        <div class="container">
+        <div class="row">
+        <div class="col-sm-6">
+        <div key={`${secondaryFields}-${idx}`}></div>
+    <Select options={secondaryItems }name="primaryControls" ref={register}/>
     </div>
-
-
-
-
-
-      <br /><br />
-<h5 for="secondaryControls">Secondary controls-other </h5>
-           <div className="float-left">
-      {fields.map((field, idx) => {
-        return (
-
-          <div key={`${field}-${idx}`}>
-
-          <select name="primaryControls" ref={register}>
-
-
-
-<option value="Component3">->Link:  Lift /Transfer Seat </option>
-<option value="Component4">->ASENTO – XL-SEAT:  Lift /Transfer Board</option>
-<option value="Component5">->XL-BASE:  Pivoting & lowering seat base </option>
-<option value="Component6">->XL-BOARD:  Lift/Transfer Board</option>
-<option value="Component7">->Speedy-Lift:  Wheelchair Lift</option>
-<option value="Component8">->Hi-Lift:  Wheelchair Lift</option>
-<option value="Component9">->Power Pull:  Ramp Assist</option>
-<option value="Component12">->PROTEKTOR® Wheelchair Restraints:  Occupied Wheelchair Restraint</option>
-<option value="Component13">->Easy Pull:  Occupied Wheelchair Restraint/Ramp Assist</option>
-<option value="Component14">->Hide-A-Way Wheelchair Securement Systems:  Occupied Wheelchair Restraint</option>
-<option value="Component15">->eFutureSafe / FutureSafe:  Head/Backrest</option>
-<option value="Component16">->Smart Ramp:  Ramp </option>
-<option value="Component17">->Side Steps:  Steps</option>
-<option value="Component18">->Smart Seats:  Seat</option>
-<option value="Component20">->Comfort Series C62:  Transfer Seat Base: Minivan</option>
-<option value="Component21">->Leadership 75:  Transfer Seat Base: Minivan</option>
-<option value="Component22">->Leadership 41:  Transfer Seat Base: Full-size van</option>
-<option value="Component23">->Comfort Series Special, CS62D:  Transfer Seat Base: Full-size van</option>
-<option value="Component24">->Leadership 71:  Transfer Seat Base: Full-size van</option>
-<option value="Component25">->HighTower® Docking System:  Docking Console</option>
-<option value="Component26">->Unoccupied Wheelchair Restraint:  Unoccupied Wheelchair Restraint</option>
-<option value="Component27">->https://www.braunability.com/us/en/commercial.html:  </option>
-<option value="Component28">->Century 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component29">->Millennium 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component30">->Vista 2 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component31">->NL500 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component32">->NUVL855 Wheelchair Lift:  Wheelchair Lift</option>
-<option value="Component34">->Joey:  Chair Lift </option>
-<option value="Component35">->Curb-Sider:  Chair Lift</option>
-<option value="Component36">->Out-Sider :  Chair Lift</option>
-<option value="Component37">->Chariot:  Chair Lift</option>
-<option value="Component38">->Big Lifter:  Chair Lift</option>
-<option value="Component39">->Lifter :  Chair Lift</option>
-<option value="Component40">->Space-Saver:  Chair Lift</option>
-<option value="Component41">->Back-Saver:  Chair Lift </option>
-<option value="Component42">->Out-Rider:  Chair Lift</option>
-<option value="Component46">->Coach Lift:  Lift /Transfer Seat </option>
-<option value="Component48">->Sensitized Steering :  </option>
-<option value="Component49">->Sensitized braking :  </option>
-<option value="Component50">->Backup Battery Systems:  </option>
-<option value="Component51">->Electronic Parking Brake:  </option>
-<option value="Component52">->Horizontal Steering:  </option>
-<option value="Component53">->Pedal Extensions:  </option>
-<option value="Component55">->Injection Molding:  </option>
-<option value="Component57">->PGB Power Gas and Brake:  Power Gas and Brake</option>
-<option value="Component58">->RESS Remote Electric Steering System:  Small diameter steering wheel</option>
-<option value="Component59">->PROXIMA Tablet Touch Screen Console:  Tablet Touch Screen Console</option>
-<option value="Component60">->VAS Visual/Audible Scan System:  In-Motion Tablet Touch Screen Console</option>
-<option value="Component61">->GEN II (Modified Effort Electric Steering System):  Modified Effort Electric Steering</option>
-<option value="Component62">->VEESS (Variable Effort Electric Steering System):  Variable Effort Electric Steering System</option>
-<option value="Component63">->Pride Milford Person Lift:  Person Lift</option>
-<option value="Component80">->Power step:  Step</option>
-<option value="Component83">->Fuel Systems:  Structural</option>
-<option value="Component84">->External Fuel Tanks:  Structural</option>
-<option value="Component87">->BRAUNABILITY 2001-02 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component88">->BRAUNABILITY 1996-2000 DODGE/CHRYSLER MINIVAN CONVERSION REPLACEMENT FUEL TANK ASSEMBLY:  Structural</option>
-<option value="Component89">->BRAUNABILITY MINIVAN CONVERSION REAR SUSPENSION KNEEL SYSTEM ACTUATOR ASSEMBLY KIT:  Kneel actuator</option>
-<option value="Component90">->FERNO FLOOR MOUNT OXYGEN TANK HOLDER:  O2 tank holder</option>
-<option value="Component91">->O2 ON THE GO OXYGEN TANK CYLINDER HOLDER:  O2 tank holder</option>
-<option value="Component93">->FORD TRANSIT CONNECT REAR ENTRY RAMP ASSEMBLY:  Ramp</option>
-<option value="Component94">->Step Flares:  Structural</option>
-<option value="Component95">->Door Conversion Parts:  Structural</option>
-<option value="Component96">->RAMP COVER DRIVERGE/MBW/DODGE/CHRYSLER:  Ramp</option>
-<option value="Component97">->RAMP COVER TOYOTA SIENNA:  Ramp</option>
-<option value="Component98">->Lift Replacement Parts:  Lift</option>
-<option value="Component99">->Ramp Parts:  Ramp</option>
-<option value="Component101">->STREETSIDE SEAT FOR SMARTFLOOR WITH SMARTLEG BASE:  Seat</option>
-<option value="Component102">->SMARTFLOOR SEAT WITH SMARTLEG BASE, STREETSIDE (RIGHT SIDE):  Seat</option>
-<option value="Component103">->SMARTSEAT W/CHILD RESTRAINT BRACKET, CURBSIDE:  Seat</option>
-<option value="Component104">->SMARTFLOOR SEAT WITH SMARTLEG BASE:  Seat</option>
-<option value="Component105">->FORD E-SERIES STATIONARY/RIGID MOUNT REAR STEP ASSEMBLY:  Step</option>
-<option value="Component106">->STAINLESS STEEL DRIVER SIDE FRONT DOOR AND PASSENGER SIDE FRONT DOOR; SHORT STEP ASSEMBLY:  Step</option>
-<option value="Component107">->STAINLESS STEEL CARGO DOOR LONG STEP ASSEMBLY:  Step</option>
-<option value="Component110">->iClass™ Solid Platform (S):  Lift</option>
-<option value="Component111">->iClass™ Folded Platform (F):  Lift</option>
-<option value="Component112">->iClass™ Split Platform (SP):  Lift</option>
-<option value="Component114">->Mini Electric Lift - Model 117:  Lift</option>
-<option value="Component115">->Patriotic Electric Lift - Model US208:  Lift</option>
-<option value="Component116">->Lift n' Go Electric Lift - Model 210:  Lift</option>
-<option value="Component117">->Hold n' Go Electric Lift - Model US218:  Lift</option>
-<option value="Component118">->XL Electric Lift - Model XL4:  Lift</option>
-<option value="Component120">->Tote - Model 003:  Lift</option>
-<option value="Component121">->Tilt n' Tote - Model 001:  Lift</option>
-<option value="Component122">->Electric Tilt n' Tote - Model 101:  Lift</option>
-		value={field.value}
-              onChange={e => ChangeItem(idx, e)}
-          </select>
-&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-style={{width: "370px"}}
-	      value={field.value}
-
-              onChange={e => ChangeItem(idx, e)}
-            />
-            <button type="button" onClick={() => RemoveDropDown(idx)}>
-              X
-            </button>  &nbsp;&nbsp;&nbsp;
-<button type="button" onClick={() => NewDropDown()}>
-        +
-      </button>
-          <br /><br />
-        </div>
-        );
-      })}
+    <div class="col-sm-4">
+        <input
+  class="form-control"
+    type="text"
+    style={{width: "370px"}}
+    value={secondaryFields.value}
+    onChange={e => ChangeItem(idx, e)}
+    />
     </div>
+    <div class="col-sm-2">
+        <button type="button" onClick={() => RemoveSecondaryDropDown(idx)}>
+    X
+    </button>
+    <button type="button" onClick={() => NewSecondaryDropDown()}>
+    +
+    </button>
+    </div>
+    <div class="col-sm-1">
 
-
-      <div class="form-group">
-          <label for="reconmendationsOther">Reconmendations other</label>
-
-<input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
         </div>
+        </div>
+        </div>
+  );
+  })}
 
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
-          Driver Evaluation and Training Program Notice
-        </button>
 
         <div class="form-group">
+        <label for="reconmendationsOther">Reconmendations other</label>
+
+    <input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
+    </div>
+
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+        Driver Evaluation and Training Program Notice
+    </button>
+
+    <div class="form-group">
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">Driver Evaluation and Training Program Notice</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-              Where applicable, equipment should meet or exceed the requirements established by the
-              Department of Veteran's Affairs, Federal Motor Vehicle Safety Standards, Society of
-              Automotive Engineers, and the National Mobility Dealers Association.
-              Where applicable, the aftermarket vehicle modifiers/adaptive equipment manufacturers and
-              their products are those known by the evaluator; any substitutions must be of equal use and
-              value. Consultation with the evaluator is recommended if anything other than these are used.
-              These recommendations should be considered valid for one (1) year from the date of the
-              evaluation. Beyond that time a re-evaluation may be necessary.
-              These recommendations have been developed based on the education and experienced of the
-              evaluator and the client's experience in using the assessment/training equipment available at
-              the Central Massachusetts Safety Council.
-              The results and recommendations included in this report are based on the client's performance
-              during the evaluation and should not be relied on as absolute predictors of future performance.
-              The conclusions reached and the recommendations made in this report are based, in part,
-              upon the medical information available at the time this report was written. If subsequent to
-              issuance of this report the client's medical status changes in such a manner that may
-              compromise the client's abilities as a driver the report can no longer be relied upon as valid.
-              No person shall drive using adaptive equipment unless they have received documented
-              instruction in the use thereof, with or without the owner's permission.
-              ____________________________________________________________________
-              Please contact me with any questions about the report and/or my recommendations. And
-              thank you for the opportunity to work together.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Driver Evaluation and Training Program Notice</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        Where applicable, equipment should meet or exceed the requirements established by the
+    Department of Veteran's Affairs, Federal Motor Vehicle Safety Standards, Society of
+    Automotive Engineers, and the National Mobility Dealers Association.
+        Where applicable, the aftermarket vehicle modifiers/adaptive equipment manufacturers and
+    their products are those known by the evaluator; any substitutions must be of equal use and
+    value. Consultation with the evaluator is recommended if anything other than these are used.
+        These recommendations should be considered valid for one (1) year from the date of the
+    evaluation. Beyond that time a re-evaluation may be necessary.
+        These recommendations have been developed based on the education and experienced of the
+    evaluator and the client's experience in using the assessment/training equipment available at
+    the Central Massachusetts Safety Council.
+        The results and recommendations included in this report are based on the client's performance
+    during the evaluation and should not be relied on as absolute predictors of future performance.
+        The conclusions reached and the recommendations made in this report are based, in part,
+        upon the medical information available at the time this report was written. If subsequent to
+    issuance of this report the client's medical status changes in such a manner that may
+    compromise the client's abilities as a driver the report can no longer be relied upon as valid.
+    No person shall drive using adaptive equipment unless they have received documented
+    instruction in the use thereof, with or without the owner's permission.
+    ____________________________________________________________________
+    Please contact me with any questions about the report and/or my recommendations. And
+    thank you for the opportunity to work together.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
         </div>
         </div>
 
-
-      <div class="form-group">
-          <label for="reconmendationsOther">Evaluated By</label>
-          <input name="EvaluatorName" class="form-control" id="EvaluatedBy" rows="3" ref={register}/>
-        </div>
 
         <div class="form-group">
+        <label for="reconmendationsOther">Evaluated By</label>
+    <input name="EvaluatorName" class="form-control" id="EvaluatedBy" rows="3" ref={register}/>
+    </div>
+
+    <div class="form-group">
         <label htmlFor="dateOfBirth">Evaluation Date</label>
-        <DatePicker
-              isClearable
-              name="evaluateDate"
-              selected={evaluateDate}
-	      id = "EvalDate"
-              onChange={val => {
-                setDate(val);
-                setValue("evaluateDate", val)
-              }}
-            />
-            {errors.date && <p>Evaluation date is required</p>}
-        </div>
+    <DatePicker
+    isClearable
+    name="evaluateDate"
+    selected={evaluateDate}
+    id = "EvalDate"
+    onChange={val => {
+    setDate(val);
+    setValue("evaluateDate", val)
+  }}
+  />
+  {errors.date && <p>Evaluation date is required</p>}
+  </div>
 
-    <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
-
-    <button className="btn btn-primary" onClick={e => generatePDF()}> Generate PDF</button>
-
-      <input  type="file" name="firstName" onChange={handleChange} />
-
+  <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
+  <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
+  <input  type="file" name="firstName" onChange={handleChange} />
 
   </form>
 
-);
+  );
 }

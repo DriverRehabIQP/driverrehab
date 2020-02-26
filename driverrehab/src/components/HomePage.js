@@ -10,17 +10,15 @@ class HomePage extends React.Component {
     return (
       <form>
         <Link to="/intakeform">
-         <button type="button" class="block"> Intake Form Link</button>
+         <button type="button" class="block"> Client: </button>;
         </Link>
 
 
         <Link to="/EvaluationForm">
-          <button type="button" class="bloc1k">EvaluationForm  Link</button>
+          <button type="button" class="bloc1k">Evaluator: </button>;
         </Link>
 
-          <Link to="/LoginPage">
-              <button type="button" class="bloc1k">EvaluationForm  Link</button>
-          </Link>
+
       </form>
     )
   }
