@@ -32,10 +32,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   alert(JSON.stringify(data));
   };
   const [evaluateDate, setDate] = React.useState(null);
-  const [primaryFields, setprimaryFields] = useState([{ value: null }]);
   const [secondaryFields, setSecondaryFields] = useState([{ value: null }]);
-
-
   React.useEffect(() => {
     console.log("STARTING");
     axios
@@ -79,31 +76,17 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
           console.log("Error from Show Car parts detail");
       })
  }, []);
-  function ChangeItem(i, event) {
-    const values = [...primaryFields];
-    values[i].value = event.target.value;
-    setprimaryFields(values);
-    console.log(primaryFields[i].value)
 
-  }
-
+ const [secondaryAllValues, setSecondaryAllValues]=useState({})
   function ChangeSecondaryItem(i, event) {
     const values = [...secondaryFields];
     values[i].value = event.target.value;
-    setSecondaryFields(values);
+    // setprimaryFields(values);
+    setSecondaryAllValues({
+     ...secondaryFields,i: {...i, textboxVal: values}});
+     console.log(secondaryAllValues)
   }
 
-  function NewPrimaryDropDown() {
-    const values = [...primaryFields];
-    values.push({ value: null });
-    setprimaryFields(values);
-  }
-
-  function RemovePrimaryDropDown(i) {
-    const values = [...primaryFields];
-    values.splice(i, 1);
-    setprimaryFields(values);
-  }
 
   function NewSecondaryDropDown() {
     const values = [...secondaryFields];
@@ -115,24 +98,90 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     const values = [...secondaryFields];
     values.splice(i, 1);
     setSecondaryFields(values);
+    const newState={...secondaryAllValues}
+    delete newState[i]
+    setSecondaryAllValues(newState)
   }
 
-  const [pDropdown, setpDropDown]=useState(null)
-  function HandleSelect(i, selectedOptions) {
+  // const [primaryFields, setprimaryFields] = useState([{ value: null }]);
+  // function NewPrimaryDropDown() {
+  //   const values = [...primaryFields];
+  //   values.push({ value: null });
+  //   setprimaryFields(values);
+  // }
+  // function RemovePrimaryDropDown(i) {
+  //   const values = [...primaryFields];
+  //   values.splice(i, 1);
+  //   setprimaryFields(values);
+  //   const newState={...primaryAllValues}
+  //   delete newState[i]
+  //   setPrimaryAllValues(newState)
+  // }
+  //  function ChangeItem(i, event) {
+  //    const values = [...primaryFields];
+  //    values[i].value = event.target.value;
+  //    setprimaryFields(values);
+  //    setPrimaryAllValues({
+  //     ...primaryFields,i: {...i, textboxVal: values}});
+  //     console.log(primaryAllValues)
+  //  }
+  // const [primaryAllValues, setPrimaryAllValues]=useState({})
+  // function HandleSelect(i, selectedOptions) {
+  //   setPrimaryAllValues({... primaryAllValues, i : {'dropdownVal': selectedOptions,
+  //                                 'textboxVal': primaryFields[i]}})
+  //   console.log(primaryAllValues)
+  // }
+  const [primaryAllValues, setPrimaryAllValues] = useState({});
+  function NewPrimaryDropDown(i) {
+    console.log("inside add function")
     console.log(i)
-    console.log(selectedOptions)
-    console.log(primaryFields.value)
-    var arr = pDropdown
-    let new_obj= {
-      'id': i,
-      'dropdownVal': selectedOptions,
-      'textboxVal': primaryFields[i].value
-    }
-    console.log(arr)
+      setPrimaryAllValues({
+        ...primaryAllValues,
+        [i]: {
+          dropdownVal: null,
+          textboxVal: null
+        }
+      });
+    console.log(primaryAllValues)
+    // return i++;
+  }
+
+  function RemovePrimaryDropDown(i) {
+    const newState = { ...primaryAllValues };
+    delete newState[i];
+    setPrimaryAllValues(newState);
+  }
+
+  function ChangeItem(i, event) {
+    setPrimaryAllValues({
+      ...primaryAllValues,
+      [i]: { ...primaryAllValues[i], textboxVal: event.target.value }
+    });
+    console.log("change items")
+    console.log(primaryAllValues)
+  }
+
+  function HandleSelect(i, selectedOptions) {
+    setPrimaryAllValues({
+      ...primaryAllValues,
+      [i]: { ...primaryAllValues[i], dropdownVal: selectedOptions }
+    });
+    console.log("Handle select")
+    console.log(primaryAllValues)
   }
 
   function generatePDF(event){
-    console.log(primaryFields)
+    // get values from dropdown
+    var curArr= Object.keys(primaryAllValues);
+    for(var i=0;i<curArr.length;i++){
+      console.log("textbox")
+      // HOW YOU GET VALUE FROM DROPDOWN
+      var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
+      // HOW YOU GET VALUE FROM TEXTBOX
+      var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
+      console.log("dropdownVal")
+
+    };
 
     var doc = new jsPDF();
     var vehicleUsed = $('#vehicleUsed').val();
@@ -280,14 +329,15 @@ return (
 
 
 <h5 for="primaryControls ">Primary Controls: </h5>
-{primaryFields.map((field, idx) => {
+
+{Object.keys(primaryAllValues).map((field) => {
   return (
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-        <div key={`${field}-${idx}`}></div>
+        <div key={`${field}-${field}`}></div>
         <Select options={items } class="PrimaryClass" name="primaryControls" ref={register}
-        onChange={e=>HandleSelect(idx, e)}
+        onChange={e=>HandleSelect(field, e)}
         />
         </div>
         <div class="col-sm-4">
@@ -296,16 +346,14 @@ return (
           type="text"
             style={{width: "370px"}}
                value={field.value}
-          onChange={e => ChangeItem(idx, e)}
+          onChange={e => ChangeItem(field, e)}
         />
         </div>
         <div class="col-sm-2">
-        <button type="button" onClick={() => RemovePrimaryDropDown(idx)}>
+        <button type="button" onClick={() => RemovePrimaryDropDown(field)}>
           X
         </button>
-        <button type="button" onClick={() => NewPrimaryDropDown()}>
-      +
-      </button>
+
         </div>
         <div class="col-sm-1">
         </div>
@@ -313,6 +361,10 @@ return (
 </div>
 );
 })}
+
+<button type="button" onClick={() => NewPrimaryDropDown(Object.keys(primaryAllValues).length)}>
++
+</button>
 
 <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
 determined during initial training session </h5>
