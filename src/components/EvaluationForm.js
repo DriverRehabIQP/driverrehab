@@ -96,18 +96,14 @@ function NewSecondaryDropDown(i) {
 
 function RemoveSecondaryDropDown(i) {
   const newState = { ...secondaryAllValues };
-  console.log("NEW")
-  console.log(newState)
   delete newState[i];
-  console.log("DELETE")
-  console.log(newState)
   setSecondaryAllValues(newState);
 }
 
 function ChangeSecondaryItem(i, event) {
   setSecondaryAllValues({
     ...secondaryAllValues,
-    [i]: { ...secondaryAllValues[i], textboxVal: event.target.value }
+    [i]: { ...secondaryAllValues[i], textboxVal: event }
   });
   console.log("change items")
   console.log(secondaryAllValues)
@@ -121,9 +117,6 @@ function HandleSecondarySelect(i, selectedOptions) {
   console.log("Handle select")
   console.log(secondaryAllValues)
 }
-
-
-
 // PRIMARY VALUES
   const [primaryAllValues, setPrimaryAllValues] = useState({});
   const [nextIdx, setNextIndex] = useState(1)
@@ -143,11 +136,7 @@ function HandleSecondarySelect(i, selectedOptions) {
 
   function RemovePrimaryDropDown(i) {
     const newState = { ...primaryAllValues };
-    console.log("newState in remove")
-    console.log(newState)
     delete newState[i];
-    console.log("delete")
-    console.log(newState)
     setPrimaryAllValues(newState);
   }
 
@@ -185,11 +174,11 @@ function HandleSecondarySelect(i, selectedOptions) {
 
     // get values from dropdown
     var curSecondaryArr= Object.keys(secondaryAllValues);
-    for(var i=0;i<curArr.length;i++){
+    for(var i=0;i<curSecondaryArr.length;i++){
       if (secondaryAllValues[curSecondaryArr[i]]!=null){
         console.log("dropdownVal")
         // HOW YOU GET VALUE FROM DROPDOWN
-        var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+        var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.value)
         // HOW YOU GET VALUE FROM TEXTBOX
         console.log("textbox")
         var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
@@ -344,8 +333,6 @@ return (
 <h5 for="primaryControls ">Primary Controls: </h5>
 
 {Object.keys(primaryAllValues).map((field) => {
-  // console.log("before return")
-  // console.log(primaryAllValues)
   return (
 <div class="container">
     <div class="row">
@@ -397,9 +384,12 @@ determined during initial training session </h5>
     <div class="row">
         <div class="col-sm-6">
         <div key={`${field}-${field}`}></div>
-        <Select  onChange={e=>{
-          HandleSecondarySelect(field, e.target.value)}}
-        options={secondaryItems } name="primaryControls" ref={register}
+        <Select
+        onChange={e=>{
+          console.log(e);
+          HandleSecondarySelect(field, e)}}
+
+        options={secondaryItems }  ref={register}
         value={secondaryAllValues[field].dropdownVal} />
         </div>
         <div class="col-sm-4">
@@ -408,7 +398,10 @@ determined during initial training session </h5>
           type="text"
             style={{width: "370px"}}
                value={secondaryAllValues[field].textboxVal}
-          onChange={e => {ChangeSecondaryItem(field, e.target.value)}}
+          onChange={e => {
+            console.log("Secondary")
+            console.log(e)
+            ChangeSecondaryItem(field, e.target.value)}}
         />
         </div>
         <div class="col-sm-2">
