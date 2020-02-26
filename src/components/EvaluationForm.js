@@ -323,8 +323,6 @@ determined during initial training session </h5>
 </div>
 );
 })}
-
-
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
 
@@ -395,7 +393,6 @@ determined during initial training session </h5>
             />
             {errors.date && <p>Evaluation date is required</p>}
         </div>
-
     <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
   </form>
   </div>
