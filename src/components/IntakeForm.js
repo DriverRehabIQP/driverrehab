@@ -72,8 +72,8 @@ function IntakeForm(props){
         var state1lines = doc.splitTextToSize(state1, bigtext);
         var Zip1= $('#inputZip4').val();
         var Zip1lines = doc.splitTextToSize(Zip1, bigtext);
-        //var Medical = $('#medicalClearanceTextArea').val();
-        //var Medicallines = doc.splitTextToSize(Medical, bigtext);
+        var Medical = $('#medicalClearanceTextArea').val();
+        var Medicallines = doc.splitTextToSize(Medical, bigtext);
         var Driving = $('#drivingConcernsTextArea').val();
         var Drivinglines = doc.splitTextToSize(Driving, bigtext);
         var Diagnosis = $('#diagnosis').val();
@@ -82,12 +82,16 @@ function IntakeForm(props){
         var Onsetlines = doc.splitTextToSize(Onset, bigtext);
         var Seizure = $('#seizure').val();
         var Seizurelines = doc.splitTextToSize(Seizure, bigtext);
+        var WheelChair = $('#wheel').val();
+        var Seatedheight = $('#height').val();
         var lineSpacing = 10;
         var cursorY = 55;
         var pageWrapInitialYPosition = 20;
         var pageHeight = doc.internal.pageSize.height;
         var cursor2Y = 20;
         var cursor3Y = 20;
+
+        var cursor4Y = 20;
 
 
         //var adherence= $('#Adherence').val();
@@ -462,6 +466,17 @@ function IntakeForm(props){
             doc.text(45, cursor2Y + 70, "Explain:");
         }
 
+        Medicallines.forEach(lineText => {
+            if (cursor2Y > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursor2Y = pageWrapInitialYPosition;
+                doc.text(105, cursor2Y, lineText);
+            }
+            else{
+                doc.text(105, cursor2Y + 70, lineText);
+            }
+            cursor2Y += lineSpacing;
+        })
         if (cursor2Y > pageHeight) { // Auto-paging
             doc.addPage();
             cursor2Y = pageWrapInitialYPosition;
@@ -587,19 +602,56 @@ function IntakeForm(props){
             doc.text(105, cursor3Y + 150, "Yes")
         }
 
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        if($('input[id=crutches]:checked').length > 0){
+            doc.text(105, cursor3Y + 120, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        if($('input[id=cane]:checked').length > 0){
+            doc.text(105, cursor3Y + 130, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        if($('input[id=manualwc]:checked').length > 0){
+            doc.text(105, cursor3Y + 140, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        if($('input[id=powerwc]:checked').length > 0){
+            doc.text(105, cursor3Y + 150, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        if (cursor3Y > pageHeight ) { // Auto-paging
+            doc.addPage();
+            cursor2Y = pageWrapInitialYPosition;
+            doc.text(45, cursor3Y + 160, "WheelChair Make/Model:");
+        }
+        doc.text(105, cursor3Y + 170, WheelChair);
+        if (cursor3Y > pageHeight ) { // Auto-paging
+            doc.addPage();
+            cursor2Y = pageWrapInitialYPosition;
+            doc.text(45, cursor3Y + 180, "Seated Height in Wheelchair:");
+        }
+        doc.text(105, cursor3Y + 190, Seatedheight);
 
-
-
-
-
-
-
-
-
-
-
-
-
+        doc.addPage();
+        doc.text(30, cursor4Y, "Cognitive Abilities:");
+        doc.text(45, cursor4Y + 10, "Difficulty concentrating on task:");
+        if($('input[id=cot]:checked').length > 0){
+            doc.text(105, cursor4Y + 10, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
+        doc.text(45, cursor4Y + 20, "Memories Difficulties:");
+        if($('input[id=memorydiff]:checked').length > 0){
+            doc.text(105, cursor4Y + 20, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 20, "No")
+        }
         /*
          doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
             doc.text(45, 205, "Minivan:")
@@ -615,6 +667,18 @@ function IntakeForm(props){
 
 
         */
+
+         doc.text(30, cursor4Y, "Funding:");
+        doc.text(45, cursor4Y + 30, "Difficulty concentrating on task:");
+        if($('input[id=privatePay]:checked').length > 0){
+            doc.text(105, cursor4Y + 40, "Yes")
+        }else{
+            doc.text(105, cursor4Y + 40, "No")
+        }
+
+
+
+
 
         doc.save("IntakeForm.pdf");
     }
@@ -635,6 +699,7 @@ function IntakeForm(props){
         <form onSubmit={handleSubmit(onSubmit)}>
         <div>
          {props.dataFromParent}
+        The data from parent is:{props.dataFromParent}
 </div>
     <h1>Client</h1>
     <div class="form-group">
@@ -814,6 +879,10 @@ function IntakeForm(props){
                                         )}
 
 
+                                    <div class="form-group">
+                                        <label for="medicalClearance">Explain if you don't have medical clearance to drive</label>
+                                    <textarea name="medicalClearance" class="form-control" id="medicalClearanceTextArea" rows="3" ref={register}></textarea>
+                                        </div>
 
                                         <div class="form-group">
                                         <label for="drivingConcerns">Driving concerns (if applicable)</label>
@@ -1062,12 +1131,14 @@ function IntakeForm(props){
 
                                     <div class="form-group">
                                         <label htmlFor="lastName">Wheelchair make/model (if applicable)</label>
-                                    <input class="form-control" name="wheelchairModel"  ref={register} />
+
+                                    <input class="form-control" name="wheelchairModel" id="wheel"  ref={register} />
                                     </div>
 
                                     <div class="form-group">
                                         <label htmlFor="lastName">Seated height in wheelchair (floor to top of head)</label>
-                                    <input class="form-control" name="wheelchairHeight"  ref={register} />
+
+                                    <input class="form-control" name="wheelchairHeight" id="height" ref={register} />
                                     </div>
 
                                     <fieldset class="form-group">
@@ -1140,6 +1211,8 @@ function IntakeForm(props){
                                     class="form-control"
                                         name="fundingSource"
                                         type="text"
+
+                                        id = "FundingSource"
                                         ref={register} />
                                     </div>
 
@@ -1149,6 +1222,7 @@ function IntakeForm(props){
                                     class="form-control"
                                         name="fundingContactPerson"
                                         type="text"
+                                        id = "ContactPerson"
                                         ref={register}    />
                                     </div>
                                     <div class="form-group col-md-6">
@@ -1157,6 +1231,7 @@ function IntakeForm(props){
                                     class="form-control"
                                         name="fundingEmail"
                                         type="email"
+                                        id = "FundingEmail"
                                         ref={register({
                                                           pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                     })}    />
@@ -1167,6 +1242,7 @@ function IntakeForm(props){
                                         type="tel"
                                     class="form-control"
                                         name="fundingMobileNumber"
+                                        id = "FundingMobileNumber"
                                         ref={register({
                                                           maxLength: 11,
                                                           minLength: 8,
@@ -1177,7 +1253,7 @@ function IntakeForm(props){
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputAddress">Address</label>
-                                            <input type="text" name="fundingAddress" class="form-control" placeholder="1234 Main St"  ref={register} />
+                                            <input type="text" name="fundingAddress" id = "FundingAddress" class="form-control" placeholder="1234 Main St"  ref={register} />
                                         </div>
                                         </div>
                                         )}
