@@ -1432,8 +1432,12 @@ export default function EvaluationForm(){
       console.log("I am in teh forlop");
       // HOW YOU GET VALUE FROM DROPDOWN
 <<<<<<< HEAD
+<<<<<<< HEAD
       console.log("dropdown")
       var dropdown = (secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+=======
+      var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+>>>>>>> parent of a1902500... fix formatting
 =======
       var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
 >>>>>>> parent of a1902500... fix formatting
