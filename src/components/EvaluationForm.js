@@ -78,6 +78,8 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
 
 // SECONDARY values
 const [secondaryAllValues, setSecondaryAllValues] = useState({});
+const [nextSecondaryIdx, setNextSecondaryIndex] = useState(0)
+
 function NewSecondaryDropDown(i) {
   console.log("inside add function")
   console.log(i)
@@ -89,11 +91,16 @@ function NewSecondaryDropDown(i) {
       }
     });
   console.log(secondaryAllValues)
+  setNextSecondaryIndex(nextSecondaryIdx+1)
 }
 
 function RemoveSecondaryDropDown(i) {
   const newState = { ...secondaryAllValues };
+  console.log("NEW")
+  console.log(newState)
   delete newState[i];
+  console.log("DELETE")
+  console.log(newState)
   setSecondaryAllValues(newState);
 }
 
@@ -118,6 +125,7 @@ function HandleSecondarySelect(i, selectedOptions) {
 
 
 // PRIMARY VALUES
+const [nextIdx, setNextIndex] = useState(0)
   const [primaryAllValues, setPrimaryAllValues] = useState({});
   function NewPrimaryDropDown(i) {
     console.log("inside add function")
@@ -129,13 +137,18 @@ function HandleSecondarySelect(i, selectedOptions) {
           textboxVal: null
         }
       });
+      setNextIndex(nextIdx+1)
     console.log(primaryAllValues)
   }
 
   function RemovePrimaryDropDown(i) {
     const newState = { ...primaryAllValues };
+    console.log("NEW state")
+    console.log(newState)
     delete newState[i];
-    setPrimaryAllValues(newState);
+    console.log("DELETE")
+    console.log(newState)
+        setPrimaryAllValues(newState);
   }
 
   function ChangeItem(i, event) {
@@ -160,25 +173,27 @@ function HandleSecondarySelect(i, selectedOptions) {
     // get values from dropdown
     var curArr= Object.keys(primaryAllValues);
     for(var i=0;i<curArr.length;i++){
-      console.log("textbox")
       // HOW YOU GET VALUE FROM DROPDOWN
-      var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
-      // HOW YOU GET VALUE FROM TEXTBOX
-      console.log("dropdownVal")
-      var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
-
+      if (primaryAllValues[curArr[i]]!=null){
+        console.log("textbox")
+        var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
+        // HOW YOU GET VALUE FROM TEXTBOX
+        console.log("dropdownVal")
+        var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
+      }
     };
 
     // get values from dropdown
     var curSecondaryArr= Object.keys(secondaryAllValues);
     for(var i=0;i<curArr.length;i++){
-      console.log("textbox")
-      // HOW YOU GET VALUE FROM DROPDOWN
-      var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
-      // HOW YOU GET VALUE FROM TEXTBOX
-      console.log("dropdownVal")
-      var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
-
+      if (secondaryAllValues[curSecondaryArr[i]]!=null){
+        console.log("textbox")
+        // HOW YOU GET VALUE FROM DROPDOWN
+        var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+        // HOW YOU GET VALUE FROM TEXTBOX
+        console.log("dropdownVal")
+        var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
+      }
     };
 
     var doc = new jsPDF();
@@ -360,7 +375,7 @@ return (
 );
 })}
 
-<button type="button" onClick={() => NewPrimaryDropDown(Object.keys(primaryAllValues).length)}>
+<button type="button" onClick={() => NewPrimaryDropDown(nextIdx)}>
 +
 </button>
 
@@ -396,7 +411,7 @@ determined during initial training session </h5>
 </div>
 );
 })}
-<button type="button" onClick={() => NewSecondaryDropDown(Object.keys(secondaryAllValues).length)}>
+<button type="button" onClick={() => NewSecondaryDropDown(nextSecondaryIdx)}>
 +
 </button>
 
