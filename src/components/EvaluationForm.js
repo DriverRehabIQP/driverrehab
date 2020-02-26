@@ -125,8 +125,8 @@ function HandleSecondarySelect(i, selectedOptions) {
 
 
 // PRIMARY VALUES
-const [nextIdx, setNextIndex] = useState(0)
   const [primaryAllValues, setPrimaryAllValues] = useState({});
+  const [nextIdx, setNextIndex] = useState(0)
   function NewPrimaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
@@ -143,12 +143,8 @@ const [nextIdx, setNextIndex] = useState(0)
 
   function RemovePrimaryDropDown(i) {
     const newState = { ...primaryAllValues };
-    console.log("NEW state")
-    console.log(newState)
     delete newState[i];
-    console.log("DELETE")
-    console.log(newState)
-        setPrimaryAllValues(newState);
+    setPrimaryAllValues(newState);
   }
 
   function ChangeItem(i, event) {
