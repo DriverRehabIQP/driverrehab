@@ -1,0 +1,112 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #09d3ac;
+}
+
+.form-gr {
+    color: #09d3ac;
+}
+
+
+h1 {
+    background-color: yellow;
+
+}
+
+div {
+    background-color: lightgreen;
+}
+
+p {
+    background-color: yellow;
+}
+
+.block {
+
+    width: 300px;
+    height: 200px;
+    font-size: 2rem;
+    display: block;
+    left: 0px;
+    width: 50%;
+
+    background-color: yellow;
+
+    padding: 14px 28px;
+    font-size: 50px;
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    text-align: center;
+
+    border: 2px solid #4CAF50; /* Green */
+    vertical-align: top;
+    font-family: 'Optima, sans-serif'; font-size: 80px;
+
+}
+.block:hover:after{
+    content:"Intake Form ";
+}
+.block:hover {background-color: lightyellow}
+
+.block:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.bloc1k {
+
+    display: block;
+    right: 0px;
+    width: 50%;
+    border: none;
+
+    background-color: green;
+    vertical-align: top;
+    padding: 14px 28px;
+    font-size: 50px;
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    text-align: center;
+    font-family: 'Optima, sans-serif'; font-size: 80px;
+}
+.bloc1k:hover:after{
+    content: "Evaluation Form ";
+}
+.bloc1k:hover {background-color: #3e8e41}
+
+.bloc1k:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+
+
+.btn12 {
+    height: 37px;
+    width: 37px;
+
+    background-image:url('http://www.w3.org/html/logo/downloads/HTML5_Logo_32.png');
+    background-repeat:no-repeat;
+}
