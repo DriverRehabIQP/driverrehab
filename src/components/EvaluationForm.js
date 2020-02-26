@@ -1471,6 +1471,7 @@ export default function EvaluationForm(){
     doc.setFontSize(12);
     for(var i=0;i<curSecondaryArr.length;i++){
       // HOW YOU GET VALUE FROM DROPDOWN
+      console.log("dropdown")
       var dropdown = (secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
       // HOW YOU GET VALUE FROM TEXTBOX
        var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
