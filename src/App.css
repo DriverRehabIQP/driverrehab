@@ -27,16 +27,18 @@
 
 
 h1 {
-    background-color: yellow;
-
 }
 
 div {
-    background-color: lightgreen;
+
 }
 
 p {
-    background-color: yellow;
+
+}
+
+p {
+
 }
 
 .block {
@@ -54,7 +56,7 @@ p {
     font-size: 50px;
     cursor: pointer;
     position: absolute;
-    height: 100%;
+    height: 50%;
     text-align: center;
 
     border: 2px solid #4CAF50; /* Green */
@@ -86,6 +88,7 @@ p {
     font-size: 50px;
     cursor: pointer;
     position: absolute;
+    height: 50%;
     height: 100%;
     text-align: center;
     font-family: 'Optima, sans-serif'; font-size: 80px;
