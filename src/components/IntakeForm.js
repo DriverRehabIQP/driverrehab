@@ -600,9 +600,10 @@ function IntakeForm(props){
         }
         if($('input[id=powerwc]:checked').length > 0){
             doc.text(105, cursor3Y + 150, "Yes")
-        }
+        
 
-        }else{
+        }
+        else{
             doc.text(105, cursor4Y + 20, "No")
         }
         if($('input[id=crutches]:checked').length > 0){

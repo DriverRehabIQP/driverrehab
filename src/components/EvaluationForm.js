@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 // import '../App.css';
 // import "./index.css";
 
-import { useForm } from "react-hook-form";
 import '../App.css';
 import "./index.css";
 import Client from "./client";
@@ -22,27 +21,8 @@ import * as XLSX from 'xlsx';
 import axios from 'axios';
 import Select from 'react-select';
 
-export default function EvaluationForm(){
-
-  const [items, setItems] = React.useState([
-        { label: "test", value: "test" },
-      ]);
-
-  const [secondaryItems, setSecondaryItems] = React.useState([
-        { label: "test", value: "test" },
-      ]);
-
-
-
-const { register, watch,setValue, handleSubmit, errors } = useForm();
-  const onSubmit = data => {
-  alert(JSON.stringify(data));
-  };
 
 export default function EvaluationForm(){
-
-
-
    const onSubmit = data => {
     alert(JSON.stringify(data));
   };
@@ -108,55 +88,8 @@ export default function EvaluationForm(){
 const [secondaryAllValues, setSecondaryAllValues] = useState({});
 const [nextSecondaryIdx, setNextSecondaryIndex] = useState(1)
 
-function NewSecondaryDropDown(i) {
-  console.log("inside add function")
-  console.log(i)
-        .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/PrimaryControlsCarEquipments.csv')
-        .then(res => {
-          console.log("PRIMARY DROPDOWNS-------------------------")
-          console.log(res.data);
-          var data= res.data.split("\n");
-          var result = [];
-          for(var i=1;i<data.length-1;i++){
-            // var currentline=lines[i].split(",");
-            var obj = {label: data[i], value: data[i]};
-            // console.log(data[i])
-            result.push(obj)
-          };
-          result.sort();
-          setItems(result);
-        })
-        .catch(err => {
-          console.log(err)
-          console.log("Error from Show Car parts detail");
-        })
-
-    // secondary controls
-    axios
-        .get('https://raw.githubusercontent.com/DriverRehabIQP/driverrehab/evaluation-form-checkboxes-version/SecondaryControlsCarEquipments.csv')
-        .then(res => {
-          console.log("SECONDARY DROPDOWNS-------------------------")
-          console.log(res.data);
-          var data= res.data.split("\n");
-          var result = [];
-          for(var i=1;i<data.length-1;i++){
-            var obj = {label: data[i], value: data[i]};
-            result.push(obj)
-          };
-          result.sort();
-          setSecondaryItems(result);
-        })
-        .catch(err => {
-          console.log(err)
-          console.log("Error from Show Car parts detail");
-        })
-  }, []);
-
   const [fields, setFields] = useState([{ value: null }]);
 
-  React.useEffect(() => {
-    register({ name: "evaluateDate" }, { required: true });
-  }, []);
 
 
 
@@ -329,7 +262,6 @@ function NewSecondaryDropDown(i) {
     reader.readAsText(file);
   }
 // SECONDARY values
-  const [secondaryAllValues, setSecondaryAllValues] = useState({});
   function NewSecondaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
