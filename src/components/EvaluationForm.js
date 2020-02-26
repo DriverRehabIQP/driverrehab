@@ -1,8 +1,8 @@
 import React from "react"
 //edit
 import { useForm } from "react-hook-form";
-import '../App.css';
-import "./index.css";
+// import '../App.css';
+// import "./index.css";
 import Client from "./client";
 import  { useState } from 'react';
 import DatePicker from "react-datepicker";
@@ -79,12 +79,18 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
           console.log("Error from Show Car parts detail");
       })
  }, []);
-
-
   function ChangeItem(i, event) {
     const values = [...primaryFields];
     values[i].value = event.target.value;
     setprimaryFields(values);
+    console.log(primaryFields[i].value)
+
+  }
+
+  function ChangeSecondaryItem(i, event) {
+    const values = [...secondaryFields];
+    values[i].value = event.target.value;
+    setSecondaryFields(values);
   }
 
   function NewPrimaryDropDown() {
@@ -111,7 +117,23 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     setSecondaryFields(values);
   }
 
+  const [pDropdown, setpDropDown]=useState(null)
+  function HandleSelect(i, selectedOptions) {
+    console.log(i)
+    console.log(selectedOptions)
+    console.log(primaryFields.value)
+    var arr = pDropdown
+    let new_obj= {
+      'id': i,
+      'dropdownVal': selectedOptions,
+      'textboxVal': primaryFields[i].value
+    }
+    console.log(arr)
+  }
+
   function generatePDF(event){
+    console.log(primaryFields)
+
     var doc = new jsPDF();
     var vehicleUsed = $('#vehicleUsed').val();
     var AEUsed = $('#AEUsed').val();
@@ -129,6 +151,8 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     var reconmendationsOther= $('#ReconmendationsOther').val();
     var evalDate= $('#EvalDate').val();
     var evaluatedBy= $('#EvaluatedBy').val();
+
+
     doc.setFontSize(25);
     doc.text(70, 30, "Evaluation Form");
     doc.setFontSize(17);
@@ -168,7 +192,7 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
     doc.text(105, 235, evalDate);
     doc.text(45, 225, "Evaluated by:")
     doc.text(105, 225, evaluatedBy);
-    doc.save("DriverRehab.pdf");
+    // doc.save("DriverRehab.pdf");
   }
   const generalStyles = {
      marginLeft: '20px',
@@ -262,7 +286,9 @@ return (
     <div class="row">
         <div class="col-sm-6">
         <div key={`${field}-${idx}`}></div>
-        <Select options={items }name="primaryControls" ref={register}/>
+        <Select options={items } class="PrimaryClass" name="primaryControls" ref={register}
+        onChange={e=>HandleSelect(idx, e)}
+        />
         </div>
         <div class="col-sm-4">
         <input
@@ -282,7 +308,6 @@ return (
       </button>
         </div>
         <div class="col-sm-1">
-
         </div>
     </div>
 </div>
@@ -305,7 +330,7 @@ determined during initial training session </h5>
           type="text"
             style={{width: "370px"}}
                value={secondaryFields.value}
-          onChange={e => ChangeItem(idx, e)}
+          onChange={e => ChangeSecondaryItem(idx, e)}
         />
         </div>
         <div class="col-sm-2">
