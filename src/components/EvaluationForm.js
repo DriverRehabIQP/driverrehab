@@ -32,7 +32,6 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
   alert(JSON.stringify(data));
   };
   const [evaluateDate, setDate] = React.useState(null);
-  const [secondaryFields, setSecondaryFields] = useState([{ value: null }]);
   React.useEffect(() => {
     console.log("STARTING");
     axios
@@ -77,60 +76,48 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       })
  }, []);
 
- const [secondaryAllValues, setSecondaryAllValues]=useState({})
-  function ChangeSecondaryItem(i, event) {
-    const values = [...secondaryFields];
-    values[i].value = event.target.value;
-    // setprimaryFields(values);
+// SECONDARY values
+const [secondaryAllValues, setSecondaryAllValues] = useState({});
+function NewSecondaryDropDown(i) {
+  console.log("inside add function")
+  console.log(i)
     setSecondaryAllValues({
-     ...secondaryFields,i: {...i, textboxVal: values}});
-     console.log(secondaryAllValues)
-  }
+      ...secondaryAllValues,
+      [i]: {
+        dropdownVal: null,
+        textboxVal: null
+      }
+    });
+  console.log(secondaryAllValues)
+}
+
+function RemoveSecondaryDropDown(i) {
+  const newState = { ...secondaryAllValues };
+  delete newState[i];
+  setSecondaryAllValues(newState);
+}
+
+function ChangeSecondaryItem(i, event) {
+  setSecondaryAllValues({
+    ...secondaryAllValues,
+    [i]: { ...secondaryAllValues[i], textboxVal: event.target.value }
+  });
+  console.log("change items")
+  console.log(secondaryAllValues)
+}
+
+function HandleSecondarySelect(i, selectedOptions) {
+  setSecondaryAllValues({
+    ...secondaryAllValues,
+    [i]: { ...secondaryAllValues[i], dropdownVal: selectedOptions }
+  });
+  console.log("Handle select")
+  console.log(secondaryAllValues)
+}
 
 
-  function NewSecondaryDropDown() {
-    const values = [...secondaryFields];
-    values.push({ value: null });
-    setSecondaryFields(values);
-  }
 
-  function RemoveSecondaryDropDown(i) {
-    const values = [...secondaryFields];
-    values.splice(i, 1);
-    setSecondaryFields(values);
-    const newState={...secondaryAllValues}
-    delete newState[i]
-    setSecondaryAllValues(newState)
-  }
-
-  // const [primaryFields, setprimaryFields] = useState([{ value: null }]);
-  // function NewPrimaryDropDown() {
-  //   const values = [...primaryFields];
-  //   values.push({ value: null });
-  //   setprimaryFields(values);
-  // }
-  // function RemovePrimaryDropDown(i) {
-  //   const values = [...primaryFields];
-  //   values.splice(i, 1);
-  //   setprimaryFields(values);
-  //   const newState={...primaryAllValues}
-  //   delete newState[i]
-  //   setPrimaryAllValues(newState)
-  // }
-  //  function ChangeItem(i, event) {
-  //    const values = [...primaryFields];
-  //    values[i].value = event.target.value;
-  //    setprimaryFields(values);
-  //    setPrimaryAllValues({
-  //     ...primaryFields,i: {...i, textboxVal: values}});
-  //     console.log(primaryAllValues)
-  //  }
-  // const [primaryAllValues, setPrimaryAllValues]=useState({})
-  // function HandleSelect(i, selectedOptions) {
-  //   setPrimaryAllValues({... primaryAllValues, i : {'dropdownVal': selectedOptions,
-  //                                 'textboxVal': primaryFields[i]}})
-  //   console.log(primaryAllValues)
-  // }
+// PRIMARY VALUES
   const [primaryAllValues, setPrimaryAllValues] = useState({});
   function NewPrimaryDropDown(i) {
     console.log("inside add function")
@@ -143,7 +130,6 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
         }
       });
     console.log(primaryAllValues)
-    // return i++;
   }
 
   function RemovePrimaryDropDown(i) {
@@ -178,8 +164,20 @@ const { register, watch,setValue, handleSubmit, errors } = useForm();
       // HOW YOU GET VALUE FROM DROPDOWN
       var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
       // HOW YOU GET VALUE FROM TEXTBOX
-      var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
       console.log("dropdownVal")
+      var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
+
+    };
+
+    // get values from dropdown
+    var curSecondaryArr= Object.keys(secondaryAllValues);
+    for(var i=0;i<curArr.length;i++){
+      console.log("textbox")
+      // HOW YOU GET VALUE FROM DROPDOWN
+      var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
+      // HOW YOU GET VALUE FROM TEXTBOX
+      console.log("dropdownVal")
+      var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
 
     };
 
@@ -368,30 +366,28 @@ return (
 
 <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
 determined during initial training session </h5>
-{secondaryFields.map((secondaryFields, idx) => {
+{Object.keys(secondaryAllValues).map((field) => {
   return (
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-        <div key={`${secondaryFields}-${idx}`}></div>
-        <Select options={secondaryItems }name="primaryControls" ref={register}/>
+        <div key={`${field}-${field}`}></div>
+        <Select  onChange={e=>HandleSecondarySelect(field, e)} options={secondaryItems } name="primaryControls" ref={register}/>
         </div>
         <div class="col-sm-4">
         <input
         class="form-control"
           type="text"
             style={{width: "370px"}}
-               value={secondaryFields.value}
-          onChange={e => ChangeSecondaryItem(idx, e)}
+               value={field.value}
+          onChange={e => ChangeSecondaryItem(field, e)}
         />
         </div>
         <div class="col-sm-2">
-        <button type="button" onClick={() => RemoveSecondaryDropDown(idx)}>
+        <button type="button" onClick={() => RemoveSecondaryDropDown(field)}>
           X
         </button>
-        <button type="button" onClick={() => NewSecondaryDropDown()}>
-      +
-      </button>
+
         </div>
         <div class="col-sm-1">
 
@@ -400,6 +396,10 @@ determined during initial training session </h5>
 </div>
 );
 })}
+<button type="button" onClick={() => NewSecondaryDropDown(Object.keys(secondaryAllValues).length)}>
++
+</button>
+
       <div class="form-group">
           <label for="reconmendationsOther">Reconmendations other</label>
 
