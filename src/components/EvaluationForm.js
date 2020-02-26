@@ -154,7 +154,7 @@ function HandleSecondarySelect(i, selectedOptions) {
   function ChangeItem(i, event) {
     setPrimaryAllValues({
       ...primaryAllValues,
-      [i]: { ...primaryAllValues[i], textboxVal: event.target.value }
+      [i]: { ...primaryAllValues[i], textboxVal: event}
     });
     console.log("change items")
     console.log(primaryAllValues)
@@ -170,15 +170,15 @@ function HandleSecondarySelect(i, selectedOptions) {
   }
 
   function generatePDF(event){
-    // get values from dropdown
+    // get values from
     var curArr= Object.keys(primaryAllValues);
     for(var i=0;i<curArr.length;i++){
       // HOW YOU GET VALUE FROM DROPDOWN
       if (primaryAllValues[curArr[i]]!=null){
-        console.log("textbox")
-        var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.label)
+        console.log("dropdown")
+        var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.value)
         // HOW YOU GET VALUE FROM TEXTBOX
-        console.log("dropdownVal")
+        console.log("textbox")
         var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
       }
     };
@@ -187,11 +187,11 @@ function HandleSecondarySelect(i, selectedOptions) {
     var curSecondaryArr= Object.keys(secondaryAllValues);
     for(var i=0;i<curArr.length;i++){
       if (secondaryAllValues[curSecondaryArr[i]]!=null){
-        console.log("textbox")
+        console.log("dropdownVal")
         // HOW YOU GET VALUE FROM DROPDOWN
         var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
         // HOW YOU GET VALUE FROM TEXTBOX
-        console.log("dropdownVal")
+        console.log("textbox")
         var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
       }
     };
@@ -344,15 +344,21 @@ return (
 <h5 for="primaryControls ">Primary Controls: </h5>
 
 {Object.keys(primaryAllValues).map((field) => {
-  console.log("before return")
-  console.log(primaryAllValues)
+  // console.log("before return")
+  // console.log(primaryAllValues)
   return (
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
         <div key={`${field}-${field}`}></div>
-        <Select options={items } class="PrimaryClass" name="primaryControls" ref={register}
-        onChange={e=>HandleSelect(field, e)} value={primaryAllValues[field].dropdownVal}
+        <Select options={items }
+        class="PrimaryClass"
+         name="primaryControls"
+         ref={register}
+         onChange={e=>{
+           console.log(e);
+           HandleSelect(field, e)}}
+        value={primaryAllValues[field].dropdownVal}
         />
         </div>
         <div class="col-sm-4">
@@ -361,14 +367,15 @@ return (
           type="text"
             style={{width: "370px"}}
                value={primaryAllValues[field].textboxVal}
-          onChange={e => ChangeItem(field, e)}
+          onChange={e =>
+            {console.log(e)
+              ChangeItem(field, e.target.value)}}
         />
         </div>
         <div class="col-sm-2">
         <button type="button" onClick={() => RemovePrimaryDropDown(field)}>
           X
         </button>
-
         </div>
         <div class="col-sm-1">
         </div>
