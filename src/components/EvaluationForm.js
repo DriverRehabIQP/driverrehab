@@ -284,6 +284,10 @@ function HandleSecondarySelect(i, selectedOptions) {
   console.log("Handle select")
   console.log(secondaryAllValues)
 }
+const generalStyles = {
+   marginLeft: '20px',
+   marginRight: '20px',
+ };
 // PRIMARY VALUES
   const [primaryAllValues, setPrimaryAllValues] = useState({});
   const [nextIdx, setNextIndex] = useState(1)
@@ -324,37 +328,9 @@ function HandleSecondarySelect(i, selectedOptions) {
     console.log("Handle select")
     console.log(primaryAllValues)
   }
-
-  // get values from
-  // var curArr= Object.keys(primaryAllValues);
-  // for(var i=0;i<curArr.length;i++){
-  //   // HOW YOU GET VALUE FROM DROPDOWN
-  //   if (primaryAllValues[curArr[i]]!=null){
-  //     console.log("dropdown")
-  //     var dropdown = console.log(primaryAllValues[curArr[i]].dropdownVal.value)
-  //     // HOW YOU GET VALUE FROM TEXTBOX
-  //     console.log("textbox")
-  //     var textbox = console.log(primaryAllValues[curArr[i]].textboxVal)
-  //   }
-  // };
-
-  // get values from dropdown
-  // var curSecondaryArr= Object.keys(secondaryAllValues);
-  // for(var i=0;i<curSecondaryArr.length;i++){
-  //   if (secondaryAllValues[curSecondaryArr[i]]!=null){
-  //     console.log("dropdownVal")
-  //     // HOW YOU GET VALUE FROM DROPDOWN
-  //     var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.value)
-  //     // HOW YOU GET VALUE FROM TEXTBOX
-  //     console.log("textbox")
-  //     var textbox = console.log(secondaryAllValues[curSecondaryArr[i]].textboxVal)
-  //   }
-  // };
   function generatePDF(event){
     var doc = new jsPDF();
    var bigtext = 55;
-
-
    var clientName = $('#ClientName').val();
    var clientNamelines =  doc.splitTextToSize(clientName, bigtext);
    var clientAddress = $('#ClientAddress').val();
@@ -530,7 +506,8 @@ function HandleSecondarySelect(i, selectedOptions) {
    }
    else{
      doc.text(45, cursorY + 10, "Date of Birth:");
-   }    clientDOBlines.forEach(lineText => {
+   }
+   clientDOBlines.forEach(lineText => {
      if (cursorY > pageHeight) { // Auto-paging
        doc.addPage();
        cursorY = pageWrapInitialYPosition;
@@ -1005,7 +982,7 @@ function HandleSecondarySelect(i, selectedOptions) {
      cursorY += lineSpacing;
    })
 
-console.log(cursorY);
+   console.log(cursorY);
    console.log(pageHeight);
    if (cursorY > pageHeight) { // Auto-paging
      doc.addPage();
@@ -1170,14 +1147,6 @@ console.log(cursorY);
      }
      cursorY += lineSpacing;
    })
-
-
-
-
-
-
-
-
 
    doc.setFontSize(13);
    if (cursorY > pageHeight) { // Auto-paging
@@ -1386,7 +1355,6 @@ console.log(cursorY);
      else{doc.text(105, cursorY + 10, lineText);}
      cursorY += lineSpacing;
    })
-
 
 
    if (cursorY > pageHeight) { // Auto-paging
@@ -1615,13 +1583,73 @@ console.log(cursorY);
 
    // get values from dropdown
    var curArr= Object.keys(primaryAllValues);
+   for(var i=0;i<curArr.length;i++){
+      if (primaryAllValues[curArr[i]].dropdownVal.value!=null)
+        {
+          var dropdown = (primaryAllValues[curArr[i]].dropdownVal.value)
+          if (cursory > pageHeight) { // Auto-paging
+              doc.addPage();
+              doc.text(45, cursorY, dropdown);}
+          else{
+            doc.text(45, cursorY + 10, dropdown);}
+         if ( primaryAllValues[curArr[i]].textboxVal!=null){
+             var TextPartP =  primaryAllValues[curArr[i]].textboxVal
+             var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
+             otextboxlines.forEach(lineText => {
+                 if (cursorY > pageHeight) { // Auto-paging
+                    doc.addPage();
+                    cursory = pageWrapInitialYPosition;
+                    doc.text(125, cursorY, lineText);
+                  }
+                  else{
+                    doc.text(125, cursorY + 10, lineText);}
+             cursorY += lineSpacing;},)
+           };
+     }
+   }
+  // stop getting
+  var curSecondaryArr= Object.keys(secondaryAllValues);
+     doc.setFontSize(14);
+     if (cursorY > pageHeight) { // Auto-paging
+       doc.addPage();
+       cursorY = pageWrapInitialYPosition;
+       doc.text(45, cursorY, "Secondary Controls");
+     }else{
+       doc.text(45, cursorY + 10, "Secondary Controls");
+       cursorY += lineSpacing;
+     }
+     doc.setFontSize(12);
+     for(var i=0;i<curSecondaryArr.length;i++){
+       if (secondaryAllValues[curSecondaryArr[i]].dropdownVal!=null){
+      console.log("dropdownVal")
+      // HOW YOU GET VALUE FROM DROPDOWN
+      var dropdown = console.log(secondaryAllValues[curSecondaryArr[i]].dropdownVal.value)
+      // HOW YOU GET VALUE FROM TEXTBOX
+        var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
+        var otextboxlines =  doc.splitTextToSize(TextPart, bigtext);
 
+       if (cursorY > pageHeight) { // Auto-paging
+         doc.addPage();
+         cursorY = pageWrapInitialYPosition;
+         doc.text(45, cursorY, dropdown);
+       }else{
+         doc.text(45, cursorY + 10, dropdown);
+       }
+       otextboxlines.forEach(lineText => {
+         if (cursorY > pageHeight) { // Auto-paging
+           doc.addPage();
+           cursorY = pageWrapInitialYPosition;
+           doc.text(125, cursorY, lineText);
+         }
+         else{doc.text(125, cursorY + 10, lineText);}
+         cursorY += lineSpacing;
+       })
+     }
+     };
+     doc.save("DriverRehab.pdf");
 
-  }
-  const generalStyles = {
-     marginLeft: '20px',
-     marginRight: '20px',
-   };
+}
+
 return (
   <div style={generalStyles}>
 
@@ -2189,7 +2217,6 @@ determined during initial training session </h5>
 
 
 </form>
-
 </div>
 
 );
