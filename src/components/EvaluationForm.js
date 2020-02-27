@@ -453,9 +453,9 @@ export default function EvaluationForm(){
     var lineSpacing = 10;
     var cursorY = 55;
     var pageWrapInitialYPosition = 20;
-    var pageHeight = doc.internal.pageSize.height;
-    var cursor2Y = 20;
-    var cursor3Y = 20;
+    var pageHeight = (doc.internal.pageSize.height)-10;
+    var cursory = 20;
+    var cursorY = 20;
 
     doc.setFontSize(17);
     doc.text(70, 30, "Central Massachusetts Safety Council");
@@ -483,7 +483,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY +10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -505,7 +505,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -527,7 +527,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -551,7 +551,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -572,7 +572,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+ 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -593,7 +593,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+ 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -615,7 +615,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+ 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -636,7 +636,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY + 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -658,7 +658,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY + 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -680,84 +680,147 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY + 10, lineText);
       }
       cursorY += lineSpacing;
     })
 
     doc.setFontSize(13);
-    doc.text(70, 50, "Background");
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(30, cursorY, "Background");
+    }
+    else{
+      doc.text(30, cursorY + 10, "Background");
+    }
+    cursorY += lineSpacing;
+     cursorY += lineSpacing;
+
     doc.setFontSize(12);
+
+
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursorY, "medical cleareance to drive?:");
+      doc.text(45, cursorY, "Medical Clearence to drive?");
     }
     else{
-      doc.text(45, cursorY + 10, "Medical cleareance to drive?" );
+      doc.text(45, cursorY + 10, "Medical Clearence to drive?");
     }
-    cursorY += lineSpacing;
+    var Value = "No";
+
     if($('input[id=medicalCleareance1]:checked').length > 0){
-      doc.text(105, cursorY+ 10, "Yes" )
+      Value=  "Yes";
     }
-    else{
-      doc.text(105, cursorY + 10, "No")
-    }
-
-
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursorY, "uses prescription medecine?:");
+      doc.text(105, cursorY, Value);
     }
     else{
-      doc.text(45, cursorY + 10, "uses prescription medecine?" );
+      doc.text(105, cursorY+10, Value);
     }
     cursorY += lineSpacing;
-    if($('input[id=prescriptionMedecie1]:checked').length > 0){
-      doc.text(105, cursorY+ 10, "Yes" )
-    }
-    else{
-      doc.text(105, cursorY + 10, "No")
-    }
+
+
+
+
+
+
+
+
+
+
 
 
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursorY, "Independent Transfer?:");
+      doc.text(45, cursorY, "uses prescription Medecine?");
+    }
+    else{
+      doc.text(45, cursorY + 10, "uses prescription Medecine?" );
+    }
+    var Value = "No";
+
+    if($('input[id=presecriptionMedecine1]:checked').length > 0){
+      Value=  "Yes";
+    }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
+    }
+    else{
+      doc.text(105, cursorY+10, Value);
+    }
+    cursorY += lineSpacing;
+
+
+
+
+
+
+
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Independent Transfer?");
     }
     else{
       doc.text(45, cursorY + 10, "Independent Transfer?" );
     }
-    cursorY += lineSpacing;
+    var Value = "No";
+
     if($('input[id=IndependentTransfer1]:checked').length > 0){
-      doc.text(105, cursorY+ 10, "Yes" )
+      Value=  "Yes";
+    }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
     }
     else{
-      doc.text(105, cursorY + 10, "No")
+      doc.text(105, cursorY+10, Value);
     }
+    cursorY += lineSpacing;
+
+
+
+
+
+
+
 
 
 
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursorY, "License Status:");
+      doc.text(45, cursorY, "License Status: ");
     }
     else{
-      doc.text(45, cursorY + 10, "License Status:" );
+      doc.text(45, cursorY + 10, "License Status: " );
+    }
+    var Value = "No";
+
+    if($('input[id=LicenseStatus1]:checked').length > 0){
+      Value=  "Yes";
+    }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
+    }
+    else{
+      doc.text(105, cursorY+10, Value);
     }
     cursorY += lineSpacing;
-    if($('input[id=LicenseStatus1]:checked').length > 0){
-      doc.text(105, cursorY+ 10, "Valid" )
-    }
-    else{
-      doc.text(105, cursorY + 10, "Not Vaild")
-    }
-
-
-
 
 
 
@@ -776,7 +839,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -796,7 +859,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY +10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -816,7 +879,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY + 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -836,7 +899,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -850,13 +913,21 @@ export default function EvaluationForm(){
     else{
       doc.text(45, cursorY + 10, "Currently Driving" );
     }
-    cursorY += lineSpacing;
-    if($('input[id=LicenseStatus1]:checked').length > 0){
-      doc.text(105, cursorY+ 10, "Valid" )
+    var Value = "No";
+
+    if($('input[id=CurrentlyDriving1]:checked').length > 0){
+       Value=  "Yes";
+    }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
     }
     else{
-      doc.text(105, cursorY + 10, "Not Vaild")
+      doc.text(105, cursorY+10, Value);
     }
+    cursorY += lineSpacing;
+
 
 
 
@@ -878,7 +949,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -924,7 +995,8 @@ export default function EvaluationForm(){
       cursorY += lineSpacing;
     })
 
-
+console.log(cursorY);
+    console.log(pageHeight);
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
@@ -940,7 +1012,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -961,7 +1033,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -982,7 +1054,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY+10 , lineText);
       }
       cursorY += lineSpacing;
     })
@@ -1004,7 +1076,7 @@ export default function EvaluationForm(){
         doc.text(105, cursorY, lineText);
       }
       else{
-        doc.text(105, cursorY, lineText);
+        doc.text(105, cursorY + 10, lineText);
       }
       cursorY += lineSpacing;
     })
@@ -1072,10 +1144,10 @@ export default function EvaluationForm(){
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursorY, ":");
+      doc.text(45, cursorY, "Comments:");
     }
     else{
-      doc.text(45, cursorY + 10, ":");
+      doc.text(45, cursorY + 10, "Comments:");
     }
     backgroundcomments2lines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1097,13 +1169,20 @@ export default function EvaluationForm(){
 
 
 
-
-
     doc.setFontSize(13);
-    doc.text(70, cursorY, "In-Vehicle Assesment");
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(30, cursorY, "In-Vehicle Assesment");
+    }
+    else{
+      doc.text(30, cursorY + 10, "In-Vehicle Assesment");
+    }
+    cursorY += lineSpacing;
     cursorY += lineSpacing;
 
     doc.setFontSize(12);
+
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
@@ -1150,7 +1229,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Weather Conditions:");
     }
     else{
-      doc.text(45, cursorY + 20, "Weather Conditions:");
+      doc.text(45, cursorY + 10, "Weather Conditions:");
     }
     weatherlines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1158,7 +1237,7 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else {doc.text(105, cursorY + 20, lineText);}
+      else {doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1167,7 +1246,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Road Conditions:");
     }
     else{
-      doc.text(45, cursorY + 30, "Road Conditions:");
+      doc.text(45, cursorY + 10, "Road Conditions:");
     }
     roadlines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1175,7 +1254,7 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else {doc.text(105, cursorY + 30, lineText);}
+      else {doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1184,7 +1263,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Traffic Conditions:");
     }
     else{
-      doc.text(45, cursorY + 40, "Traffic Conditions:");
+      doc.text(45, cursorY + 10, "Traffic Conditions:");
     }
     trafficlines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1192,7 +1271,7 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 40, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1201,7 +1280,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Route:");
     }
     else{
-      doc.text(45, cursorY + 50, "Route:");
+      doc.text(45, cursorY + 10, "Route:");
     }
     routelines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1209,7 +1288,7 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 50, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1218,7 +1297,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Time:");
     }
     else{
-      doc.text(45, cursorY + 60, "Time:");
+      doc.text(45, cursorY + 10, "Time:");
     }
     timelines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1226,7 +1305,7 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 60, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1235,7 +1314,7 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Primary Control Operation:")
     }
     else{
-      doc.text(45, cursorY + 70, "Primary Control Operation:");
+      doc.text(45, cursorY + 10, "Primary Control Operation:");
     }
     primaryControlOperationlines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
@@ -1243,24 +1322,26 @@ export default function EvaluationForm(){
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 70, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
-    if (cursorY > 200) { // Auto-paging
+    if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
       doc.text(45, cursorY, "Awareness of/interaction with traffic environment:");
     }
     else{
-      doc.text(45, cursorY + 80, "Awareness of/interaction with traffic environment:");
+      doc.text(45, cursorY + 10, "Awareness of/interaction with traffic environment:");
     }
+    cursorY += lineSpacing;
+
     awarnesslines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
         cursorY = pageWrapInitialYPosition;
         doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 90, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > 200) { // Auto-paging
@@ -1269,14 +1350,14 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Adherence to motor vehicle law:");
     }
     else{
-      doc.text(45, cursorY + 100, "Adherence to motor vehicle law:");
+      doc.text(45, cursorY + 10, "Adherence to motor vehicle law:");
     }
     adherencelines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
         cursorY = pageWrapInitialYPosition;
       }
-      else{doc.text(105, cursorY + 110, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
     if (cursorY > pageHeight) { // Auto-paging
@@ -1291,116 +1372,205 @@ export default function EvaluationForm(){
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
         cursorY = pageWrapInitialYPosition;
-        doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursorY + 120, lineText);}
+      else{doc.text(105, cursorY + 10, lineText);}
       cursorY += lineSpacing;
     })
 
-    doc.addPage();
-    doc.text(45, cursor2Y + 10, "Approved to Drive:");
-    doc.text(45, cursor2Y + 20, "Use of AE:");
-    doc.text(45, cursor2Y + 30, "Training:");
-    doc.text(45, cursor2Y + 40, "Road Test:");
-    doc.text(30, cursor2Y, "Reconmendations:");
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Approved To Drive:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Approved To Drive:");
+    }
+    var Value = "No";
+
     if($('input[id=atd]:checked').length > 0){
-      doc.text(105, cursor2Y+ 10, "Yes" )
-    }else{
-      doc.text(105, cursor2Y+ 10, "No" )
+      Value=  "Yes";
     }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
+    }
+    else{
+      doc.text(105, cursorY+10, Value);
+    }
+    cursorY += lineSpacing
+
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Use of AE:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Use of AE:");
+    }
+    var Value = "No";
+
     if($('input[id=uoAE]:checked').length > 0){
-      doc.text(105, cursor2Y+ 20, "Yes" )
-    }else{
-      doc.text(105, cursor2Y+ 20, "No" )
+      Value=  "Yes";
     }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
+    }
+    else{
+      doc.text(105, cursorY+10, Value);
+    }
+    cursorY += lineSpacing;
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Training:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Training:");
+    }
+    var Value = "No";
 
     if($('input[id=train]:checked').length > 0){
-      doc.text(105, cursor2Y+ 30, "Yes" )
-    }else{
-      doc.text(105, cursor2Y+ 30, "No" )
+      Value=  "Yes";
     }
-    if($('input[id=roadTest]:checked').length > 0){
-      doc.text(105, cursor2Y+ 40, "Yes" )
-    }else{
-      doc.text(105, cursor2Y+ 40, "No" )
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
     }
+    else{
+      doc.text(105, cursorY+10, Value);
+    }
+    cursorY += lineSpacing;
 
-    doc.text(45, cursor2Y + 50, "Other Comments:")
+
+
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Road Test:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Road Test:");
+    }
+    var Value = "No";
+
+    if($('input[id=roadTest]:checked').length > 0){
+      Value=  "Yes";
+    }
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(105, cursorY, Value);
+    }
+    else{
+      doc.text(105, cursorY+10, Value);
+    }
+    cursorY += lineSpacing;
+
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Other Comments:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Other Comments:");
+    }
     otherComments2lines.forEach(lineText => {
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(105, cursor2Y, lineText);
+        cursorY = pageWrapInitialYPosition;
       }
-      else{doc.text(105, cursor2Y + 50, lineText);}
-      cursor2Y += lineSpacing;
+      else{doc.text(105, cursorY + 10, lineText);}
+      cursorY += lineSpacing;
     })
 
+
+
+
+
+
     doc.setFontSize(13);
-    doc.text(70, cursor2Y, "Vehicle and Adaptive Equipment Recommendations\n");
-    cursor2Y += lineSpacing;
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(30, cursorY, "Vehicle and Adaptive Equipment Recommendations");
+    }
+    else{
+      doc.text(30, cursorY + 10, "Vehicle and Adaptive Equipment Recommendations");
+    }
+    cursorY += lineSpacing;
+    cursorY += lineSpacing;
 
     doc.setFontSize(12);
 
-    if (cursor2Y > pageHeight) { // Auto-paging
+    if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(45, cursor2Y, "Minivan:");
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Minivan:");
     }
     else{
-      doc.text(45, cursor2Y + 90, "Minivan:");
+      doc.text(45, cursorY + 10, "Minivan:");
     }
     minivanlines.forEach(lineText => {
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(105, cursor2Y, lineText);
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursor2Y + 90, lineText);}
-      cursor2Y += lineSpacing;
-    })
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(30, cursor2Y, "Vehicle and Adaptive Recommendations:");
-    }
-    else{
-      doc.text(30, cursor2Y + 60, "Vehicle and Adaptive Recommendations:");
-    }
-    if (cursor2Y > pageHeight) { // Auto-paging
-      doc.addPage();
-      cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursor2Y, "Recommendations Other:");
-    }
-    else{
-      doc.text(45, cursor2Y + 110, "Recommendations Other:");
-    }
-    recommendationslines.forEach(lineText => {
-      if (cursor2Y > pageHeight) { // Auto-paging
-        doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(105, cursor2Y, lineText);
-      }
-      else{doc.text(105, cursor2Y + 110, lineText);}
-      cursor2Y += lineSpacing;
+      else{doc.text(105, cursorY + 10, lineText);}
+      cursorY += lineSpacing;
     })
 
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
-      doc.text(45, cursor2Y, "Evaluated By:");
+      doc.text(45, cursorY, "Recommendations Other:");
     }
     else{
-      doc.text(45, cursor2Y + 120, "Evaluated By:");
+      doc.text(45, cursorY + 10, "Recommendations Other:");
+    }
+    recommendationslines.forEach(lineText => {
+      if (cursorY > pageHeight) { // Auto-paging
+        doc.addPage();
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
+      }
+      else{doc.text(105, cursorY + 10, lineText);}
+      cursorY += lineSpacing;
+    })
+
+    if (cursorY > pageHeight) { // Auto-paging
+      doc.addPage();
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Evaluated By:");
+    }
+    else{
+      doc.text(45, cursorY + 10, "Evaluated By:");
     }
     evaluatedBylines.forEach(lineText => {
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(105, cursor2Y, lineText);
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursor2Y + 120, lineText);}
-      cursor2Y += lineSpacing;
+      else{doc.text(105, cursorY + 10, lineText);}
+      cursorY += lineSpacing;
     })
 
     if (cursorY > pageHeight) { // Auto-paging
@@ -1409,28 +1579,29 @@ export default function EvaluationForm(){
       doc.text(45, cursorY, "Evaluated On:");
     }
     else{
-      doc.text(45, cursor2Y + 130, "Evaluated On:");
+      doc.text(45, cursorY + 10, "Evaluated On:");
     }
     evalDatelines.forEach(lineText => {
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(105, cursor2Y, lineText);
+        cursorY = pageWrapInitialYPosition;
+        doc.text(105, cursorY, lineText);
       }
-      else{doc.text(105, cursor2Y + 130, lineText);}
-      cursor2Y += lineSpacing;
+      else{doc.text(105, cursorY + 130, lineText);}
+      cursorY += lineSpacing;
     })
     // get values from dropdown
 
-    var curArr= Object.keys(primaryAllValues)
+    var curArr= Object.keys(primaryAllValues);
+
     doc.setFontSize(14);
-    if (cursor2Y > pageHeight) { // Auto-paging
+    if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(45, cursor2Y, "Primary Controls");
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Primary Controls");
     }else{
-      doc.text(45, cursor2Y + 130, "Primary Controls");
-      cursor2Y += lineSpacing;
+      doc.text(45, cursorY + 10, "Primary Controls");
+      cursorY += lineSpacing;
     }
     doc.setFontSize(12);
     for(var i=0;i<curArr.length;i++){
@@ -1441,32 +1612,32 @@ export default function EvaluationForm(){
 
          var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
        var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursory > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(45, cursor2Y, dropdown);
+         doc.text(45, cursorY, dropdown);
       }else{
-        doc.text(45, cursor2Y + 130, dropdown);
+        doc.text(45, cursorY + 10, dropdown);
       }
+
       otextboxlines.forEach(lineText => {
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
           doc.addPage();
-          cursor2Y = pageWrapInitialYPosition;
-          doc.text(125, cursor2Y, lineText);
+          cursory = pageWrapInitialYPosition;
+          doc.text(125, cursorY, lineText);
         }
-        else{doc.text(125, cursor2Y + 130, lineText);}
-        cursor2Y += lineSpacing;
+        else{doc.text(125, cursorY + 10, lineText);}
+        cursorY += lineSpacing;
       })
     };
     var curSecondaryArr= Object.keys(secondaryAllValues);
     doc.setFontSize(14);
-    if (cursor2Y > pageHeight) { // Auto-paging
+    if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
-      cursor2Y = pageWrapInitialYPosition;
-      doc.text(45, cursor2Y, "Secondary Controls");
+      cursorY = pageWrapInitialYPosition;
+      doc.text(45, cursorY, "Secondary Controls");
     }else{
-      doc.text(45, cursor2Y + 130, "Secondary Controls");
-      cursor2Y += lineSpacing;
+      doc.text(45, cursorY + 10, "Secondary Controls");
+      cursorY += lineSpacing;
     }
     doc.setFontSize(12);
     for(var i=0;i<curSecondaryArr.length;i++){
@@ -1476,25 +1647,26 @@ export default function EvaluationForm(){
        var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
        var otextboxlines =  doc.splitTextToSize(TextPart, bigtext);
 
-      if (cursor2Y > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-        cursor2Y = pageWrapInitialYPosition;
-        doc.text(45, cursor2Y, dropdown);
+        cursorY = pageWrapInitialYPosition;
+        doc.text(45, cursorY, dropdown);
       }else{
-        doc.text(45, cursor2Y + 130, dropdown);
+        doc.text(45, cursorY + 10, dropdown);
       }
       otextboxlines.forEach(lineText => {
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
           doc.addPage();
-          cursor2Y = pageWrapInitialYPosition;
-          doc.text(125, cursor2Y, lineText);
+          cursorY = pageWrapInitialYPosition;
+          doc.text(125, cursorY, lineText);
         }
-        else{doc.text(125, cursor2Y + 130, lineText);}
-        cursor2Y += lineSpacing;
+        else{doc.text(125, cursorY + 10, lineText);}
+        cursorY += lineSpacing;
       })    };
 
     doc.save("DriverRehab.pdf");
   }
+
 
 
   return (
