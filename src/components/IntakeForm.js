@@ -88,9 +88,9 @@ function IntakeForm(props){
         var cursorY = 55;
         var pageWrapInitialYPosition = 20;
         var pageHeight = doc.internal.pageSize.height;
-        var cursor2Y = 20;
-        var cursor3Y = 20;
-        var cursor4Y = 20;
+        var cursory = 20;
+        var cursorY = 20;
+        var cursorY = 20;
 
 
         //var adherence= $('#Adherence').val();
@@ -106,7 +106,7 @@ function IntakeForm(props){
         doc.text(70, 30, "Intake Form");
         doc.setFontSize(17);
         doc.text(30, 45, "Client:");
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
             doc.text(45, cursorY, "First Name:");
@@ -332,309 +332,309 @@ function IntakeForm(props){
         if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Email:");
+            doc.text(45, cursory, "Email:");
         }
         else{
-            doc.text(45, cursor2Y, "Email:");
+            doc.text(45, cursory, "Email:");
         }
         Emaillines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
                 cursorY = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y, lineText);
+                doc.text(105, cursory, lineText);
             }
             cursorY += lineSpacing;
         })
 
 
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Number:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Number:");
         }
         else{
-            doc.text(45, cursor2Y + 10, "Number:");
+            doc.text(45, cursory + 10, "Number:");
         }
         Number2lines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 10, lineText);
+                doc.text(105, cursory + 10, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Address:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Address:");
         }
         else{
-            doc.text(45, cursor2Y + 20, "Address:");
+            doc.text(45, cursory + 20, "Address:");
         }
         address1lines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 20, lineText);
+                doc.text(105, cursory + 20, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "City:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "City:");
         }
         else{
-            doc.text(45, cursor2Y + 30, "City:");
+            doc.text(45, cursory + 30, "City:");
         }
         city1lines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 30, lineText);
+                doc.text(105, cursory + 30, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "State:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "State:");
         }
         else{
-            doc.text(45, cursor2Y + 40, "State:");
+            doc.text(45, cursory + 40, "State:");
         }
         state1lines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 40, lineText);
+                doc.text(105, cursory + 40, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
 
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Zip:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Zip:");
         }
         else{
-            doc.text(45, cursor2Y + 50, "Zip:");
+            doc.text(45, cursory + 50, "Zip:");
         }
         Zip1lines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 50, lineText);
+                doc.text(105, cursory + 50, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
 
 
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Medical Information:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Medical Information:");
         }
         else{
-            doc.text(30, cursor2Y + 60, "Medical Information:");
+            doc.text(30, cursory + 60, "Medical Information:");
         }
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Explain:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Explain:");
         }
         else{
-            doc.text(45, cursor2Y + 70, "Explain:");
+            doc.text(45, cursory + 70, "Explain:");
         }
         Medicallines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 70, lineText);
+                doc.text(105, cursory + 70, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Driving Concerns:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Driving Concerns:");
         }
         else{
-            doc.text(45, cursor2Y + 80, "Driving Concerns:");
+            doc.text(45, cursory + 80, "Driving Concerns:");
         }
         Drivinglines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 90, lineText);
+                doc.text(105, cursory + 90, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Diagonis:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Diagonis:");
         }
         else{
-            doc.text(45, cursor2Y + 100, "Diagonis:");
+            doc.text(45, cursory + 100, "Diagonis:");
         }
         Diagnosislines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 100, lineText);
+                doc.text(105, cursory + 100, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
 
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Onset:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Onset:");
         }
         else{
-            doc.text(45, cursor2Y + 110, "Onset:");
+            doc.text(45, cursory + 110, "Onset:");
         }
         Onsetlines.forEach(lineText => {
-            if (cursor2Y > pageHeight) { // Auto-paging
+            if (cursory > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursor2Y = pageWrapInitialYPosition;
-                doc.text(105, cursor2Y, lineText);
+                cursory = pageWrapInitialYPosition;
+                doc.text(105, cursory, lineText);
             }
             else{
-                doc.text(105, cursor2Y + 110, lineText);
+                doc.text(105, cursory + 110, lineText);
             }
-            cursor2Y += lineSpacing;
+            cursory += lineSpacing;
         })
 
-        if (cursor2Y > pageHeight) { // Auto-paging
+        if (cursory > pageHeight) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor2Y, "Medication Use:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursory, "Medication Use:");
         }
         else{
-            doc.text(45, cursor2Y + 120, "Medication:" );
+            doc.text(45, cursory + 120, "Medication:" );
         }
         if($('input[id=gridRadios1]:checked').length > 0){
-            doc.text(105, cursor2Y+ 120, "Yes" )
+            doc.text(105, cursory+ 120, "Yes" )
         }
         else{
-            doc.text(105, cursor2Y + 120, "No")
+            doc.text(105, cursory + 120, "No")
         }
 
         doc.addPage();
-        doc.text(30, cursor3Y, "Physical Disabilities:")
+        doc.text(30, cursorY, "Physical Disabilities:")
         if($('input[id=lhf]:checked').length > 0){
-            doc.text(105, cursor3Y + 10, "Limited Hand Function")
+            doc.text(105, cursorY + 10, "Limited Hand Function")
         }
         if($('input[id=dma]:checked').length > 0){
-            doc.text(105, cursor3Y + 20, "Difficulty moving arms")
+            doc.text(105, cursorY + 20, "Difficulty moving arms")
         }
         if($('input[id=dml]:checked').length > 0){
-            doc.text(105, cursor3Y + 30, "Difficulty moving legs")
+            doc.text(105, cursorY + 30, "Difficulty moving legs")
         }
         if($('input[id=dmhu]:checked').length > 0){
-            doc.text(105, cursor3Y + 40, "Difficulty moving head up")
+            doc.text(105, cursorY + 40, "Difficulty moving head up")
         }
         if($('input[id=dmhd]:checked').length > 0){
-            doc.text(105, cursor3Y + 50, "Difficulty moving head down")
+            doc.text(105, cursorY + 50, "Difficulty moving head down")
         }
         if($('input[id=dmhl]:checked').length > 0){
-            doc.text(105, cursor3Y + 60, "Difficulty moving head left")
+            doc.text(105, cursorY + 60, "Difficulty moving head left")
         }
         if($('input[id=dmhr]:checked').length > 0){
-            doc.text(105, cursor3Y + 70, "Difficulty moving head right")
+            doc.text(105, cursorY + 70, "Difficulty moving head right")
         }
         if($('input[id=neur]:checked').length > 0){
-            doc.text(105, cursor3Y + 80, "Neuropathy")
+            doc.text(105, cursorY + 80, "Neuropathy")
         }
         if($('input[id=vd]:checked').length > 0){
-            doc.text(105, cursor3Y + 90, "Visual Difficulties")
+            doc.text(105, cursorY + 90, "Visual Difficulties")
         }
-        doc.text(45, cursor3Y + 100, "Did you use any of the following ?");
-        doc.text(45, cursor3Y + 110, "Walker:");
-        doc.text(45, cursor3Y + 120, "Crutches:");
-        doc.text(45, cursor3Y + 130, "Cane:");
-        doc.text(45, cursor3Y + 140, "Manual Wheelchair:");
-        doc.text(45, cursor3Y + 150, "Power Wheelchair:");
+        doc.text(45, cursorY + 100, "Did you use any of the following ?");
+        doc.text(45, cursorY + 110, "Walker:");
+        doc.text(45, cursorY + 120, "Crutches:");
+        doc.text(45, cursorY + 130, "Cane:");
+        doc.text(45, cursorY + 140, "Manual Wheelchair:");
+        doc.text(45, cursorY + 150, "Power Wheelchair:");
         if($('input[id=walker]:checked').length > 0){
-            doc.text(105, cursor3Y + 110, "Yes")
+            doc.text(105, cursorY + 110, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
         if($('input[id=crutches]:checked').length > 0){
-            doc.text(105, cursor3Y + 120, "Yes")
+            doc.text(105, cursorY + 120, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
         if($('input[id=cane]:checked').length > 0){
-            doc.text(105, cursor3Y + 130, "Yes")
+            doc.text(105, cursorY + 130, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
         if($('input[id=manualwc]:checked').length > 0){
-            doc.text(105, cursor3Y + 140, "Yes")
+            doc.text(105, cursorY + 140, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
         if($('input[id=powerwc]:checked').length > 0){
-            doc.text(105, cursor3Y + 150, "Yes")
+            doc.text(105, cursorY + 150, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
-        if (cursor3Y > pageHeight ) { // Auto-paging
+        if (cursorY > pageHeight ) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor3Y + 160, "WheelChair Make/Model:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursorY + 160, "WheelChair Make/Model:");
         }
-        doc.text(105, cursor3Y + 170, WheelChair);
-        if (cursor3Y > pageHeight ) { // Auto-paging
+        doc.text(105, cursorY + 170, WheelChair);
+        if (cursorY > pageHeight ) { // Auto-paging
             doc.addPage();
-            cursor2Y = pageWrapInitialYPosition;
-            doc.text(45, cursor3Y + 180, "Seated Height in Wheelchair:");
+            cursory = pageWrapInitialYPosition;
+            doc.text(45, cursorY + 180, "Seated Height in Wheelchair:");
         }
-        doc.text(105, cursor3Y + 190, Seatedheight);
+        doc.text(105, cursorY + 190, Seatedheight);
 
         doc.addPage();
-        doc.text(30, cursor4Y, "Cognitive Abilities:");
-        doc.text(45, cursor4Y + 10, "Difficulty concentrating on task:");
+        doc.text(30, cursorY, "Cognitive Abilities:");
+        doc.text(45, cursorY + 10, "Difficulty concentrating on task:");
         if($('input[id=cot]:checked').length > 0){
-            doc.text(105, cursor4Y + 10, "Yes")
+            doc.text(105, cursorY + 10, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
-        doc.text(45, cursor4Y + 20, "Memories Difficulties:");
+        doc.text(45, cursorY + 20, "Memories Difficulties:");
         if($('input[id=memorydiff]:checked').length > 0){
-            doc.text(105, cursor4Y + 20, "Yes")
+            doc.text(105, cursorY + 20, "Yes")
         }else{
-            doc.text(105, cursor4Y + 20, "No")
+            doc.text(105, cursorY + 20, "No")
         }
         /*
          doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
@@ -651,12 +651,12 @@ function IntakeForm(props){
 
 
         */
-         doc.text(30, cursor4Y, "Funding:");
-        doc.text(45, cursor4Y + 30, "Difficulty concentrating on task:");
+         doc.text(30, cursorY, "Funding:");
+        doc.text(45, cursorY + 30, "Difficulty concentrating on task:");
         if($('input[id=privatePay]:checked').length > 0){
-            doc.text(105, cursor4Y + 40, "Yes")
+            doc.text(105, cursorY + 40, "Yes")
         }else{
-            doc.text(105, cursor4Y + 40, "No")
+            doc.text(105, cursorY + 40, "No")
         }
 
 
