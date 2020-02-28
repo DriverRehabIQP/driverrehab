@@ -23,15 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={HomePage}/>
-        <Route path='/intakeform' component={IntakeForm}/>
-        <Route path='/loginpage' component={LoginPage}/>
-        <Route path='/EmployeePage' component={EmployeePage}/>
-        <Route path='/EvaluationForm' component={EvaluationForm}/>
-      </Switch>
-    </Router>
+    <EvaluationForm/>
 
 
     // <div className="App">
