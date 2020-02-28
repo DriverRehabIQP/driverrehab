@@ -136,10 +136,10 @@ export default function EvaluationForm(){
 //accomdate multiple lines
       //fix up placing in che
       // var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
-      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "ReportDate", "SentDate", "BackgroundComments", "medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "MobilityDevice", "LicenseExpiration", "LicenseNumber","LicenseRestrictions", "CurrentlyDriving", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1",    "atd", "uoAE", "train", "roadTest",  "PRIMARYDROPDOWN", "SECONDARYDROPDOWN",           "OtherComments2", "Minivan","ReconmendationsOther",   "EvaluatedBy", "EvalDate"]; // "
+      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "ReportDate", "SentDate", "BackgroundComments", "medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "MobilityDevice", "LicenseExpiration", "LicenseNumber","LicenseRestrictions", "CurrentlyDriving", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1",    "atd", "uoAE", "train", "roadTest",     "OtherComments2", "Minivan","ReconmendationsOther",   "EvaluatedBy", "EvalDate"]; // "
       var ValueIDsForRadioButtons =["medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "CurrentlyDriving"];
       var ValueIDsForCheckBoxes = ["atd", "uoAE", "train", "roadTest"];
-      var ListOfHeaderValsTOIgnore = ["(Background) Tj" , "(In-Vehicle Assesment) Tj", "(Vehicle and Adaptive Equipment Recommendations) Tj" ];
+      var ListOfHeaderValsTOIgnore = ["(Background) Tj" , "(In-Vehicle Assesment) Tj", "(Vehicle and Adaptive Equipment Recommendations) Tj" , "(Primary Controls) Tj" ,   "(Secondary Controls) Tj"];
       //var ValueIds= [];
 ////
       for (let step = 0; step < ValueIds.length; step++) {
@@ -163,64 +163,15 @@ export default function EvaluationForm(){
           }
         }
 
-        var dropDownVala = "Amputee Ring";
-        var Count =0;
-        var MoreLines =1;
+          var MoreLines =1;
         do {
 
-          Count = Count +1;
 
           var n = res.indexOf(") Tj");
           var pos2 = res.indexOf(") Tj", (n + 3));
           var n1 = res.indexOf("(");
           var pos3 = res.indexOf("(", (n1) + 2);
 
-          if ((ValueIds[step] == "PRIMARYDROPDOWN") || (ValueIds[step] == "SECONDARYDROPDOWN")) {
-            if ((pos3 == -1) || (pos2 == -1)) {
-              MoreLines = 0;
-            }else {
-              //if its a dropdown
-              var res1 = res.slice((pos3 + 1), pos2);
-              TextValue = TextValue + res1;
-              console.log("res1 is " + res1);
-              console.log("going in outer")
-
-              if (res1.includes("Modificiation Part: ")){
-                console.log("includes this");
-                if (Count >1){
-                  //set vals
-                  console.log("going in")
-                  const dd = {label: dropDownVala, value: dropDownVala}
-                  setPrimaryAllValues({
-                    ...primaryAllValues,
-                    [nextIdx]: { ...primaryAllValues[nextIdx], dropdownVal: dd }
-                  });
-                  setPrimaryAllValues({
-                    ...primaryAllValues,
-                    [nextIdx]: { ...primaryAllValues[nextIdx], textboxVal: TextValue}
-                  });
-                  setNextIndex(nextIdx+1);
-
-
-                }
-                var dropDownVala = res1.replace("Modificiation Part: ", "");
-                console.log("dropDownVal");
-                console.log(dropDownVala);
-                var res = res.replace("(" + res1 + ") Tj");
-
-                TextValue = "";
-              }else{
-                TextValue = TextValue + res1;
-                var res = res.replace("(" + res1 + ") Tj");
-                console.log("Text part is");
-                console.log(TextValue);
-
-              }
-
-
-
-            }
-          } else {
 
             if ((pos3 == -1) || (pos2 == -1)) {
               MoreLines = 0;
@@ -230,7 +181,7 @@ export default function EvaluationForm(){
               console.log("res1 is " + res1);
               var res = res.replace("(" + res1 + ") Tj");
             }
-          }
+
 
         }while (MoreLines == 1);
         if ((ValueIds[step] == "PRIMARYDROPDOWN") || (ValueIds[step] == "SECONDARYDROPDOWN")) {

@@ -80,15 +80,39 @@ function IntakeForm(props){
         var Diagnosislines = doc.splitTextToSize(Diagnosis, bigtext);
         var Onset = $('#onset').val();
         var Onsetlines = doc.splitTextToSize(Onset, bigtext);
+        var VehicleMake = $('#vehicleMake').val();
+        var VehicleMakelines = doc.splitTextToSize(VehicleMake, bigtext);
         var Seizure = $('#seizure').val();
         var Seizurelines = doc.splitTextToSize(Seizure, bigtext);
+        var Mileage = $('#Mileage').val();
+        var MileageLines = doc.splitTextToSize(Mileage, bigtext);
+        var PermitNumber = $('#permitHelpBlock').val();
+        var PermitNumberLines = doc.splitTextToSize(PermitNumber, bigtext);
         var WheelChair = $('#wheel').val();
+        var WheelChairLines = doc.splitTextToSize(WheelChair, bigtext)
         var Seatedheight = $('#height').val();
+        var SeatedheightLines = doc.splitTextToSize(Seatedheight, bigtext);
+
+        var fundingSource = $('#FundingSource').val();
+        var fundingSourceLines = doc.splitTextToSize(fundingSource, bigtext);
+
+        var contactPerson = $('#ContactPerson').val();
+        var contactPersonLines = doc.splitTextToSize(contactPerson, bigtext);
+
+        var fundingEmail = $('#FundingEmail').val();
+        var fundingEmailLines = doc.splitTextToSize(fundingEmail, bigtext);
+
+        var fundingMobileNumber = $('#FundingMobileNumber').val();
+        var fundingMobileNumberLines = doc.splitTextToSize(fundingMobileNumber, bigtext);
+
+        var fundingAddress = $('#FundingAddress').val();
+        var fundingAddressLines = doc.splitTextToSize(fundingAddress, bigtext);
+
         var lineSpacing = 10;
         var cursorY = 55;
         var pageWrapInitialYPosition = 20;
-        var pageHeight = doc.internal.pageSize.height;
-        var cursory = 20;
+        var pageHeight = (doc.internal.pageSize.height) - 10;
+        var cursorY = 20;
         var cursorY = 20;
         var cursorY = 20;
 
@@ -111,9 +135,9 @@ function IntakeForm(props){
         doc.text(70, 50, "DRIVER EVALUATION INTAKE FORM");
 
 
-        cursorY= 60;
+        cursorY= 70;
         doc.setFontSize(12);
-        doc.text(30, 45, "Client:");
+        doc.text(30, 60, "Client:");
         if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
@@ -295,6 +319,10 @@ function IntakeForm(props){
         else{
             doc.text(30, cursorY + 10, "Referral:");
         }
+        cursorY += lineSpacing;
+
+
+
         if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
@@ -335,316 +363,667 @@ function IntakeForm(props){
             cursorY += lineSpacing;
         })
 
-        doc.addPage();
 
         if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Email:");
+            doc.text(45, cursorY, "Email:");
         }
         else{
-            doc.text(45, cursory, "Email:");
+            doc.text(45, cursorY + 10, "Email:");
         }
         Emaillines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
                 cursorY = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
 
 
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Number:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Number:");
         }
         else{
-            doc.text(45, cursory + 10, "Number:");
+            doc.text(45, cursorY + 10, "Number:");
         }
         Number2lines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 10, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Address:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Address:");
         }
         else{
-            doc.text(45, cursory + 20, "Address:");
+            doc.text(45, cursorY + 10, "Address:");
         }
         address1lines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 20, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "City:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "City:");
         }
         else{
-            doc.text(45, cursory + 30, "City:");
+            doc.text(45, cursorY + 10, "City:");
         }
         city1lines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 30, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "State:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "State:");
         }
         else{
-            doc.text(45, cursory + 40, "State:");
+            doc.text(45, cursorY + 10, "State:");
         }
         state1lines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 40, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
 
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Zip:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Zip:");
         }
         else{
-            doc.text(45, cursory + 50, "Zip:");
+            doc.text(45, cursorY + 10, "Zip:");
         }
         Zip1lines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 50, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
 
 
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Medical Information:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Medical Information:");
         }
         else{
-            doc.text(30, cursory + 60, "Medical Information:");
+            doc.text(30, cursorY + 10, "Medical Information:");
         }
-        if (cursory > pageHeight) { // Auto-paging
+        cursorY += lineSpacing;
+
+
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Explain:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Medically cleared to drive:");
         }
         else{
-            doc.text(45, cursory + 70, "Explain:");
+            doc.text(45, cursorY + 10, "Medically cleared to drive:");
         }
+
         Medicallines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 70, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Driving Concerns:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Driving Concerns:");
         }
         else{
-            doc.text(45, cursory + 80, "Driving Concerns:");
+            doc.text(45, cursorY + 10, "Driving Concerns:");
         }
         Drivinglines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 90, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Diagonis:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Diagonis:");
         }
         else{
-            doc.text(45, cursory + 100, "Diagonis:");
+            doc.text(45, cursorY + 10, "Diagonis:");
         }
         Diagnosislines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 100, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
 
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Onset:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Onset:");
         }
         else{
-            doc.text(45, cursory + 110, "Onset:");
+            doc.text(45, cursorY + 10, "Onset:");
         }
         Onsetlines.forEach(lineText => {
-            if (cursory > pageHeight) { // Auto-paging
+            if (cursorY > pageHeight) { // Auto-paging
                 doc.addPage();
-                cursory = pageWrapInitialYPosition;
-                doc.text(105, cursory, lineText);
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursory + 110, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
-            cursory += lineSpacing;
+            cursorY += lineSpacing;
         })
 
-        if (cursory > pageHeight) { // Auto-paging
+
+
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursory, "Medication Use:");
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Date Of Last Seizure:");
         }
         else{
-            doc.text(45, cursory + 120, "Medication:" );
+            doc.text(45, cursorY + 10, "Date Of Last Seizure:");
         }
-        if($('input[id=gridRadios1]:checked').length > 0){
-            doc.text(105, cursory+ 120, "Yes" )
+        Onsetlines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Medication Use:");
+            if($('input[id=gridRadios1]:checked').length > 0){
+                doc.text(105, cursorY, "Yes" )
+            }
+            else{
+                doc.text(105, cursorY, "No")
+            }
         }
         else{
-            doc.text(105, cursory + 120, "No")
+            doc.text(45, cursorY + 10, "Medication use:" );
+            if($('input[id=gridRadios1]:checked').length > 0){
+                doc.text(105, cursorY+10, "Yes" )
+            }
+            else{
+                doc.text(105, cursorY+10, "No")
+            }
         }
 
-        doc.addPage();
-        doc.text(30, cursorY, "Physical Disabilities:")
-        if($('input[id=lhf]:checked').length > 0){
-            doc.text(105, cursorY + 10, "Limited Hand Function")
+        cursorY += lineSpacing;
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Driving History:");
+        }
+        else{
+            doc.text(30, cursorY + 10, "Driving History:");
+        }
+        cursorY += lineSpacing;
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Do you have a driver's license?");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Do you have a driver's license?");
+        }
+        var Value = "No";
+
+        if($('input[id=medicalCleareance]:checked').length > 0){
+            Value=  "Yes";
+        }
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(105, cursorY, Value);
+        }
+        else{
+            doc.text(105, cursorY+10, Value);
+        }
+        cursorY += lineSpacing;
+
+        if (Value == "Yes"){
+
+        }
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Is your privilege to drive under suspension or revocation?");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Is your privilege to drive under suspension or revocation?");
+        }
+        var Value = "No";
+
+        if($('input[id=priv1]:checked').length > 0){
+            Value=  "Yes";
+        }
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(160, cursorY, Value);
+        }
+        else{
+            doc.text(160, cursorY+10, Value);
+        }
+        cursorY += lineSpacing;
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Vehicle year, make / model:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Vehicle year, make / model:");
+        }
+        VehicleMakelines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Mileage:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Mileage:");
+        }
+        MileageLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Driving Permit Number:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Driving Permit Number:");
+        }
+        PermitNumberLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+doc.addPage();
+  cursorY = pageWrapInitialYPosition;
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Physical Abilities:");
+        }
+        else{
+            doc.text(30, cursorY + 10, "Physical Abilities:");
+        }
+        cursorY += lineSpacing;
+
+         if($('input[id=lhf]:checked').length > 0){
+             if (cursorY > pageHeight) { // Auto-paging
+                 doc.addPage();
+                 cursorY = pageWrapInitialYPosition;
+                 doc.text(45, cursorY, "Limited Hand Function");
+             }
+             else{
+                 doc.text(30, cursorY + 10, "Limited Hand Function");
+             }
+             cursorY += lineSpacing;
+
         }
         if($('input[id=dma]:checked').length > 0){
-            doc.text(105, cursorY + 20, "Difficulty moving arms")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving arms");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving arms");
+            }
+            cursorY += lineSpacing;
+
         }
         if($('input[id=dml]:checked').length > 0){
-            doc.text(105, cursorY + 30, "Difficulty moving legs")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving legs");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving legs");
+            }
+            cursorY += lineSpacing;
+
         }
         if($('input[id=dmhu]:checked').length > 0){
-            doc.text(105, cursorY + 40, "Difficulty moving head up")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving head up");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving head up");
+            }
+            cursorY += lineSpacing;
         }
         if($('input[id=dmhd]:checked').length > 0){
-            doc.text(105, cursorY + 50, "Difficulty moving head down")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving head down");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving head down");
+            }
+             cursorY += lineSpacing;
+
         }
         if($('input[id=dmhl]:checked').length > 0){
-            doc.text(105, cursorY + 60, "Difficulty moving head left")
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving head left");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving head left");
+            }
+            cursorY += lineSpacing;
+
         }
         if($('input[id=dmhr]:checked').length > 0){
-            doc.text(105, cursorY + 70, "Difficulty moving head right")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty moving head right");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty moving head right");
+            }
+            cursorY += lineSpacing;
+
         }
         if($('input[id=neur]:checked').length > 0){
-            doc.text(105, cursorY + 80, "Neuropathy")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Neuropathy");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Neuropathy");
+            }
+            cursorY += lineSpacing;
+
         }
         if($('input[id=vd]:checked').length > 0){
-            doc.text(105, cursorY + 90, "Visual Difficulties")
+             if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Visual Difficulties");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Visual Difficulties");
+            }
+            cursorY += lineSpacing;
         }
-        doc.text(45, cursorY + 100, "Did you use any of the following ?");
-        doc.text(45, cursorY + 110, "Walker:");
-        doc.text(45, cursorY + 120, "Crutches:");
-        doc.text(45, cursorY + 130, "Cane:");
-        doc.text(45, cursorY + 140, "Manual Wheelchair:");
-        doc.text(45, cursorY + 150, "Power Wheelchair:");
-        if($('input[id=walker]:checked').length > 0){
-            doc.text(105, cursorY + 110, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
-        }
-        if($('input[id=crutches]:checked').length > 0){
-            doc.text(105, cursorY + 120, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
-        }
-        if($('input[id=cane]:checked').length > 0){
-            doc.text(105, cursorY + 130, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
-        }
-        if($('input[id=manualwc]:checked').length > 0){
-            doc.text(105, cursorY + 140, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
-        }
-        if($('input[id=powerwc]:checked').length > 0){
-            doc.text(105, cursorY + 150, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
-        }
-        if (cursorY > pageHeight ) { // Auto-paging
-            doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursorY + 160, "WheelChair Make/Model:");
-        }
-        doc.text(105, cursorY + 170, WheelChair);
-        if (cursorY > pageHeight ) { // Auto-paging
-            doc.addPage();
-            cursory = pageWrapInitialYPosition;
-            doc.text(45, cursorY + 180, "Seated Height in Wheelchair:");
-        }
-        doc.text(105, cursorY + 190, Seatedheight);
+        cursorY += lineSpacing;
 
         doc.addPage();
-        doc.text(30, cursorY, "Cognitive Abilities:");
-        doc.text(45, cursorY + 10, "Difficulty concentrating on task:");
+        cursorY = pageWrapInitialYPosition;
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Did you use any of the following ?");
+        }
+        else{
+            doc.text(30, cursorY + 10, "Did you use any of the following ?");
+        }
+        cursorY += lineSpacing;
+
+        if($('input[id=walker]:checked').length > 0){
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Walker");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Walker");
+            }
+            cursorY += lineSpacing;
+        }
+
+        if($('input[id=crutches]:checked').length > 0){
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Crutches");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Crutches");
+            }
+            cursorY += lineSpacing;
+        }
+
+
+        if($('input[id=cane]:checked').length > 0){
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Cane");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Cane");
+            }
+            cursorY += lineSpacing;
+        }
+
+        if($('input[id=manualwc]:checked').length > 0){
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Manual Wheelchair:");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Manual Wheelchair:");
+            }
+            cursorY += lineSpacing;
+        }
+
+        if($('input[id=powerwc]:checked').length > 0){
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Power Wheelchair:");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Power Wheelchair:");
+            }
+            cursorY += lineSpacing;
+        }
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "WheelChair Make/Model:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "WheelChair Make/Model:");
+        }
+        WheelChairLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Seated Height in Wheelchair:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Seated Height in Wheelchair:");
+        }
+        SeatedheightLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(30, cursorY,"Cognitive Abilities: select all that apply");
+        }
+        else{
+            doc.text(30, cursorY + 10, "Cognitive Abilities: select all that apply");
+        }
+        cursorY += lineSpacing;
         if($('input[id=cot]:checked').length > 0){
-            doc.text(105, cursorY + 10, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY, "Difficulty concentrating on task::");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Difficulty concentrating on task:");
+            }
+            cursorY += lineSpacing;
         }
-        doc.text(45, cursorY + 20, "Memories Difficulties:");
+
+
         if($('input[id=memorydiff]:checked').length > 0){
-            doc.text(105, cursorY + 20, "Yes")
-        }else{
-            doc.text(105, cursorY + 20, "No")
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(45, cursorY,  "Memories Difficulties:");
+            }
+            else{
+                doc.text(30, cursorY + 10, "Memories Difficulties:");
+            }
+            cursorY += lineSpacing;
         }
-        /*
+
+ /*
          doc.text(30, 195, "Vehicle and Adaptive Equipment Recommendations:");
             doc.text(45, 205, "Minivan:")
             doc.text(105, 205, minivan);
@@ -659,13 +1038,102 @@ function IntakeForm(props){
 
 
         */
-         doc.text(30, cursorY, "Funding:");
-        doc.text(45, cursorY + 30, "Difficulty concentrating on task:");
-        if($('input[id=privatePay]:checked').length > 0){
-            doc.text(105, cursorY + 40, "Yes")
-        }else{
-            doc.text(105, cursorY + 40, "No")
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(30, cursorY,"Funding");
         }
+        else{
+            doc.text(30, cursorY + 10, "Funding");
+        }
+        cursorY += lineSpacing;
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Name of funding source:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Name of funding source:");
+        }
+        fundingSourceLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Email:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Email:");
+        }
+        fundingEmailLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Mobile Number:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Mobile Number:");
+        }
+        fundingMobileNumberLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
+
+        if (cursorY > pageHeight) { // Auto-paging
+            doc.addPage();
+            cursorY = pageWrapInitialYPosition;
+            doc.text(45, cursorY, "Address:");
+        }
+        else{
+            doc.text(45, cursorY + 10, "Address:");
+        }
+        fundingAddressLines.forEach(lineText => {
+            if (cursorY > pageHeight) { // Auto-paging
+                doc.addPage();
+                cursorY = pageWrapInitialYPosition;
+                doc.text(105, cursorY, lineText);
+            }
+            else{
+                doc.text(105, cursorY + 10, lineText);
+            }
+            cursorY += lineSpacing;
+        })
+
 
 
 
@@ -928,7 +1396,7 @@ function IntakeForm(props){
                                     <fieldset class="form-group">
                                         <div class="row">
                                         <legend class="col-form-label col-sm-2 pt-0">Do you have a driver's license?</legend>
-                                    <input name="driverLicense" type="checkbox" ref={register} />
+                                    <input name="driverLicense" type="checkbox" id = "HasLicense" ref={register} />
                                         {driverLicense && (
                                         <div>
                                         <label>License Number</label>
@@ -945,6 +1413,7 @@ function IntakeForm(props){
                                     <div class="col-sm-10">
                                         <div class="form-check">
                                         <input class="form-check-input"
+                                               id = "priv1"
                                         name="priviledgeToDrive"
                                         type="radio"
                                         value="yes"
@@ -957,7 +1426,7 @@ function IntakeForm(props){
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" name="priviledgeToDrive" type="radio" id="gridRadios2" value="no"
+                                        <input class="form-check-input" name="priviledgeToDrive" type="radio" id="priv2" value="no"
                                         ref={register({ required: true })} />
                                     <label class="form-check-label" for="gridRadios2">
                                         No
@@ -971,6 +1440,8 @@ function IntakeForm(props){
                                     <input
                                         className="form-control"
                                         name="vehicle"
+                                        id = "vehicleMake"
+
                                         ref={register} />
                                     </div>
                                     <div class="form-group">
@@ -978,19 +1449,20 @@ function IntakeForm(props){
                                         <input
                                         className="form-control"
                                         name="mileage"
+                                        id = "Mileage"
                                         ref={register} />
                                     </div>
 
                                     <div class="row">
                                         <legend class="col-form-label col-sm-2 pt-0">Do you currently use adaptive equipment to drive?</legend>
-                                    <input name="adaptiveEquipment" type="checkbox" ref={register} />
+                                    <input name="adaptiveEquipment" id = "useAEToDrive" type="checkbox" ref={register} />
                                     </div>
                                         {adaptiveEquipment && (
                                         <div>
                                         <label>Describe the equipments</label>
-                                        <textarea class="form-control" type="text" name="adaptiveEquipmentDescription" rows="3" ref={register} />
+                                        <textarea class="form-control" type="text" id = "useAEToDrive" name="adaptiveEquipmentDescription" rows="3" ref={register} />
                                         <label>Problems using the equipment</label>
-                                        <textarea class="form-control" type="text" name="adaptiveEquipmentProblem" rows="3" ref={register} />
+                                        <textarea class="form-control" type="text" id = "useAEToDrive" name="adaptiveEquipmentProblem" rows="3" ref={register} />
                                         </div>
                                         )}
 
