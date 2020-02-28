@@ -131,16 +131,18 @@ export default function EvaluationForm(){
       document.getElementById("vehicleUsed").value = res1;
 
 
-     var ValueHeaders = ["(Name:) Tj", "(Address:) Tj" , "(Date of Birth:) Tj", "(Telephone:) Tj", "(Diagnosis:) Tj", "(Referred by:) Tj", "(Report Date:) Tj" ,"(Sent Date:) Tj", "(Comment:) Tj", "(Medical cleareance to drive?) Tj", "(uses prescription medecine?) Tj" , "(Independent Transfer?) Tj", "(License Status:) Tj", "(Mobility Device:) Tj" ,"(License Expiration:) Tj", "(License Number:) Tj", "(License Restrictions:) Tj", "(Currently Driving) Tj", "(Current Vehicle:) Tj", "(Current adaptive equipment(AE)) Tj",  "(Last eye exam:) Tj", "(Left upper extremity:) Tj", "(Right upper extremity:) Tj", "(Left Lower extremity:) Tj", "(Right Lower extremity:) Tj", "(Other:) Tj", "(Driving History:) Tj", "(Clinical Information:) Tj", "(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
+     var ValueHeaders = ["(Name:) Tj", "(Address:) Tj" , "(Date of Birth:) Tj", "(Telephone:) Tj", "(Diagnosis:) Tj", "(Referred by:) Tj", "(Report Date:) Tj" ,"(Sent Date:) Tj", "(Comment:) Tj", "(Medical Clearence to drive?) Tj", "(uses prescription Medecine?) Tj" , "(Independent Transfer?) Tj", "(License Status:) Tj", "(Mobility Device:) Tj" ,"(License Expiration:) Tj", "(License Number:) Tj", "(License Restrictions:) Tj", "(Currently Driving) Tj", "(Current Vehicle:) Tj", "(Current adaptive equipment(AE)) Tj",  "(Last eye exam:) Tj", "(Left upper extremity:) Tj", "(Right upper extremity:) Tj", "(Left Lower extremity:) Tj", "(Right Lower extremity:) Tj", "(Other:) Tj", "(Driving History:) Tj", "(Clinical Information:) Tj", "(Comments:) Tj", "(Vehicle used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Approved To Drive:) Tj", "(Use of AE:) Tj", "(Training:) Tj",  "(Road Test:) Tj",    "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
 
-
+//accomdate multiple lines
+      //fix up placing in che
      // var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
-      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "SentDate", "ClientDiagnosis", "LicenseExpiration", "ReportDate", "BackgroundComments", "MobilityDevice", "LicenseNumber","LicenseRestrictions", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1", "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate", "vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1", "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate"];
-      var ValueIDsForNonText =["medicalClearence1", "presecriptionMedecine", "independentTransfer1", "licenseStatus1"]:
-
+      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "ReportDate", "SentDate", "BackgroundComments", "medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "MobilityDevice", "LicenseExpiration", "LicenseNumber","LicenseRestrictions", "CurrentlyDriving", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1",    "atd", "uoAE", "train", "roadTest",             "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate"];
+      var ValueIDsForRadioButtons =["medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "CurrentlyDriving"];
+      var ValueIDsForCheckBoxes = ["atd", "uoAE", "train", "roadTest"];
+      var ListOfHeaderValsTOIgnore = ["(Background) Tj" , "(In-Vehicle Assesment) Tj", "(Vehicle and Adaptive Equipment Recommendations) Tj" , "(Primary Controls) Tj", "(Secondary Controls) Tj" ];
       //var ValueIds= [];
 
-      for (let step = 0; step < 15; step++) {
+      for (let step = 0; step < ValueIds.length; step++) {
         console.log(ValueHeaders[step]);
 
         var pos = pdfFile.indexOf(ValueHeaders[step]);
@@ -152,7 +154,12 @@ export default function EvaluationForm(){
         var res = pdfFile.slice(pos, pos1);
         console.log(res);
 
+        for (let x = 0; x < ListOfHeaderValsTOIgnore.length; x++) {
+          if (res.includes(ListOfHeaderValsTOIgnore[x])){
+            var res = res.replace(ListOfHeaderValsTOIgnore[x], "");
 
+          }
+        }
         var n = res.indexOf(") Tj");
         var pos2 = res.indexOf(") Tj", (n+3));
         var n1 = res.indexOf("(");
@@ -170,7 +177,23 @@ export default function EvaluationForm(){
         console.log(res1);
 
 
-        document.getElementById(ValueIds[step]).value = res1;
+        if (ValueIDsForRadioButtons.includes(ValueIds[step])){
+          if ((res1.includes("es")) || (res1.includes("alid"))){
+             document.getElementById(ValueIds[step]).checked = true;
+          }else {
+            var IDVal = ValueIds[step] + "2";
+            console.log(IDVal);
+            document.getElementById(IDVal).checked = true;
+          }
+        }else if (ValueIDsForCheckBoxes.includes(ValueIds[step])){
+          if (res1.includes("es")){
+             document.getElementById(ValueIds[step]).checked = true;
+          }else{
+            document.getElementById(ValueIds[step]).checked = false;
+          }
+        }else{
+           document.getElementById(ValueIds[step]).value = res1;
+        }
       }
       //value needed between pos and pos1
     };
@@ -226,6 +249,7 @@ export default function EvaluationForm(){
       var ValueHeaders = ["(First Name:) Tj", "(Address 1:) Tj", "(Date:) Tj", "(Number:) Tj" ];
       var ValueIds= ["ClientName", "ClientAddress" ,"ClientDOB", "ClientTelephone"];
 
+
       for (let step = 0; step < 4; step++) {
         console.log(ValueHeaders[step]);
 
@@ -243,13 +267,6 @@ export default function EvaluationForm(){
         var pos2 = res.indexOf(") Tj", (n+3));
         var n1 = res.indexOf("(");
         var pos3 = res.indexOf("(", (n1)+2);
-
-
-        //console.log("position2");
-        //console.log(pos2);
-        //console.log(n);
-        //console.log("position3");
-        //console.log(pos3);
 
 
         var res1 = res.slice((pos3+1), pos2);
@@ -456,11 +473,10 @@ export default function EvaluationForm(){
     var cursorY = 55;
     var pageWrapInitialYPosition = 20;
     var pageHeight = (doc.internal.pageSize.height)-10;
-    var cursory = 20;
-    var cursorY = 20;
+     var cursorY = 60;
 
     doc.setFontSize(17);
-    doc.text(70, 30, "Central Massachusetts Safety Council");
+    doc.text(70, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
     doc.setFontSize(14);
     doc.text(70, 37, "Driver Evaluation and Training Program");
 
@@ -712,7 +728,7 @@ export default function EvaluationForm(){
     }
     var Value = "No";
 
-    if($('input[id=medicalCleareance1]:checked').length > 0){
+    if($('input[id=medicalCleareance]:checked').length > 0){
       Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
@@ -746,7 +762,7 @@ export default function EvaluationForm(){
     }
     var Value = "No";
 
-    if($('input[id=presecriptionMedecine1]:checked').length > 0){
+    if($('input[id=presecriptionMedecine]:checked').length > 0){
       Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
@@ -779,7 +795,7 @@ export default function EvaluationForm(){
     }
     var Value = "No";
 
-    if($('input[id=IndependentTransfer1]:checked').length > 0){
+    if($('input[id=IndependentTransfer]:checked').length > 0){
       Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
@@ -811,7 +827,7 @@ export default function EvaluationForm(){
     }
     var Value = "No";
 
-    if($('input[id=LicenseStatus1]:checked').length > 0){
+    if($('input[id=LicenseStatus]:checked').length > 0){
       Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
@@ -917,7 +933,7 @@ export default function EvaluationForm(){
     }
     var Value = "No";
 
-    if($('input[id=CurrentlyDriving1]:checked').length > 0){
+    if($('input[id=CurrentlyDriving]:checked').length > 0){
        Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
@@ -1407,7 +1423,6 @@ console.log(cursorY);
 
 
 
-
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
@@ -1456,7 +1471,6 @@ console.log(cursorY);
       doc.text(105, cursorY+10, Value);
     }
     cursorY += lineSpacing;
-
 
 
 
@@ -1614,7 +1628,7 @@ console.log(cursorY);
 
          var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
        var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
-      if (cursory > pageHeight) { // Auto-paging
+      if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
          doc.text(45, cursorY, dropdown);
       }else{
@@ -1624,7 +1638,7 @@ console.log(cursorY);
       otextboxlines.forEach(lineText => {
         if (cursorY > pageHeight) { // Auto-paging
           doc.addPage();
-          cursory = pageWrapInitialYPosition;
+          cursorY = pageWrapInitialYPosition;
           doc.text(125, cursorY, lineText);
         }
         else{doc.text(125, cursorY + 10, lineText);}
@@ -1738,7 +1752,7 @@ console.log(cursorY);
       <input class="form-check-input"
   name="medicalClearence"
   type="radio"
-  id="medicalCleareance1"
+  id="medicalCleareance"
   value="yes"
    ref={register} />
 
@@ -1772,7 +1786,7 @@ console.log(cursorY);
   name="presecriptionMedecine"
   type="radio"
   value="yes"
-  id="prescriptionMedecie1"
+  id="presecriptionMedecine"
   ref={register} />
 
   <label class="form-check-label" for="gridRadios1">
@@ -1781,7 +1795,7 @@ console.log(cursorY);
       </div>
 
       <div class="form-check">
-      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="whno" value="no"/>
+      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="presecriptionMedecine2" value="no"/>
       <label class="form-check-label" for="gridRadios2">
       No
       </label>
@@ -1806,7 +1820,7 @@ console.log(cursorY);
   name="IndependentTransfer"
   type="radio"
   value="yes"
-  id="IndependentTransfer1"
+  id="independentTransfer"
   ref={register} />
 
   <label class="form-check-label" for="gridRadios1">
@@ -1815,7 +1829,7 @@ console.log(cursorY);
       </div>
 
       <div class="form-check">
-      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="IndependentTransfer2" value="no"/>
+      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="independentTransfer2" value="no"/>
       <label class="form-check-label" for="gridRadios2">
       No
       </label>
@@ -1838,7 +1852,7 @@ console.log(cursorY);
   name="LicenseStatus"
   type="radio"
   value="Valid"
-  id="LicenseStatus1"
+  id="licenseStatus"
   ref={register} />
 
   <label class="form-check-label" for="gridRadios1">
@@ -1847,7 +1861,7 @@ console.log(cursorY);
       </div>
 
       <div class="form-check">
-      <input class="form-check-input" name="LicenseStatus" type="radio" id="LicenseStatus2" value="not Valid"/>
+      <input class="form-check-input" name="LicenseStatus" type="radio" id="licenseStatus2" value="not Valid"/>
       <label class="form-check-label" for="gridRadios2">
       Not Valid
       </label>
@@ -1886,7 +1900,7 @@ console.log(cursorY);
   name="CurrentlyDriving"
   type="radio"
   value="yes"
-  id="CurrentlyDriving1"
+  id="CurrentlyDriving"
   ref={register} />
 
   <label class="form-check-label" for="gridRadios1">

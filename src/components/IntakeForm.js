@@ -101,18 +101,26 @@ function IntakeForm(props){
         //var evalDate= $('#EvalDate').val();
         //var evaluatedBy= $('#EvaluatedBy').val();
 
+        doc.setFontSize(14);
+        doc.text(70, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
+        doc.setFontSize(14);
+        doc.text(70, 37, "Driver Evaluation and Training Program");
 
-        doc.setFontSize(25);
-        doc.text(70, 30, "Intake Form");
-        doc.setFontSize(17);
+
+        doc.setFontSize(15);
+        doc.text(70, 50, "DRIVER EVALUATION INTAKE FORM");
+
+
+        cursorY= 60;
+        doc.setFontSize(12);
         doc.text(30, 45, "Client:");
-        if (cursory > pageHeight) { // Auto-paging
+        if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
             cursorY = pageWrapInitialYPosition;
             doc.text(45, cursorY, "First Name:");
         }
         else{
-            doc.text(45, cursorY, "First Name:");
+            doc.text(45, cursorY + 10, "First Name:");
         }
         firstNameLines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -121,7 +129,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -150,7 +158,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Date:");
         }
         else{
-            doc.text(45, cursorY + 20, "Date:");
+            doc.text(45, cursorY + 10, "Date:");
         }
         Datellines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -159,7 +167,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 20, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -169,7 +177,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Number:");
         }
         else{
-            doc.text(45, cursorY + 30, "Number:");
+            doc.text(45, cursorY + 10, "Number:");
         }
         Numberlines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -178,7 +186,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 30, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -188,7 +196,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Address 1:");
         }
         else{
-            doc.text(45, cursorY + 40, "Address 1:");
+            doc.text(45, cursorY + 10, "Address 1:");
         }
         Addresslines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -197,7 +205,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 40, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -207,7 +215,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Address 2:");
         }
         else{
-            doc.text(45, cursorY + 50, "Address 2:");
+            doc.text(45, cursorY + 10, "Address 2:");
         }
         Address2lines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -216,7 +224,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 50, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -226,7 +234,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "City:");
         }
         else{
-            doc.text(45, cursorY + 60, "City:");
+            doc.text(45, cursorY + 10, "City:");
         }
         citylines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -235,7 +243,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 60, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -245,7 +253,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "State:");
         }
         else{
-            doc.text(45, cursorY + 70, "State:");
+            doc.text(45, cursorY + 10, "State:");
         }
         statelines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -254,7 +262,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 70, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -264,7 +272,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Zip:");
         }
         else{
-            doc.text(45, cursorY + 80, "Zip:");
+            doc.text(45, cursorY + 10, "Zip:");
         }
         Ziplines.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -273,7 +281,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 80, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -285,7 +293,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Referral:");
         }
         else{
-            doc.text(30, cursorY + 100, "Referral:");
+            doc.text(30, cursorY + 10, "Referral:");
         }
         if (cursorY > pageHeight) { // Auto-paging
             doc.addPage();
@@ -293,7 +301,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "First Name:");
         }
         else{
-            doc.text(45, cursorY + 110, "First Name:");
+            doc.text(45, cursorY + 10, "First Name:");
         }
         firstNameLines2.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -302,7 +310,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 110, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
@@ -313,7 +321,7 @@ function IntakeForm(props){
             doc.text(45, cursorY, "Last Name:");
         }
         else{
-            doc.text(45, cursorY + 120, "Last Name:");
+            doc.text(45, cursorY + 10, "Last Name:");
         }
         lastNamelines2.forEach(lineText => {
             if (cursorY > pageHeight) { // Auto-paging
@@ -322,7 +330,7 @@ function IntakeForm(props){
                 doc.text(105, cursorY, lineText);
             }
             else{
-                doc.text(105, cursorY + 120, lineText);
+                doc.text(105, cursorY + 10, lineText);
             }
             cursorY += lineSpacing;
         })
