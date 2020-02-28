@@ -1701,7 +1701,28 @@ export default function EvaluationForm(){
 
 
   return (
+    <div style={generalStyles}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div class="container">
+  	<div class="row">
+  	  <div class="col-md-6">
+  	      <form method="post" action="#" id="#">
+                <div class="form-group files">
+                  <label>Upload Intake File</label>
+                  <input type="file" class="form-control" name="firstName" onChange={handleChange1} />
+                </div>
+            </form>
+  	  </div>
+  	   <div class="col-md-6">
+  	      <form method="post" action="#" id="#">
+                <div class="form-group files color">
+                  <label>Upload Evaluation File</label>
+                  <input type="file" class="form-control" name="firstNamed" onChange={handleChange}/>
+                </div>
+            </form>
+  	  </div>
+  	</div>
+  </div>
 
         <h3>Evaluation Form</h3>
 
@@ -2260,13 +2281,10 @@ export default function EvaluationForm(){
           {errors.date && <p>Evaluation date is required</p>}
         </div>
 
-        <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
         <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
-        <input  type="file" name="firstName" onChange={handleChange} />
-        <input  type="file" name="firstNamed" onChange={handleChange1} />
-
 
       </form>
+    </div>
 
   );
 }
