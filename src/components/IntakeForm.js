@@ -1732,8 +1732,7 @@ doc.addPage();
                                         <input type="text" name="consentCheckbox" type="checkbox" ref={register({ required: true})}/>
                                             {errors.consentCheckbox && <p>consent is required</p>}
                                             </div>
-
-                                            <input class="btn btn-primary" type="submit" text="Generate PDF"/>
+                                            <button type="submit" class="btn btn-primary">Submit and generate PDF</button>
                                             </form>
                                             </div>
                                             );
