@@ -1648,7 +1648,6 @@ const generalStyles = {
      };
      doc.save("DriverRehab.pdf");
 }
-
 return (
 
   <div style={generalStyles}>
@@ -2030,15 +2029,16 @@ return (
     </div>
 
     <h1>Reconmendations</h1>
-      <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="defaultUnchecked"/>
-          <label class="custom-control-label" for="defaultUnchecked">Default unchecked</label>
-      </div>
 
     <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
-    <input name="approvedToDrive" type="checkbox" id="atd" ref={register} />
+    <input name="approvedToDrive" type="checkbox" id="atd" ref={register}  />
     </div>
+
+    <label className="k-form-field">
+       <input type="checkbox" id="atd" className="k-checkbox" />
+       <label className="k-checkbox-label">Approved to drive</label>
+   </label>
 
     <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
