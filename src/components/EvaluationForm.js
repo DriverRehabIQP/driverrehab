@@ -1971,7 +1971,7 @@ export default function EvaluationForm(){
           <label for="LastEyeExam">Last eye exam</label>
           <input name="LastEyeExam" class="form-control" id="LastEyeExam" rows="3" ref={register}></input>
         </div>
-        <h2>Observed Physical Abilities-:</h2>
+        <h2>Observed Physical Abilities</h2>
 
         <div class="form-group">
           <label for="LeftUpperExtremity">Left upper extremity</label>
