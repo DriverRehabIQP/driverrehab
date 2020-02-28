@@ -2034,12 +2034,6 @@ return (
         <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
     <input name="approvedToDrive" type="checkbox" id="atd" ref={register}  />
     </div>
-
-    <label className="k-form-field">
-       <input type="checkbox" id="atd" className="k-checkbox" />
-       <label className="k-checkbox-label">Approved to drive</label>
-   </label>
-
     <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
     <input name="useOfAE" type="checkbox" id="uoAE" ref={register} />
@@ -2234,7 +2228,6 @@ return (
     {errors.date && <p>Evaluation date is required</p>}
     </div>
 
-    <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
     <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
 
 
