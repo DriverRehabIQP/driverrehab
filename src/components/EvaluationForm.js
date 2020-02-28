@@ -22,7 +22,7 @@ export default function EvaluationForm(){
 
 
 
-   const onSubmit = data => {
+  const onSubmit = data => {
     alert(JSON.stringify(data));
   };
   const [primaryFields, setprimaryFields] = useState([{ value: null }]);
@@ -131,20 +131,23 @@ export default function EvaluationForm(){
       document.getElementById("vehicleUsed").value = res1;
 
 
-     var ValueHeaders = ["(Name:) Tj", "(Address:) Tj" , "(Date of Birth:) Tj", "(Telephone:) Tj", "(Diagnosis:) Tj", "(Referred by:) Tj", "(Report Date:) Tj" ,"(Sent Date:) Tj", "(Comment:) Tj", "(Medical Clearence to drive?) Tj", "(uses prescription Medecine?) Tj" , "(Independent Transfer?) Tj", "(License Status:) Tj", "(Mobility Device:) Tj" ,"(License Expiration:) Tj", "(License Number:) Tj", "(License Restrictions:) Tj", "(Currently Driving) Tj", "(Current Vehicle:) Tj", "(Current adaptive equipment(AE)) Tj",  "(Last eye exam:) Tj", "(Left upper extremity:) Tj", "(Right upper extremity:) Tj", "(Left Lower extremity:) Tj", "(Right Lower extremity:) Tj", "(Other:) Tj", "(Driving History:) Tj", "(Clinical Information:) Tj", "(Comments:) Tj", "(Vehicle used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Approved To Drive:) Tj", "(Use of AE:) Tj", "(Training:) Tj",  "(Road Test:) Tj",    "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
+      var ValueHeaders = ["(Name:) Tj", "(Address:) Tj" , "(Date of Birth:) Tj", "(Telephone:) Tj", "(Diagnosis:) Tj", "(Referred by:) Tj", "(Report Date:) Tj" ,"(Sent Date:) Tj", "(Comment:) Tj", "(Medical Clearence to drive?) Tj", "(uses prescription Medecine?) Tj" , "(Independent Transfer?) Tj", "(License Status:) Tj", "(Mobility Device:) Tj" ,"(License Expiration:) Tj", "(License Number:) Tj", "(License Restrictions:) Tj", "(Currently Driving) Tj", "(Current Vehicle:) Tj", "(Current adaptive equipment(AE)) Tj",  "(Last eye exam:) Tj", "(Left upper extremity:) Tj", "(Right upper extremity:) Tj", "(Left Lower extremity:) Tj", "(Right Lower extremity:) Tj", "(Other:) Tj", "(Driving History:) Tj", "(Clinical Information:) Tj", "(Comments:) Tj", "(Vehicle used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Approved To Drive:) Tj", "(Use of AE:) Tj", "(Training:) Tj",  "(Road Test:) Tj",    "(Other comments:) Tj", "(Minivan:) Tj",  "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"]; //"(Primary Controls) Tj" ,   "(Secondary Controls) Tj"
 
 //accomdate multiple lines
       //fix up placing in che
-     // var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
-      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "ReportDate", "SentDate", "BackgroundComments", "medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "MobilityDevice", "LicenseExpiration", "LicenseNumber","LicenseRestrictions", "CurrentlyDriving", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1",    "atd", "uoAE", "train", "roadTest",             "OtherComments2", "Minivan", "ReconmendationsOther",   "EvaluatedBy", "EvalDate"];
+      // var ValueHeaders = ["(Vehicle Used:) Tj", "(AE Used:) Tj",  "(Weather Conditions:) Tj", "(Road Conditions:) Tj", "(Traffic Conditions:) Tj", "(Route:) Tj", "(Time:) Tj",  "(Primary Control Operation:) Tj" ,  "(Awareness of/interaction with traffic environment:) Tj",  "(Adherence to motor vehicle law:) Tj",  "(Other Comments:) Tj", "(Other comments:) Tj", "(Minivan:) Tj", "((Recommendations Other:) Tj:) Tj" , "(Evaluated By:) Tj" , "(Evaluated On:) Tj"];
+      var ValueIds= ["ClientName", "ClientAddress", "ClientDOB", "ClientTelephone", "ClientDiagnosis", "ClientReferredBy", "ReportDate", "SentDate", "BackgroundComments", "medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "MobilityDevice", "LicenseExpiration", "LicenseNumber","LicenseRestrictions", "CurrentlyDriving", "CurrentVehicle", "CurrentAE", "LastEyeExam", "LeftUpperExtremity", "RightUpperExtremity", "LeftLowerExtremity", "RightLowerExtremity", "OtherExtremity", "DrivingHistory", "ClinicalInformation", "Backgroundcomments2","vehicleUsed", "AEUsed" , "weather", "Road", "Trafic", "Route", "Time", "PrimaryControlOperation", "Awareness", "Adherence", "OtherComments1",    "atd", "uoAE", "train", "roadTest",  "PRIMARYDROPDOWN", "SECONDARYDROPDOWN",           "OtherComments2", "Minivan","ReconmendationsOther",   "EvaluatedBy", "EvalDate"]; // "
       var ValueIDsForRadioButtons =["medicalCleareance", "presecriptionMedecine", "independentTransfer", "licenseStatus", "CurrentlyDriving"];
       var ValueIDsForCheckBoxes = ["atd", "uoAE", "train", "roadTest"];
-      var ListOfHeaderValsTOIgnore = ["(Background) Tj" , "(In-Vehicle Assesment) Tj", "(Vehicle and Adaptive Equipment Recommendations) Tj" , "(Primary Controls) Tj", "(Secondary Controls) Tj" ];
+      var ListOfHeaderValsTOIgnore = ["(Background) Tj" , "(In-Vehicle Assesment) Tj", "(Vehicle and Adaptive Equipment Recommendations) Tj" ];
       //var ValueIds= [];
-
+////
       for (let step = 0; step < ValueIds.length; step++) {
         console.log(ValueHeaders[step]);
 
+
+
+        var TextValue = "";
         var pos = pdfFile.indexOf(ValueHeaders[step]);
         var pos1 = pdfFile.indexOf(ValueHeaders[step+1]);
 
@@ -152,7 +155,6 @@ export default function EvaluationForm(){
         console.log(pos1);
         //getting section with answer
         var res = pdfFile.slice(pos, pos1);
-        console.log(res);
 
         for (let x = 0; x < ListOfHeaderValsTOIgnore.length; x++) {
           if (res.includes(ListOfHeaderValsTOIgnore[x])){
@@ -160,41 +162,100 @@ export default function EvaluationForm(){
 
           }
         }
-        var n = res.indexOf(") Tj");
-        var pos2 = res.indexOf(") Tj", (n+3));
-        var n1 = res.indexOf("(");
-        var pos3 = res.indexOf("(", (n1)+2);
+
+        var dropDownVala = "Amputee Ring";
+        var Count =0;
+        var MoreLines =1;
+        do {
+
+          Count = Count +1;
+
+          var n = res.indexOf(") Tj");
+          var pos2 = res.indexOf(") Tj", (n + 3));
+          var n1 = res.indexOf("(");
+          var pos3 = res.indexOf("(", (n1) + 2);
+
+          if ((ValueIds[step] == "PRIMARYDROPDOWN") || (ValueIds[step] == "SECONDARYDROPDOWN")) {
+            if ((pos3 == -1) || (pos2 == -1)) {
+              MoreLines = 0;
+            }else {
+              //if its a dropdown
+              var res1 = res.slice((pos3 + 1), pos2);
+              TextValue = TextValue + res1;
+              console.log("res1 is " + res1);
+              console.log("going in outer")
+
+              if (res1.includes("Modificiation Part: ")){
+                console.log("includes this");
+                if (Count >1){
+                  //set vals
+                  console.log("going in")
+                  const dd = {label: dropDownVala, value: dropDownVala}
+                  setPrimaryAllValues({
+                    ...primaryAllValues,
+                    [nextIdx]: { ...primaryAllValues[nextIdx], dropdownVal: dd }
+                  });
+                  setPrimaryAllValues({
+                    ...primaryAllValues,
+                    [nextIdx]: { ...primaryAllValues[nextIdx], textboxVal: TextValue}
+                  });
+                  setNextIndex(nextIdx+1);
 
 
-        console.log("position2");
-        console.log(pos2);
-        console.log(n);
-        console.log("position3");
-        console.log(pos3);
+                }
+                var dropDownVala = res1.replace("Modificiation Part: ", "");
+                console.log("dropDownVal");
+                console.log(dropDownVala);
+                var res = res.replace("(" + res1 + ") Tj");
+
+                TextValue = "";
+              }else{
+                TextValue = TextValue + res1;
+                var res = res.replace("(" + res1 + ") Tj");
+                console.log("Text part is");
+                console.log(TextValue);
+
+              }
 
 
-        var res1 = res.slice((pos3+1), pos2);
-        console.log(res1);
 
+            }
+          } else {
 
-        if (ValueIDsForRadioButtons.includes(ValueIds[step])){
-          if ((res1.includes("es")) || (res1.includes("alid"))){
-             document.getElementById(ValueIds[step]).checked = true;
-          }else {
-            var IDVal = ValueIds[step] + "2";
-            console.log(IDVal);
-            document.getElementById(IDVal).checked = true;
+            if ((pos3 == -1) || (pos2 == -1)) {
+              MoreLines = 0;
+            } else {
+              var res1 = res.slice((pos3 + 1), pos2);
+              TextValue = TextValue + res1;
+              console.log("res1 is " + res1);
+              var res = res.replace("(" + res1 + ") Tj");
+            }
           }
-        }else if (ValueIDsForCheckBoxes.includes(ValueIds[step])){
-          if (res1.includes("es")){
-             document.getElementById(ValueIds[step]).checked = true;
-          }else{
-            document.getElementById(ValueIds[step]).checked = false;
-          }
+
+        }while (MoreLines == 1);
+        if ((ValueIds[step] == "PRIMARYDROPDOWN") || (ValueIds[step] == "SECONDARYDROPDOWN")) {
+
         }else{
-           document.getElementById(ValueIds[step]).value = res1;
-        }
+          if (ValueIDsForRadioButtons.includes(ValueIds[step])){
+            if ((res1.includes("es")) || (res1.includes("alid"))){
+              document.getElementById(ValueIds[step]).checked = true;
+            }else {
+              var IDVal = ValueIds[step] + "2";
+              console.log(IDVal);
+              document.getElementById(IDVal).checked = true;
+            }
+          }else if (ValueIDsForCheckBoxes.includes(ValueIds[step])){
+            if (res1.includes("es")){
+              document.getElementById(ValueIds[step]).checked = true;
+            }else{
+              document.getElementById(ValueIds[step]).checked = false;
+            }
+          }else{
+            document.getElementById(ValueIds[step]).value = TextValue;
+          }        }
+
       }
+
       //value needed between pos and pos1
     };
 
@@ -280,6 +341,8 @@ export default function EvaluationForm(){
   }
 // SECONDARY values
   const [secondaryAllValues, setSecondaryAllValues] = useState({});
+  const [nextSecondaryIdx, setNextSecondaryIndex] = useState(1)
+
   function NewSecondaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
@@ -291,6 +354,7 @@ export default function EvaluationForm(){
       }
     });
     console.log(secondaryAllValues)
+    setNextSecondaryIndex(nextSecondaryIdx+1)
   }
 
   function RemoveSecondaryDropDown(i) {
@@ -302,7 +366,7 @@ export default function EvaluationForm(){
   function ChangeSecondaryItem(i, event) {
     setSecondaryAllValues({
       ...secondaryAllValues,
-      [i]: { ...secondaryAllValues[i], textboxVal: event.target.value }
+      [i]: { ...secondaryAllValues[i], textboxVal: event }
     });
     console.log("change items")
     console.log(secondaryAllValues)
@@ -316,11 +380,13 @@ export default function EvaluationForm(){
     console.log("Handle select")
     console.log(secondaryAllValues)
   }
-
-
-
+  const generalStyles = {
+    marginLeft: '20px',
+    marginRight: '20px',
+  };
 // PRIMARY VALUES
   const [primaryAllValues, setPrimaryAllValues] = useState({});
+  const [nextIdx, setNextIndex] = useState(1)
   function NewPrimaryDropDown(i) {
     console.log("inside add function")
     console.log(i)
@@ -331,6 +397,7 @@ export default function EvaluationForm(){
         textboxVal: null
       }
     });
+    setNextIndex(nextIdx+1)
     console.log(primaryAllValues)
   }
 
@@ -343,7 +410,7 @@ export default function EvaluationForm(){
   function ChangeItem(i, event) {
     setPrimaryAllValues({
       ...primaryAllValues,
-      [i]: { ...primaryAllValues[i], textboxVal: event.target.value }
+      [i]: { ...primaryAllValues[i], textboxVal: event}
     });
     console.log("change items")
     console.log(primaryAllValues)
@@ -357,7 +424,6 @@ export default function EvaluationForm(){
     console.log("Handle select")
     console.log(primaryAllValues)
   }
-
 
   function generatePDF(event){
     var doc = new jsPDF();
@@ -473,16 +539,16 @@ export default function EvaluationForm(){
     var cursorY = 55;
     var pageWrapInitialYPosition = 20;
     var pageHeight = (doc.internal.pageSize.height)-10;
-     var cursorY = 60;
+    var cursorY = 60;
 
     doc.setFontSize(17);
-    doc.text(70, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
+    doc.text(35, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
     doc.setFontSize(14);
-    doc.text(70, 37, "Driver Evaluation and Training Program");
+    doc.text(50, 37, "Driver Evaluation and Training Program");
 
 
     doc.setFontSize(13);
-    doc.text(70, 50, "Evaluation");
+    doc.text(80, 50, "Evaluation");
 
 
     doc.setFontSize(12);
@@ -618,7 +684,7 @@ export default function EvaluationForm(){
 
 
 
-     if (cursorY > pageHeight) { // Auto-paging
+    if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
       cursorY = pageWrapInitialYPosition;
       doc.text(45, cursorY, "Evaluation Date:");
@@ -647,7 +713,7 @@ export default function EvaluationForm(){
     else{
       doc.text(45, cursorY + 10, "Report Date:");
     }
-     reportDatelines.forEach(lineText => {
+    reportDatelines.forEach(lineText => {
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
         cursorY = pageWrapInitialYPosition;
@@ -713,7 +779,7 @@ export default function EvaluationForm(){
       doc.text(30, cursorY + 10, "Background");
     }
     cursorY += lineSpacing;
-     cursorY += lineSpacing;
+    cursorY += lineSpacing;
 
     doc.setFontSize(12);
 
@@ -934,7 +1000,7 @@ export default function EvaluationForm(){
     var Value = "No";
 
     if($('input[id=CurrentlyDriving]:checked').length > 0){
-       Value=  "Yes";
+      Value=  "Yes";
     }
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -1013,7 +1079,7 @@ export default function EvaluationForm(){
       cursorY += lineSpacing;
     })
 
-console.log(cursorY);
+    console.log(cursorY);
     console.log(pageHeight);
     if (cursorY > pageHeight) { // Auto-paging
       doc.addPage();
@@ -1625,13 +1691,13 @@ console.log(cursorY);
 
       var dropdown = (primaryAllValues[curArr[i]].dropdownVal.label)
 
-         var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
-       var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
+      var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
+      var otextboxlines =  doc.splitTextToSize(TextPartP, bigtext);
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
-         doc.text(45, cursorY, dropdown);
+        doc.text(45, cursorY, "Modificiation Part: " + dropdown);
       }else{
-        doc.text(45, cursorY + 10, dropdown);
+        doc.text(45, cursorY + 10, "Modificiation Part: " + dropdown);
       }
 
       otextboxlines.forEach(lineText => {
@@ -1659,8 +1725,8 @@ console.log(cursorY);
       // HOW YOU GET VALUE FROM DROPDOWN
       var dropdown = (secondaryAllValues[curSecondaryArr[i]].dropdownVal.label)
       // HOW YOU GET VALUE FROM TEXTBOX
-       var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
-       var otextboxlines =  doc.splitTextToSize(TextPart, bigtext);
+      var TextPart = (secondaryAllValues[curSecondaryArr[i]].textboxVal);
+      var otextboxlines =  doc.splitTextToSize(TextPart, bigtext);
 
       if (cursorY > pageHeight) { // Auto-paging
         doc.addPage();
@@ -1686,551 +1752,570 @@ console.log(cursorY);
   return (
       <form onSubmit={handleSubmit(onSubmit)}>
 
-<h3>Evaluation Form</h3>
-
-  <div class="form-group">
-      <label for="ClientName">Client Name</label>
-  <input name="ClientName" id="ClientName" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="ClientAddress">Client Address</label>
-  <input name="ClientAddress" id="ClientAddress" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-  <div class="form-group">
-      <label for="ClientDOB">Client Date Of Birth</label>
-  <input name="ClientDOB" id="ClientDOB" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="ClientTelephone">Client Telephone</label>
-  <input name="ClientTelephone" id="ClientTelephone" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-  <div class="form-group">
-      <label for="ClientDiagnosis">Client Diagnosis</label>
-  <input name="ClientDiagnosis" id="ClientDiagnosis" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-
-  <div class="form-group">
-      <label for="ClientReferredBy">Client Referred By</label>
-  <input name="ClientReferredBy" id="ClientReferredBy" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-  <div class="form-group">
-      <label for="SentDate">Sent Date</label>
-  <input name="SentDate" id="SentDate" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-
-  <div class="form-group">
-      <label for="ReportDate">Report Date</label>
-  <input name="ReportDate" id="ReportDate" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="BackgroundComments">comments</label>
-  <input name="BackgroundComments"  class="form-control" id="BackgroundComments" rows="3" ref={register}/>
-  </div>
-
-  <h1>Background</h1>
-
-
-  <fieldset class="form-group">
-      <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Client has medical cleareance to drive?</legend>
-  <div class="col-sm-10">
-      <div class="form-check">
-      <input class="form-check-input"
-  name="medicalClearence"
-  type="radio"
-  id="medicalCleareance"
-  value="yes"
-   ref={register} />
-
-  <label class="form-check-label" for="gridRadios1">
-      Yes
-      </label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" name="medicalClearence" type="radio" id="medicalCleareance2" value="no"/>
-      <label class="form-check-label" for="gridRadios2">
-      No
-      </label>
-      </div>
-      </div>
-      </div>
-      </fieldset>
-
-
-
-
-
-
-
-  <fieldset class="form-group">
-      <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Client uses prescription medecine?</legend>
-  <div class="col-sm-10">
-      <div class="form-check">
-      <input class="form-check-input"
-  name="presecriptionMedecine"
-  type="radio"
-  value="yes"
-  id="presecriptionMedecine"
-  ref={register} />
-
-  <label class="form-check-label" for="gridRadios1">
-      Yes
-      </label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="presecriptionMedecine2" value="no"/>
-      <label class="form-check-label" for="gridRadios2">
-      No
-      </label>
-      </div>
-      </div>
-      </div>
-      </fieldset>
-
-      <div class="form-group">
-      <label for="MobilityDevice">Mobility Device</label>
-  <input name="MobilityDevice" class="form-control" id="MobilityDevice" rows="3" ref={register}></input>
-      </div>
-
-
-
-      <fieldset class="form-group">
-      <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Independent Transfer?</legend>
-  <div class="col-sm-10">
-      <div class="form-check">
-      <input class="form-check-input"
-  name="IndependentTransfer"
-  type="radio"
-  value="yes"
-  id="independentTransfer"
-  ref={register} />
-
-  <label class="form-check-label" for="gridRadios1">
-      Yes
-      </label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="independentTransfer2" value="no"/>
-      <label class="form-check-label" for="gridRadios2">
-      No
-      </label>
-      </div>
-      </div>
-      </div>
-      </fieldset>
-
-
-
-
-
-
-      <fieldset class="form-group">
-      <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">License Status</legend>
-  <div class="col-sm-10">
-      <div class="form-check">
-      <input class="form-check-input"
-  name="LicenseStatus"
-  type="radio"
-  value="Valid"
-  id="licenseStatus"
-  ref={register} />
-
-  <label class="form-check-label" for="gridRadios1">
-      Valid
-      </label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" name="LicenseStatus" type="radio" id="licenseStatus2" value="not Valid"/>
-      <label class="form-check-label" for="gridRadios2">
-      Not Valid
-      </label>
-      </div>
-      </div>
-      </div>
-      </fieldset>
-
-
-
-      <div class="form-group">
-      <label for="LicenseExpiration">LIcense expiration</label>
-  <input name="LicenseExpiration" class="form-control" id="LicenseExpiration" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="LicenseNumber">License Number</label>
-  <input name="LicenseNumber" class="form-control" id="LicenseNumber" rows="3" ref={register}></input>
-      </div>
-
-
-
-      <div class="form-group">
-      <label for="LicenseRestrictions">License restrictions</label>
-  <input name="LicenseRestrictions" class="form-control" id="LicenseRestrictions" rows="3" ref={register}></input>
-      </div>
-
-
-      <fieldset class="form-group">
-      <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Currently Driving</legend>
-  <div class="col-sm-10">
-      <div class="form-check">
-      <input class="form-check-input"
-  name="CurrentlyDriving"
-  type="radio"
-  value="yes"
-  id="CurrentlyDriving"
-  ref={register} />
-
-  <label class="form-check-label" for="gridRadios1">
-      Yes
-      </label>
-      </div>
-
-      <div class="form-check">
-      <input class="form-check-input" name="presecriptionMedecine" type="radio" id="CurrentlyDriving2" value="no"/>
-      <label class="form-check-label" for="gridRadios2">
-      No
-      </label>
-      </div>
-      </div>
-      </div>
-      </fieldset>
-
-      <div class="form-group">
-      <label for="CurrentVehicle">Current Vehicle</label>
-  <input name="CurrentVehicle" class="form-control" id="CurrentVehicle" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="CurrentAE">Current adaptive equipment(AE)</label>
-  <input name="CurrentAE" class="form-control" id="CurrentAE" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="LastEyeExam">Last eye exam</label>
-  <input name="LastEyeExam" class="form-control" id="LastEyeExam" rows="3" ref={register}></input>
-      </div>
-  <h2>Observed Physical Abilities-:</h2>
-
-      <div class="form-group">
-      <label for="LeftUpperExtremity">Left upper extremity</label>
-  <input name="LeftUpperExtremity" class="form-control" id="LeftUpperExtremity" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="RightUpperExtremity">Right upper extremity</label>
-  <input name="RightUpperExtremity" class="form-control" id="RightUpperExtremity" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="LeftLowerExtremity">Left lower extremity</label>
-  <input name="LeftLowerExtremity" class="form-control" id="LeftLowerExtremity" rows="3" ref={register}></input>
-      </div>
-
-      <div class="form-group">
-      <label for="RightLowerExtremity">Rigth lower extremity</label>
-  <input name="RightLowerExtremity" class="form-control" id="RightLowerExtremity" rows="3" ref={register}></input>
-      </div>
-
-      <div class="form-group">
-      <label for="OtherExtremity">Other</label>
-  <input name="OtherExtremity" class="form-control" id="OtherExtremity" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="DrivingHistory">Driving History</label>
-  <input name="DrivingHistory" class="form-control" id="DrivingHistory" rows="3" ref={register}></input>
-      </div>
-
-      <div class="form-group">
-      <label for="ClinicalInformation">Clinical Information</label>
-  <input name="ClinicalInformation" class="form-control" id="ClinicalInformation" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="Backgroundcomments2">Comments</label>
-      <input name="Backgroundcomments2"  class="form-control" id="Backgroundcomments2" rows="3" ref={register}/>
-  </div>
-
-      <h1>In-vehicle Assessment</h1>
-
-
-  <div class="form-group">
-      <label htmlFor="vehicleUsed">Vehicle used</label>
-  <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
-  </div>
-
-  <div class="form-group">
-      <label for="AEUsed">AE used</label>
-  <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
-      </div>
-
-
-      <div class="form-group">
-      <label for="weatherConditions">Weather Conditions</label>
-  <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
-  </div>
-
-
-  <div class="form-group">
-      <label for="roadConditions">Road Conditions</label>
-  <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="traffiConditions">Trafic Conditions</label>
-  <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
-  </div>
-
-
-  <div class="form-group">
-      <label for="AEUsed">Route</label>
-      <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
-      </div>
-
-      <div class="form-group">
-      <label for="time">Time</label>
-      <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="AEUsed">Primary control operation</label>
-  <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
-  <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="adherenceLaw">Adherence to motor vehicle law</label>
-  <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
-  </div>
-
-  <div class="form-group">
-      <label for="assessmentOther">Other comments</label>
-  <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
-  </div>
-
-  <h1>Reconmendations</h1>
-
-  <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
-  <input name="approvedToDrive" type="checkbox" id="atd" ref={register} />
-  </div>
-
-  <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
-  <input name="useOfAE" type="checkbox" id="uoAE" ref={register} />
-  </div>
-
-  <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Training</legend>
-      <input name="training" type="checkbox" id="train" ref={register} />
-  </div>
-
-  <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Road Test</legend>
-  <input name="roadTest" type="checkbox" id="roadTest" ref={register} />
-  </div>
-
-  <div class="form-group">
-      <label for="reconmendationsOther">Other comments</label>
-  <input name="reconmendationsOther"  class="form-control" id="OtherComments2" rows="3" ref={register}/>
-  </div>
-
-  <h1>Vehicle and Adaptive Equipment Recommendations</h1>
-
-  <div class="form-group">
-      <label for="Minivan">Minivan</label>
-      <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
-  </div>
-
-
-  <h5 for="primaryControls ">Primary Controls: </h5>
-
-  {Object.keys(primaryAllValues).map((field) => {
-    return (
-        <div class="container">
-        <div class="row">
-        <div class="col-sm-6">
-        <div key={`${field}-${field}`}></div>
-    <Select options={items } class="PrimaryClass" name="primaryControls" ref={register}
-    onChange={e=>HandleSelect(field, e)}
-    />
-    </div>
-    <div class="col-sm-4">
-        <input
-  class="form-control"
-    type="text"
-    style={{width: "370px"}}
-    value={field.value}
-    onChange={e => ChangeItem(field, e)}
-    />
-    </div>
-    <div class="col-sm-2">
-        <button type="button" onClick={() => RemovePrimaryDropDown(field)}>
-    X
-    </button>
-
-    </div>
-    <div class="col-sm-1">
-        </div>
-        </div>
-        </div>
-  );
-  })}
-
-<button type="button" onClick={() => NewPrimaryDropDown(Object.keys(primaryAllValues).length)}>
-  +
-  </button>
-
-  <h5 for="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or head switch,
-    determined during initial training session </h5>
-  {Object.keys(secondaryAllValues).map((field) => {
-    return (
-        <div class="container">
-        <div class="row">
-        <div class="col-sm-6">
-        <div key={`${field}-${field}`}></div>
-    <Select  onChange={e=>HandleSecondarySelect(field, e)} options={secondaryItems } name="primaryControls" ref={register}/>
-    </div>
-    <div class="col-sm-4">
-        <input
-  class="form-control"
-    type="text"
-    style={{width: "370px"}}
-    value={field.value}
-    onChange={e => ChangeSecondaryItem(field, e)}
-    />
-    </div>
-    <div class="col-sm-2">
-        <button type="button" onClick={() => RemoveSecondaryDropDown(field)}>
-    X
-    </button>
-
-    </div>
-    <div class="col-sm-1">
-
-        </div>
-        </div>
-        </div>
-  );
-  })}
-  <button type="button" onClick={() => NewSecondaryDropDown(Object.keys(secondaryAllValues).length)}>
-  +
-  </button>
-
+        <h3>Evaluation Form</h3>
 
         <div class="form-group">
-        <label for="reconmendationsOther">Reconmendations other</label>
-
-    <input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
-    </div>
-
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
-        Driver Evaluation and Training Program Notice
-    </button>
-
-    <div class="form-group">
-        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Driver Evaluation and Training Program Notice</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-        Where applicable, equipment should meet or exceed the requirements established by the
-    Department of Veteran's Affairs, Federal Motor Vehicle Safety Standards, Society of
-    Automotive Engineers, and the National Mobility Dealers Association.
-        Where applicable, the aftermarket vehicle modifiers/adaptive equipment manufacturers and
-    their products are those known by the evaluator; any substitutions must be of equal use and
-    value. Consultation with the evaluator is recommended if anything other than these are used.
-        These recommendations should be considered valid for one (1) year from the date of the
-    evaluation. Beyond that time a re-evaluation may be necessary.
-        These recommendations have been developed based on the education and experienced of the
-    evaluator and the client's experience in using the assessment/training equipment available at
-    the Central Massachusetts Safety Council.
-        The results and recommendations included in this report are based on the client's performance
-    during the evaluation and should not be relied on as absolute predictors of future performance.
-        The conclusions reached and the recommendations made in this report are based, in part,
-        upon the medical information available at the time this report was written. If subsequent to
-    issuance of this report the client's medical status changes in such a manner that may
-    compromise the client's abilities as a driver the report can no longer be relied upon as valid.
-    No person shall drive using adaptive equipment unless they have received documented
-    instruction in the use thereof, with or without the owner's permission.
-    ____________________________________________________________________
-    Please contact me with any questions about the report and/or my recommendations. And
-    thank you for the opportunity to work together.
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <label for="ClientName">Client Name</label>
+          <input name="ClientName" id="ClientName" class="form-control"  rows="3" ref={register}/>
         </div>
-        </div>
-        </div>
-        </div>
+
+        <div class="form-group">
+          <label for="ClientAddress">Client Address</label>
+          <input name="ClientAddress" id="ClientAddress" class="form-control"  rows="3" ref={register}/>
         </div>
 
 
         <div class="form-group">
-        <label for="reconmendationsOther">Evaluated By</label>
-    <input name="EvaluatorName" class="form-control" id="EvaluatedBy" rows="3" ref={register}/>
-    </div>
+          <label for="ClientDOB">Client Date Of Birth</label>
+          <input name="ClientDOB" id="ClientDOB" class="form-control"  rows="3" ref={register}/>
+        </div>
 
-    <div class="form-group">
-        <label htmlFor="dateOfBirth">Evaluation Date</label>
-    <DatePicker
-    isClearable
-    name="evaluateDate"
-    selected={evaluateDate}
-    id = "EvalDate"
-    onChange={val => {
-    setDate(val);
-    setValue("evaluateDate", val)
-  }}
-  />
-  {errors.date && <p>Evaluation date is required</p>}
-  </div>
-
-  <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
-  <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
-  <input  type="file" name="firstName" onChange={handleChange} />
-  <input  type="file" name="firstNamed" onChange={handleChange1} />
+        <div class="form-group">
+          <label for="ClientTelephone">Client Telephone</label>
+          <input name="ClientTelephone" id="ClientTelephone" class="form-control"  rows="3" ref={register}/>
+        </div>
 
 
-  </form>
+        <div class="form-group">
+          <label for="ClientDiagnosis">Client Diagnosis</label>
+          <input name="ClientDiagnosis" id="ClientDiagnosis" class="form-control"  rows="3" ref={register}/>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="ClientReferredBy">Client Referred By</label>
+          <input name="ClientReferredBy" id="ClientReferredBy" class="form-control"  rows="3" ref={register}/>
+        </div>
+
+
+        <div class="form-group">
+          <label for="SentDate">Sent Date</label>
+          <input name="SentDate" id="SentDate" class="form-control"  rows="3" ref={register}/>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="ReportDate">Report Date</label>
+          <input name="ReportDate" id="ReportDate" class="form-control"  rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="BackgroundComments">comments</label>
+          <input name="BackgroundComments"  class="form-control" id="BackgroundComments" rows="3" ref={register}/>
+        </div>
+
+        <h1>Background</h1>
+
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Client has medical cleareance to drive?</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"
+                       name="medicalClearence"
+                       type="radio"
+                       id="medicalCleareance"
+                       value="yes"
+                       ref={register} />
+
+                <label class="form-check-label" for="gridRadios1">
+                  Yes
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" name="medicalClearence" type="radio" id="medicalCleareance2" value="no"/>
+                <label class="form-check-label" for="gridRadios2">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+
+
+
+
+
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Client uses prescription medecine?</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"
+                       name="presecriptionMedecine"
+                       type="radio"
+                       value="yes"
+                       id="presecriptionMedecine"
+                       ref={register} />
+
+                <label class="form-check-label" for="gridRadios1">
+                  Yes
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" name="presecriptionMedecine" type="radio" id="presecriptionMedecine2" value="no"/>
+                <label class="form-check-label" for="gridRadios2">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="MobilityDevice">Mobility Device</label>
+          <input name="MobilityDevice" class="form-control" id="MobilityDevice" rows="3" ref={register}></input>
+        </div>
+
+
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Independent Transfer?</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"
+                       name="IndependentTransfer"
+                       type="radio"
+                       value="yes"
+                       id="independentTransfer"
+                       ref={register} />
+
+                <label class="form-check-label" for="gridRadios1">
+                  Yes
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" name="independentTransfer2" type="radio" id="independentTransfer2" value="no"/>
+                <label class="form-check-label" for="gridRadios2">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+
+
+
+
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">License Status</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"
+                       name="LicenseStatus"
+                       type="radio"
+                       value="Valid"
+                       id="licenseStatus"
+                       ref={register} />
+
+                <label class="form-check-label" for="gridRadios1">
+                  Valid
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" name="LicenseStatus" type="radio" id="licenseStatus2" value="not Valid"/>
+                <label class="form-check-label" for="gridRadios2">
+                  Not Valid
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+
+
+        <div class="form-group">
+          <label for="LicenseExpiration">LIcense expiration</label>
+          <input name="LicenseExpiration" class="form-control" id="LicenseExpiration" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="LicenseNumber">License Number</label>
+          <input name="LicenseNumber" class="form-control" id="LicenseNumber" rows="3" ref={register}></input>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="LicenseRestrictions">License restrictions</label>
+          <input name="LicenseRestrictions" class="form-control" id="LicenseRestrictions" rows="3" ref={register}></input>
+        </div>
+
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Currently Driving</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input"
+                       name="CurrentlyDriving"
+                       type="radio"
+                       value="yes"
+                       id="CurrentlyDriving"
+                       ref={register} />
+
+                <label class="form-check-label" for="gridRadios1">
+                  Yes
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" name="presecriptionMedecine" type="radio" id="CurrentlyDriving2" value="no"/>
+                <label class="form-check-label" for="gridRadios2">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="CurrentVehicle">Current Vehicle</label>
+          <input name="CurrentVehicle" class="form-control" id="CurrentVehicle" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="CurrentAE">Current adaptive equipment(AE)</label>
+          <input name="CurrentAE" class="form-control" id="CurrentAE" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="LastEyeExam">Last eye exam</label>
+          <input name="LastEyeExam" class="form-control" id="LastEyeExam" rows="3" ref={register}></input>
+        </div>
+        <h2>Observed Physical Abilities-:</h2>
+
+        <div class="form-group">
+          <label for="LeftUpperExtremity">Left upper extremity</label>
+          <input name="LeftUpperExtremity" class="form-control" id="LeftUpperExtremity" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="RightUpperExtremity">Right upper extremity</label>
+          <input name="RightUpperExtremity" class="form-control" id="RightUpperExtremity" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="LeftLowerExtremity">Left lower extremity</label>
+          <input name="LeftLowerExtremity" class="form-control" id="LeftLowerExtremity" rows="3" ref={register}></input>
+        </div>
+
+        <div class="form-group">
+          <label for="RightLowerExtremity">Rigth lower extremity</label>
+          <input name="RightLowerExtremity" class="form-control" id="RightLowerExtremity" rows="3" ref={register}></input>
+        </div>
+
+        <div class="form-group">
+          <label for="OtherExtremity">Other</label>
+          <input name="OtherExtremity" class="form-control" id="OtherExtremity" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="DrivingHistory">Driving History</label>
+          <input name="DrivingHistory" class="form-control" id="DrivingHistory" rows="3" ref={register}></input>
+        </div>
+
+        <div class="form-group">
+          <label for="ClinicalInformation">Clinical Information</label>
+          <input name="ClinicalInformation" class="form-control" id="ClinicalInformation" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="Backgroundcomments2">Comments</label>
+          <input name="Backgroundcomments2"  class="form-control" id="Backgroundcomments2" rows="3" ref={register}/>
+        </div>
+
+        <h1>In-vehicle Assessment</h1>
+
+
+        <div class="form-group">
+          <label htmlFor="vehicleUsed">Vehicle used</label>
+          <input class="form-control" id="vehicleUsed" name="vehicleUsed" ref={register}  />
+        </div>
+
+        <div class="form-group">
+          <label for="AEUsed">AE used</label>
+          <input name="AEUsed" class="form-control" id="AEUsed" rows="3" ref={register}></input>
+        </div>
+
+
+        <div class="form-group">
+          <label for="weatherConditions">Weather Conditions</label>
+          <input name="weatherConditions" id="weather" class="form-control"  rows="3" ref={register}/>
+        </div>
+
+
+        <div class="form-group">
+          <label for="roadConditions">Road Conditions</label>
+          <input name="roadConditions" class="form-control" id="Road"  rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="traffiConditions">Trafic Conditions</label>
+          <input name="traffiConditions" class="form-control"  id="Trafic" rows="3" ref={register}/>
+        </div>
+
+
+        <div class="form-group">
+          <label for="AEUsed">Route</label>
+          <input name="Route" class="form-control" id="Route" rows="3" ref={register}></input>
+        </div>
+
+        <div class="form-group">
+          <label for="time">Time</label>
+          <input name="time" class="form-control" id="Time" rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="AEUsed">Primary control operation</label>
+          <input name="primaryControlOperation"  class="form-control" id="PrimaryControlOperation" rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="awarenessTraffic">Awareness of/interaction with traffic environment</label>
+          <input name="awarenessTraffic" class="form-control" id="Awareness" rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="adherenceLaw">Adherence to motor vehicle law</label>
+          <input name="adherenceLaw" class="form-control" id="Adherence" rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label for="assessmentOther">Other comments</label>
+          <input name="assessmentOther"  class="form-control" id="OtherComments1" rows="3" ref={register}/>
+        </div>
+
+        <h1>Reconmendations</h1>
+
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
+          <input name="approvedToDrive" type="checkbox" id="atd" ref={register} />
+        </div>
+
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Use of AE</legend>
+          <input name="useOfAE" type="checkbox" id="uoAE" ref={register} />
+        </div>
+
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Training</legend>
+          <input name="training" type="checkbox" id="train" ref={register} />
+        </div>
+
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Road Test</legend>
+          <input name="roadTest" type="checkbox" id="roadTest" ref={register} />
+        </div>
+
+        <div class="form-group">
+          <label for="reconmendationsOther">Other comments</label>
+          <input name="reconmendationsOther"  class="form-control" id="OtherComments2" rows="3" ref={register}/>
+        </div>
+
+        <h1>Vehicle and Adaptive Equipment Recommendations</h1>
+
+        <div class="form-group">
+          <label for="Minivan">Minivan</label>
+          <input name="Minivan" class="form-control" id="Minivan" rows="3" ref={register}/>
+        </div>
+
+
+        <h5 htmlFor="primaryControls ">Primary Controls: </h5>
+        {Object.keys(primaryAllValues).map((field) => {
+          return (
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div key={`${field}-${field}`}></div>
+                    <Select options={items}
+                            class="PrimaryClass"
+                            name="primaryControls"
+                            ref={register}
+                            onChange={e => {
+                              console.log(e);
+                              HandleSelect(field, e)
+                            }}
+                            value={primaryAllValues[field].dropdownVal}
+                    />
+                  </div>
+                  <div className="col-sm-4">
+                    <input
+                        className="form-control"
+                        type="text"
+                        style={{width: "370px"}}
+                        value={primaryAllValues[field].textboxVal}
+                        onChange={e => {
+                          console.log(e)
+                          ChangeItem(field, e.target.value)
+                        }}
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <button type="button" onClick={() => RemovePrimaryDropDown(field)}>
+                      X
+                    </button>
+                  </div>
+                  <div className="col-sm-1">
+                  </div>
+                </div>
+              </div>
+          );
+        })}
+
+        <button type="button" onClick={() => NewPrimaryDropDown(nextIdx)}>
+          +
+        </button>
+
+        <h5 htmlFor="secondaryControls">Secondary controls, in motion, menu type system, access through left elbow or
+          head switch,
+          determined during initial training session </h5>
+        {Object.keys(secondaryAllValues).map((field) => {
+
+          return (
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div key={`${field}-${field}`}></div>
+                    <Select
+                        onChange={e => {
+                          console.log(e);
+                          HandleSecondarySelect(field, e)
+                        }}
+
+                        options={secondaryItems} ref={register}
+                        value={secondaryAllValues[field].dropdownVal}/>
+                  </div>
+                  <div className="col-sm-4">
+                    <input
+                        className="form-control"
+                        type="text"
+                        style={{width: "370px"}}
+                        value={secondaryAllValues[field].textboxVal}
+                        onChange={e => {
+                          console.log("Secondary")
+                          console.log(e)
+                          ChangeSecondaryItem(field, e.target.value)
+                        }}
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <button type="button" onClick={() => RemoveSecondaryDropDown(field)}>
+                      X
+                    </button>
+
+                  </div>
+                  <div className="col-sm-1">
+
+                  </div>
+                </div>
+              </div>
+          );
+        })}
+        <button type="button" onClick={() => NewSecondaryDropDown(nextSecondaryIdx)}>
+          +
+        </button>
+        <div class="form-group">
+          <label for="reconmendationsOther">Reconmendations other</label>
+
+          <input name="reconmendationsOther" class="form-control"  id="ReconmendationsOther" rows="3" ref={register}/>
+        </div>
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+          Driver Evaluation and Training Program Notice
+        </button>
+
+        <div class="form-group">
+          <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalScrollableTitle">Driver Evaluation and Training Program Notice</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Where applicable, equipment should meet or exceed the requirements established by the
+                  Department of Veteran's Affairs, Federal Motor Vehicle Safety Standards, Society of
+                  Automotive Engineers, and the National Mobility Dealers Association.
+                  Where applicable, the aftermarket vehicle modifiers/adaptive equipment manufacturers and
+                  their products are those known by the evaluator; any substitutions must be of equal use and
+                  value. Consultation with the evaluator is recommended if anything other than these are used.
+                  These recommendations should be considered valid for one (1) year from the date of the
+                  evaluation. Beyond that time a re-evaluation may be necessary.
+                  These recommendations have been developed based on the education and experienced of the
+                  evaluator and the client's experience in using the assessment/training equipment available at
+                  the Central Massachusetts Safety Council.
+                  The results and recommendations included in this report are based on the client's performance
+                  during the evaluation and should not be relied on as absolute predictors of future performance.
+                  The conclusions reached and the recommendations made in this report are based, in part,
+                  upon the medical information available at the time this report was written. If subsequent to
+                  issuance of this report the client's medical status changes in such a manner that may
+                  compromise the client's abilities as a driver the report can no longer be relied upon as valid.
+                  No person shall drive using adaptive equipment unless they have received documented
+                  instruction in the use thereof, with or without the owner's permission.
+                  ____________________________________________________________________
+                  Please contact me with any questions about the report and/or my recommendations. And
+                  thank you for the opportunity to work together.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="reconmendationsOther">Evaluated By</label>
+          <input name="EvaluatorName" class="form-control" id="EvaluatedBy" rows="3" ref={register}/>
+        </div>
+
+        <div class="form-group">
+          <label htmlFor="dateOfBirth">Evaluation Date</label>
+          <DatePicker
+              isClearable
+              name="evaluateDate"
+              selected={evaluateDate}
+              id = "EvalDate"
+              onChange={val => {
+                setDate(val);
+                setValue("evaluateDate", val)
+              }}
+          />
+          {errors.date && <p>Evaluation date is required</p>}
+        </div>
+
+        <input class="btn btn-primary" type="submit" /> &nbsp;&nbsp;
+        <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
+        <input  type="file" name="firstName" onChange={handleChange} />
+        <input  type="file" name="firstNamed" onChange={handleChange1} />
+
+
+      </form>
 
   );
 }
