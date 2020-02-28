@@ -1122,6 +1122,8 @@ doc.addPage();
             cursorY += lineSpacing;
         })
         doc.save("IntakeForm.pdf");
+        alert("Please send the downloaded file to the employee who referred you this link")
+
     };
 
     const moreDetail = watch("moreDetail");
