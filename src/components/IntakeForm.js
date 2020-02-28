@@ -22,18 +22,6 @@ function IntakeForm(props){
         }
     );
     const onSubmit = data => {
-        alert(JSON.stringify(data));
-    };
-
-    const moreDetail = watch("moreDetail");
-    const [date, setDate] = React.useState(null);
-    const [seizureDate, setSeizureDate] = React.useState(null);
-    const driverLicense = watch("driverLicense");
-    const adaptiveEquipment = watch("adaptiveEquipment");
-    const selfRestrictedDriving = watch("selfRestrictedDriving");
-    const privatePayCheckbox = watch("privatePayCheckbox");
-    const feesCheckbox = watch("feesCheckbox");
-    function generatePDF(event){
         var doc = new jsPDF();
         var bigtext = 55;
         var First = $('#firstName').val();
@@ -126,13 +114,13 @@ function IntakeForm(props){
         //var evaluatedBy= $('#EvaluatedBy').val();
 
         doc.setFontSize(14);
-        doc.text(70, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
+        doc.text(60, 30, "CENTRAL MASSACHUSETTS SAFETY COUNCIL");
         doc.setFontSize(14);
         doc.text(70, 37, "Driver Evaluation and Training Program");
 
 
         doc.setFontSize(15);
-        doc.text(70, 50, "DRIVER EVALUATION INTAKE FORM");
+        doc.text(60, 50, "DRIVER EVALUATION INTAKE FORM");
 
 
         cursorY= 70;
@@ -1133,17 +1121,17 @@ doc.addPage();
             }
             cursorY += lineSpacing;
         })
-
-
-
-
-
-
         doc.save("IntakeForm.pdf");
-    }
+    };
 
-
-
+    const moreDetail = watch("moreDetail");
+    const [date, setDate] = React.useState(null);
+    const [seizureDate, setSeizureDate] = React.useState(null);
+    const driverLicense = watch("driverLicense");
+    const adaptiveEquipment = watch("adaptiveEquipment");
+    const selfRestrictedDriving = watch("selfRestrictedDriving");
+    const privatePayCheckbox = watch("privatePayCheckbox");
+    const feesCheckbox = watch("feesCheckbox");
 
     React.useEffect(() => {
         register({ name: "date" }, { required: true });
@@ -1153,12 +1141,16 @@ doc.addPage();
         register({ name: "seizureDate" });
     }, []);
 
+    const generalStyles = {
+      marginLeft: '20px',
+      marginRight: '20px',
+    };
 
     return (
+      <div style={generalStyles}>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-        The data from parent is:{props.dataFromParent}
-</div>
+        </div>
     <h1>Client</h1>
     <div class="form-group">
         <label htmlFor="firstName">First Name</label>
@@ -1740,12 +1732,10 @@ doc.addPage();
                                             {errors.consentCheckbox && <p>consent is required</p>}
                                             </div>
 
-                                            <input class="btn btn-primary" type="submit" />
-                                                <button class="btn btn-primary" onClick={e => generatePDF()}> Generate PDF </button>
+                                            <input class="btn btn-primary" type="submit" text="Generate PDF"/>
                                             </form>
-
-
+                                            </div>
                                             );
-}
+                                          }
 
 export default IntakeForm
