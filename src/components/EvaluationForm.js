@@ -321,6 +321,7 @@ const generalStyles = {
   }
 
   function HandleSelect(i, selectedOptions) {
+    console.log(selectedOptions)
     setPrimaryAllValues({
       ...primaryAllValues,
       [i]: { ...primaryAllValues[i], dropdownVal: selectedOptions }
@@ -329,6 +330,8 @@ const generalStyles = {
     console.log(primaryAllValues)
   }
   function generatePDF(event){
+
+
     var doc = new jsPDF();
    var bigtext = 55;
    var clientName = $('#ClientName').val();
@@ -1659,7 +1662,7 @@ return (
   	      <form method="post" action="#" id="#">
                 <div class="form-group files">
                   <label>Upload Intake File</label>
-                  <input type="file" class="form-control" name="firstName" onChange={handleChange} />
+                  <input type="file" class="form-control" name="firstName" onChange={handleChange1} />
                 </div>
             </form>
   	  </div>
@@ -1667,7 +1670,7 @@ return (
   	      <form method="post" action="#" id="#">
                 <div class="form-group files color">
                   <label>Upload Evaluation File</label>
-                  <input type="file" class="form-control" name="firstNamed" onChange={handleChange1}/>
+                  <input type="file" class="form-control" name="firstNamed" onChange={handleChange}/>
                 </div>
             </form>
   	  </div>
