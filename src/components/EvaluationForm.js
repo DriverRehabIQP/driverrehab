@@ -1674,7 +1674,7 @@ return (
   	  </div>
   	</div>
   </div>
-  
+
     <h3>Evaluation Form</h3>
 
     <div class="form-group">
@@ -2030,6 +2030,10 @@ return (
     </div>
 
     <h1>Reconmendations</h1>
+      <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="defaultUnchecked"/>
+          <label class="custom-control-label" for="defaultUnchecked">Default unchecked</label>
+      </div>
 
     <div class="row">
         <legend class="col-form-label col-sm-2 pt-0">Approved to drive</legend>
