@@ -1622,8 +1622,7 @@ console.log(cursorY);
     doc.setFontSize(12);
     for(var i=0;i<curArr.length;i++){
 
-      // console.log("textbox")
-      // HOW YOU GET VALUE FROM DROPDOWN
+
       var dropdown = (primaryAllValues[curArr[i]].dropdownVal.label)
 
          var TextPartP =  (primaryAllValues[curArr[i]].textboxVal)
