@@ -1192,7 +1192,6 @@ doc.addPage();
             class="form-control"
                 name="email"
                 id="inputEmail4"
-                placeholder="bluebill1049@hotmail.com"
                 type="email"
                 ref={register({
                                   required: true,
