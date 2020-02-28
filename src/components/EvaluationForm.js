@@ -213,10 +213,6 @@ export default function EvaluationForm(){
     reader.readAsText(file);
   }
 
-
-
-
-
   function handleChange1(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -224,72 +220,51 @@ export default function EvaluationForm(){
       // The file's text will be printed here
       var pdfFile = e.target.result;
       console.log(pdfFile);
-
-
-
-
       var pos = pdfFile.indexOf("(Vehicle Used:) Tj");
       var pos1 = pdfFile.indexOf("(AE Used:) Tj");
-
       console.log(pos);
       console.log(pos1);
       //getting section with answer
       var res = pdfFile.slice(pos, pos1);
       console.log(res);
-
-
       var n = res.indexOf(") Tj");
       var pos2 = res.indexOf(") Tj", (n+3));
       var n1 = res.indexOf("(");
       var pos3 = res.indexOf("(", (n1)+2);
-
-
       console.log("position2");
       console.log(pos2);
       console.log(n);
       console.log("position3");
       console.log(pos3);
-
-
       var res1 = res.slice(pos3, pos2);
       console.log(res1);
       document.getElementById("vehicleUsed").value = res1;
-
-
-
-
-      var ValueHeaders = ["(First Name:) Tj", "(Address 1:) Tj", "(Date:) Tj", "(Number:) Tj" ];
-      var ValueIds= ["ClientName", "ClientAddress" ,"ClientDOB", "ClientTelephone"];
-
-
-      for (let step = 0; step < 4; step++) {
+      var ValueHeaders = ["(First Name:) Tj", "(Address 1:) Tj", "(Date:) Tj", "(Number:) Tj", "(Address 1:) Tj", "(Diagonis:) Tj"];
+      var ValueIds= ["ClientName", "ClientAddress" ,"ClientDOB", "ClientTelephone", "ClientAddress", "ClientDiagnosis"];
+      for (let step = 0; step < 6; step++) {
         console.log(ValueHeaders[step]);
-
         var pos = pdfFile.indexOf(ValueHeaders[step]);
         var pos1 = pdfFile.indexOf(ValueHeaders[step+1]);
-
         //console.log(pos);
         //console.log(pos1);
         //getting section with answer
         var res = pdfFile.slice(pos, pos1);
         //console.log(res);
-
-
         var n = res.indexOf(") Tj");
         var pos2 = res.indexOf(") Tj", (n+3));
         var n1 = res.indexOf("(");
         var pos3 = res.indexOf("(", (n1)+2);
-
-
         var res1 = res.slice((pos3+1), pos2);
         console.log(step);
         document.getElementById(ValueIds[step]).value = res1;
       }
       //value needed between pos and pos1
     };
-
     reader.readAsText(file);
   }
+
+
+
 // SECONDARY values
   const [secondaryAllValues, setSecondaryAllValues] = useState({});
   const [nextSecondaryIdx, setNextSecondaryIndex] = useState(1)
